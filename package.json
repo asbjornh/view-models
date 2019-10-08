@@ -1,0 +1,35 @@
+{
+  "name": "viewmodels",
+  "version": "0.0.0",
+  "description": "Generate viewmodels from react components",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asbjornh/viewmodels.git"
+  },
+  "author": "Asbjørn Hegdahl",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/asbjornh/viewmodels/issues"
+  },
+  "homepage": "https://github.com/asbjornh/viewmodels#readme",
+  "devDependencies": {
+    "@types/babel__traverse": "^7.0.7",
+    "ava": "^2.4.0",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.3"
+  },
+  "dependencies": {
+    "@babel/parser": "^7.6.2",
+    "@babel/traverse": "^7.6.2",
+    "@babel/types": "^7.6.1"
+  },
+  "ava": {
+    "require": [
+      "ts-node/register"
+    ]
+  }
+}
