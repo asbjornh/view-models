@@ -5,7 +5,7 @@ export default function(AST: t.File): t.ObjectExpression | t.StringLiteral {
   let viewmodelMeta;
 
   traverse(AST, {
-    // Functional component
+    // When defined as an object property on component
     AssignmentExpression(path) {
       const { node } = path;
 
@@ -19,7 +19,7 @@ export default function(AST: t.File): t.ObjectExpression | t.StringLiteral {
       }
     },
 
-    // Class component
+    // When defined as a class property
     ClassProperty(path) {
       if (
         path.get("key").isIdentifier({ name: "viewmodelMeta" }) &&

@@ -25,7 +25,7 @@ export type TypeTree = {
   [key: string]: TypeNode;
 };
 
-export const metaTypeNames = { ...typeNames, exclude: "exclude" };
+export const metaTypeNames = { exclude: "exclude", ...typeNames };
 
 export type MetaTypeName = keyof typeof metaTypeNames;
 
