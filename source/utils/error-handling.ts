@@ -1,8 +1,13 @@
-const exists = (value: any) => value !== null && typeof value !== "undefined";
-
-export const throwError = (message: string) => {
-  throw new Error(message);
+export const throwError = (error: string | Error) => {
+  throw error instanceof Error ? error : new Error(error);
 };
 
-export const throwIfNull = (message: string) => (value: any) =>
-  exists(value) ? value : throwError(message);
+export const throwIfNull = <T>(
+  value: T | undefined | null,
+  error: string | Error
+) => {
+  if (value === undefined || typeof value === "undefined" || value === null) {
+    throw error instanceof Error ? error : new Error(error);
+  }
+  return value;
+};
