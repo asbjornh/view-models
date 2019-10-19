@@ -13,6 +13,6 @@ const throwsTemplate = (t, input, errorMessage) => {
 test(
   "Throws on misspelled string literal",
   throwsTemplate,
-  'C.viewmodelMeta = "excd";',
-  `Unsupported viewmodelMeta value 'excd'. Expected 'exclude'.`
+  'C.viewModelMeta = "excd";',
+  `Unsupported viewModelMeta value 'excd'. Expected 'exclude'.`
 );

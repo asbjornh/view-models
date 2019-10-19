@@ -13,7 +13,7 @@ export default function parsePropTypes(code: string) {
 
   const metaNode = findMeta(ast);
   if (t.isStringLiteral(metaNode)) {
-    const msg = `Unsupported viewmodelMeta value '${metaNode.value}'. Expected 'exclude'.`;
+    const msg = `Unsupported viewModelMeta value '${metaNode.value}'. Expected 'exclude'.`;
     return metaNode.value === "exclude" ? {} : throwError(msg);
   }
 

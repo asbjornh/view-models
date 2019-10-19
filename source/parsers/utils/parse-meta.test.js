@@ -28,7 +28,7 @@ const throwsTemplate = (t, input, errorMessage) => {
 test(
   "Allowed string types",
   template,
-  `C.viewmodelMeta = {
+  `C.viewModelMeta = {
     a: 'int',
     b: 'float',
     c: 'double',
@@ -46,7 +46,7 @@ test(
   }
 );
 
-test("Nested", template, 'C.viewmodelMeta = { a: { b: "exclude" } };', {
+test("Nested", template, 'C.viewModelMeta = { a: { b: "exclude" } };', {
   a: { type: "object", children: { b: { type: "exclude" } } }
 });
 
@@ -56,7 +56,7 @@ Object.values(metaTypeNames).forEach(stringType => {
   test(
     `Extracts '${stringType}'`,
     template,
-    `C.viewmodelMeta = { a: "${stringType}" };`,
+    `C.viewModelMeta = { a: "${stringType}" };`,
     { a: { type: stringType } }
   );
 });
@@ -64,21 +64,21 @@ Object.values(metaTypeNames).forEach(stringType => {
 test(
   "Extracts component reference",
   template,
-  "C.viewmodelMeta = { a: SomeComponent };",
+  "C.viewModelMeta = { a: SomeComponent };",
   { a: { type: "ref", ref: "SomeComponent" } }
 );
 
 test(
   "Transforms Array",
   template,
-  "C.viewmodelMeta = { a: [SomeComponent] };",
+  "C.viewModelMeta = { a: [SomeComponent] };",
   { a: { type: "list", elementType: { type: "ref", ref: "SomeComponent" } } }
 );
 
 test(
   "Array with object literal",
   template,
-  'C.viewmodelMeta = { a: [{ b: "float" }] };',
+  'C.viewModelMeta = { a: [{ b: "float" }] };',
   {
     a: {
       type: "list",
@@ -90,28 +90,28 @@ test(
 test(
   "Throws on misspelled string",
   throwsTemplate,
-  'C.viewmodelMeta = { a: "exclud" };',
+  'C.viewModelMeta = { a: "exclud" };',
   "Invalid meta type for 'a': expected one of [exclude,bool,double,double?,float,float?,int,int?,string] but got 'exclud'"
 );
 
 test(
   "Throws on function",
   throwsTemplate,
-  "C.viewmodelMeta = { a: Object.keys(obj) };",
+  "C.viewModelMeta = { a: Object.keys(obj) };",
   "Invalid meta type for 'a': unsupported type"
 );
 
 test(
   "Throws on empty Array",
   throwsTemplate,
-  "C.viewmodelMeta = { a: [] };",
+  "C.viewModelMeta = { a: [] };",
   "Invalid meta type for 'a': missing value"
 );
 
 test(
   "Throws on invalid array element",
   throwsTemplate,
-  "C.viewmodelMeta = { a: [Component.propTypes] };",
+  "C.viewModelMeta = { a: [Component.propTypes] };",
   "Invalid meta type for 'a': unsupported type"
 );
 
@@ -120,7 +120,7 @@ const unsupportedTypes = ["null", "false", "true", "Array()"];
 test("Throws on unsupported meta types", t => {
   unsupportedTypes.forEach(type => {
     const error = t.throws(() => {
-      parseFromSource(`C.viewmodelMeta = { a: ${type} };`);
+      parseFromSource(`C.viewModelMeta = { a: ${type} };`);
     });
 
     t.is("Invalid meta type for 'a': unsupported type", error.message);

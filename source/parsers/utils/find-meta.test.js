@@ -13,12 +13,12 @@ test("No meta", t => {
 });
 
 test("String literal", t => {
-  const result = findInSource('C.viewmodelMeta = "exclude";');
+  const result = findInSource('C.viewModelMeta = "exclude";');
   t.is(true, types.isStringLiteral(result, { value: "exclude" }));
 });
 
 test("From object property", t => {
-  const result = findInSource('C.viewmodelMeta = { a: "exclude" };');
+  const result = findInSource('C.viewModelMeta = { a: "exclude" };');
   t.is(true, types.isObjectExpression(result));
   t.is(1, result.properties.length);
   const [property] = result.properties;
@@ -27,7 +27,7 @@ test("From object property", t => {
 
 test("From class property", t => {
   const result = findInSource(
-    'class C { static viewmodelMeta = { a: "int" } }'
+    'class C { static viewModelMeta = { a: "int" } }'
   );
   t.is(true, types.isObjectExpression(result));
   t.is(1, result.properties.length);

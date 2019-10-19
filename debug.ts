@@ -7,7 +7,7 @@ const Component = {};
 Component.propTypes = {
   a: PropTypes.number
 };
-Component.viewmodelMeta = {
+Component.viewModelMeta = {
   a: "int"
 };
 export default Component;`);
