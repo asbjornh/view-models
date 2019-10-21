@@ -1,16 +1,16 @@
 import * as t from "@babel/types";
 
-import elementFilter from "../../utils/element-filter";
+import filter from "../../utils/filter";
 import { throwIfNull } from "../../utils/error-handling";
 
 // Gets component name from export declaration. Expects a File node
 export default function(AST: t.File) {
-  const exportDeclarations = elementFilter(
+  const exportDeclarations = filter(
     AST.program.body,
     t.isExportDeclaration
   ).filter(node => !isTypeScriptExport(node));
 
-  const [defaultExport] = elementFilter(
+  const [defaultExport] = filter(
     exportDeclarations,
     t.isExportDefaultDeclaration
   );
@@ -19,10 +19,7 @@ export default function(AST: t.File) {
     return getNameFromDeclaration(defaultExport);
   }
 
-  const namedExports = elementFilter(
-    exportDeclarations,
-    t.isExportNamedDeclaration
-  );
+  const namedExports = filter(exportDeclarations, t.isExportNamedDeclaration);
 
   const [namedExport] = namedExports;
 
