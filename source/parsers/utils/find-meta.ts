@@ -1,8 +1,8 @@
 import traverse from "@babel/traverse";
 import * as t from "@babel/types";
 
-export default function(AST: t.File): t.ObjectExpression | t.StringLiteral {
-  let viewModelMeta;
+export default function(AST: t.File) {
+  let viewModelMeta: t.ObjectExpression | t.StringLiteral | undefined;
 
   traverse(AST, {
     // When defined as an object property on component
