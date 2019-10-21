@@ -2,10 +2,24 @@ import { parse } from "@babel/parser";
 import * as t from "@babel/types";
 
 import findMeta from "../utils/find-meta";
-import { throwError } from "../../utils/error-handling";
+import findPropTypes from "./find-prop-types";
+import getPropTypesIdentifierName from "./get-prop-types-identifier-name";
+import getReactComponentName from "../utils/get-react-component-name";
+import isComponentReference from "./is-component-reference";
 import parseMeta from "../utils/parse-meta";
+import resolveReferences from "./resolve-references";
+import { throwError } from "../../utils/error-handling";
+import { TypeTree, MetaTypeTree, metaTypeNames } from "../../lib/node-types";
+import getPropTypesFromFunction from "./get-prop-types-from-function";
 
-export default function parsePropTypes(code: string) {
+type ParseResult = {
+  className: string;
+  metaTypes: MetaTypeTree;
+  superClass?: string;
+  types: TypeTree;
+};
+
+export default function parsePropTypes(code: string): ParseResult | {} {
   const ast = parse(code, {
     plugins: ["jsx", "classProperties"],
     sourceType: "module"
@@ -14,9 +28,40 @@ export default function parsePropTypes(code: string) {
   const metaNode = findMeta(ast);
   if (t.isStringLiteral(metaNode)) {
     const msg = `Unsupported viewModelMeta value '${metaNode.value}'. Expected 'exclude'.`;
-    return metaNode.value === "exclude" ? {} : throwError(msg);
+    return metaNode.value === metaTypeNames.exclude ? {} : throwError(msg);
   }
 
   const meta = parseMeta(metaNode);
-  meta;
+  const propTypesName = getPropTypesIdentifierName(ast);
+  const componentName = getReactComponentName(ast);
+
+  if (propTypesName) {
+    resolveReferences(ast, componentName, propTypesName, meta);
+  }
+
+  const typesNode = findPropTypes(ast, componentName);
+
+  const parseResult = (
+    typesNode: t.ObjectExpression | null,
+    superClass?: string
+  ): ParseResult => ({
+    className: componentName,
+    metaTypes: meta,
+    superClass,
+    types: typesNode ? typesNode : {}
+  });
+
+  if (t.isMemberExpression(typesNode)) {
+    if (isComponentReference(typesNode) && t.isIdentifier(typesNode.object)) {
+      return parseResult(null, typesNode.object.name);
+    }
+  } else if (t.isCallExpression(typesNode)) {
+    return parseResult(...getPropTypesFromFunction(typesNode));
+  } else if (t.isObjectExpression(typesNode)) {
+    return parseResult(typesNode);
+  }
+
+  throw new Error(
+    `Unexpected '${typesNode.type}' at ${componentName}.propTypes`
+  );
 }
