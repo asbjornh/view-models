@@ -17,6 +17,40 @@ import parseObjectMethod from "./parse-object-method";
 
 const typesToStrip = ["element", "elementType", "func", "instanceOf", "node"];
 
+export default function parsePropTypes(
+  node: t.ObjectExpression,
+  meta: MetaTypeTree = {}
+) {
+  return filter(node.properties || [], t.isObjectProperty).reduce(
+    (accum: TypeTree, node) => {
+      const propName: string = node.key.name;
+      try {
+        const type = parseType(node.value, meta[propName]);
+        return Object.assign(accum, type ? { [propName]: type } : {});
+      } catch (error) {
+        throw new Error(
+          `Invalid type for prop '${propName}':\n${error.message}`
+        );
+      }
+    },
+    {}
+  );
+}
+
+function parseType(node: t.Node, meta?: MetaTypeNode): TypeNode | undefined {
+  if (meta && meta.type === "exclude") return;
+
+  return t.isCallExpression(node)
+    ? parseCallExpression(node, meta)
+    : t.isIdentifier(node)
+    ? parseIdentifier(node, meta)
+    : t.isObjectExpression(node)
+    ? parseObjectExpression(node, meta)
+    : t.isMemberExpression(node)
+    ? parseMemberExpression(node, meta)
+    : undefined;
+}
+
 const isShape = (type: string) => ["shape", "exact"].includes(type);
 
 const getElementType = (n?: MetaTypeNode) =>
@@ -100,37 +134,3 @@ const parseObjectExpression = (
     return a;
   }, {})
 });
-
-function parseType(node: t.Node, meta?: MetaTypeNode): TypeNode | undefined {
-  if (meta && meta.type === "exclude") return;
-
-  return t.isCallExpression(node)
-    ? parseCallExpression(node, meta)
-    : t.isIdentifier(node)
-    ? parseIdentifier(node, meta)
-    : t.isObjectExpression(node)
-    ? parseObjectExpression(node, meta)
-    : t.isMemberExpression(node)
-    ? parseMemberExpression(node, meta)
-    : undefined;
-}
-
-export default function parsePropTypes(
-  node: t.ObjectExpression,
-  meta: MetaTypeTree = {}
-) {
-  return filter(node.properties || [], t.isObjectProperty).reduce(
-    (accum: TypeTree, node) => {
-      const propName: string = node.key.name;
-      try {
-        const type = parseType(node.value, meta[propName]);
-        return Object.assign(accum, type ? { [propName]: type } : {});
-      } catch (error) {
-        throw new Error(
-          `Invalid type for prop '${propName}':\n${error.message}`
-        );
-      }
-    },
-    {}
-  );
-}
