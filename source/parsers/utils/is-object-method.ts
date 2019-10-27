@@ -1,8 +1,8 @@
 import * as t from "@babel/types";
 
-export default function isObjectMethod(callExpression: t.CallExpression) {
+export default function isObjectMethod(node: t.CallExpression) {
   return (
-    t.isMemberExpression(callExpression.callee) &&
-    t.isIdentifier(callExpression.callee.object, { name: "Object" })
+    t.isMemberExpression(node.callee) &&
+    t.isIdentifier(node.callee.object, { name: "Object" })
   );
 }

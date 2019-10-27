@@ -1,19 +1,10 @@
 import * as t from "@babel/types";
 
-import { throwError } from "../../utils/error-handling";
 import {
-  metaTypeNames,
-  MetaTypeName,
   MetaTypeNode,
-  MetaTypeTree
+  MetaTypeTree,
+  validateMetaType
 } from "../../lib/node-types";
-
-const typeNames = Object.keys(metaTypeNames);
-
-const validateTypeName = (str: string): MetaTypeName =>
-  metaTypeNames[str as MetaTypeName]
-    ? (str as MetaTypeName)
-    : throwError(`expected one of [${typeNames}] but got '${str}'`);
 
 const getFirstElement = (node: t.ArrayExpression): MetaTypeNode => {
   if (node.elements[0]) return parseNode(node.elements[0]);
@@ -22,7 +13,7 @@ const getFirstElement = (node: t.ArrayExpression): MetaTypeNode => {
 
 function parseNode(node: t.Node): MetaTypeNode {
   if (t.isStringLiteral(node)) {
-    return { type: validateTypeName(node.value) };
+    return { type: validateMetaType(node.value) };
   } else if (t.isIdentifier(node)) {
     return { type: "ref", ref: node.name };
   } else if (t.isObjectExpression(node)) {

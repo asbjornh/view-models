@@ -10,5 +10,3 @@ const getName = (node: t.Node): string =>
 export default function getFunctionName(node: t.CallExpression) {
   return getName(node.callee);
 }
-
-module.exports = callExpression => getName(callExpression.callee);

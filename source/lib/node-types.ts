@@ -1,3 +1,5 @@
+import { throwError } from "../utils/error-handling";
+
 export const typeNames = {
   bool: "bool",
   double: "double",
@@ -11,15 +13,27 @@ export const typeNames = {
 
 export type TypeName = keyof typeof typeNames;
 
-export type NodeBase<Name, Tree> =
-  | { type: Name }
-  | { type: "ref"; ref: string }
-  | { type: "enum"; enumChildren: (string | number)[] }
-  | { type: "list"; elementType: NodeBase<Name, Tree> }
-  | { type: "object"; children: Tree }
-  | { type: "dictionary"; valueType: NodeBase<Name, Tree> };
+type NodeBase = { required?: boolean };
+export type BasicNode = NodeBase & { type: TypeName };
+export type RefNode = NodeBase & { type: "ref"; ref: string };
+export type EnumNode = NodeBase & {
+  type: "enum";
+  children: ({ key: string; value: string | number })[];
+};
+export type ListNode = NodeBase & { type: "list"; elementType: TypeNode };
+export type ObjectNode = NodeBase & { type: "object"; children: TypeTree };
+export type DictionaryNode = NodeBase & {
+  type: "dictionary";
+  valueType: TypeNode;
+};
 
-export type TypeNode = { required: boolean } & NodeBase<TypeName, TypeTree>;
+export type TypeNode =
+  | BasicNode
+  | RefNode
+  | EnumNode
+  | ListNode
+  | ObjectNode
+  | DictionaryNode;
 
 export type TypeTree = {
   [key: string]: TypeNode;
@@ -29,8 +43,36 @@ export const metaTypeNames = { exclude: "exclude", ...typeNames };
 
 export type MetaTypeName = keyof typeof metaTypeNames;
 
-export type MetaTypeNode = NodeBase<MetaTypeName, MetaTypeTree>;
+export type BasicMetaNode = { type: MetaTypeName };
+export type RefMetaNode = { type: "ref"; ref: string };
+export type ListMetaNode = { type: "list"; elementType: MetaTypeNode };
+export type ObjectMetaNode = { type: "object"; children: MetaTypeTree };
+
+export type MetaTypeNode =
+  | BasicMetaNode
+  | RefMetaNode
+  | ListMetaNode
+  | ObjectMetaNode;
 
 export type MetaTypeTree = {
   [key: string]: MetaTypeNode;
 };
+
+export const isBasicType = (name: string): name is TypeName =>
+  typeNames[name as TypeName] ? true : false;
+
+export const validateType = (name: string): TypeName =>
+  isBasicType(name) ? name : throwError(`Type '${name}' is not supported.`);
+
+export const isTypeNode = (n?: TypeNode | MetaTypeNode): n is TypeNode =>
+  !!n && n.type !== "exclude";
+
+export const isBasicMetaType = (name: string): name is MetaTypeName =>
+  metaTypeNames[name as MetaTypeName] ? true : false;
+
+export const validateMetaType = (name: string): MetaTypeName =>
+  isBasicMetaType(name)
+    ? name
+    : throwError(
+        `Expected one of [${Object.keys(metaTypeNames)}] but got '${name}'.`
+      );

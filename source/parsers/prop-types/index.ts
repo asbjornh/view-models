@@ -3,23 +3,23 @@ import * as t from "@babel/types";
 
 import findMeta from "../utils/find-meta";
 import findPropTypes from "./find-prop-types";
+import getPropTypesFromFunction from "./get-prop-types-from-function";
 import getPropTypesIdentifierName from "./get-prop-types-identifier-name";
 import getReactComponentName from "../utils/get-react-component-name";
 import isComponentReference from "./is-component-reference";
 import parseMeta from "../utils/parse-meta";
+import parsePropTypes from "./parse-prop-types";
 import resolveReferences from "./resolve-references";
 import { throwError } from "../../utils/error-handling";
-import { TypeTree, MetaTypeTree, metaTypeNames } from "../../lib/node-types";
-import getPropTypesFromFunction from "./get-prop-types-from-function";
+import { TypeTree, metaTypeNames } from "../../lib/node-types";
 
 type ParseResult = {
   className: string;
-  metaTypes: MetaTypeTree;
   superClass?: string;
   types: TypeTree;
 };
 
-export default function parsePropTypes(code: string): ParseResult | {} {
+export default function propTypesParser(code: string): ParseResult | {} {
   const ast = parse(code, {
     plugins: ["jsx", "classProperties"],
     sourceType: "module"
@@ -46,9 +46,8 @@ export default function parsePropTypes(code: string): ParseResult | {} {
     superClass?: string
   ): ParseResult => ({
     className: componentName,
-    metaTypes: meta,
     superClass,
-    types: typesNode ? typesNode : {}
+    types: typesNode ? parsePropTypes(typesNode, meta) : {}
   });
 
   if (t.isMemberExpression(typesNode)) {

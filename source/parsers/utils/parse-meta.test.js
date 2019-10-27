@@ -91,7 +91,7 @@ test(
   "Throws on misspelled string",
   throwsTemplate,
   'C.viewModelMeta = { a: "exclud" };',
-  "Invalid meta type for 'a': expected one of [exclude,bool,double,double?,float,float?,int,int?,string] but got 'exclud'"
+  "Invalid meta type for 'a': Expected one of [exclude,bool,double,double?,float,float?,int,int?,string] but got 'exclud'."
 );
 
 test(
