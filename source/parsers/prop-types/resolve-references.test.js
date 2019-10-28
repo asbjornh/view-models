@@ -4,12 +4,12 @@ const test = require("ava");
 
 const expandReferencess = require("./resolve-references").default;
 
-const template = (t, input, expected, propTypesMeta = {}) => {
+const template = (t, input, expected, viewModelMeta = {}) => {
   const syntaxTree = parse(input, {
     plugins: ["classProperties"],
     sourceType: "module"
   });
-  expandReferencess(syntaxTree, "Component", "PropTypes", propTypesMeta);
+  expandReferencess(syntaxTree, "Component", "PropTypes", viewModelMeta);
 
   t.is(generate(syntaxTree, { minified: true }).code, expected);
 };
