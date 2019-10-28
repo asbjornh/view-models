@@ -1,4 +1,10 @@
-export const generators = {};
-export const compile = () => ({
-  code: ""
-});
+import compile from "./lib/index";
+import parsePropTypes from "./parsers/prop-types";
+
+import { Parser, Generator } from "./lib/compiler-types";
+
+const generators: { [key: string]: Generator } = {};
+const parsers: { [key: string]: Parser } = {
+  propTypes: parsePropTypes
+};
+export { compile, generators, parsers };

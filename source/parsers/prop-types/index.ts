@@ -11,15 +11,10 @@ import parseMeta from "../utils/parse-meta";
 import parsePropTypes from "./parse-prop-types";
 import resolveReferences from "./resolve-references";
 import { throwError } from "../../utils/error-handling";
-import { TypeTree, metaTypeNames } from "../../lib/node-types";
+import { metaTypeNames } from "../../lib/node-types";
+import { ParseResult } from "../../lib/compiler-types";
 
-type ParseResult = {
-  className: string;
-  superClass?: string;
-  types: TypeTree;
-};
-
-export default function propTypesParser(code: string): ParseResult | {} {
+export default function propTypesParser(code: string): ParseResult | undefined {
   const ast = parse(code, {
     plugins: ["jsx", "classProperties"],
     sourceType: "module"
@@ -28,7 +23,9 @@ export default function propTypesParser(code: string): ParseResult | {} {
   const metaNode = findMeta(ast);
   if (t.isStringLiteral(metaNode)) {
     const msg = `Unsupported viewModelMeta value '${metaNode.value}'. Expected 'exclude'.`;
-    return metaNode.value === metaTypeNames.exclude ? {} : throwError(msg);
+    return metaNode.value === metaTypeNames.exclude
+      ? undefined
+      : throwError(msg);
   }
 
   const meta = parseMeta(metaNode);
