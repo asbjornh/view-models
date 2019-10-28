@@ -13,13 +13,14 @@ export const typeNames = {
 
 export type TypeName = keyof typeof typeNames;
 
-type NodeBase = { required?: boolean };
+export type NodeBase = { required?: boolean };
 export type BasicNode = NodeBase & { type: TypeName };
 export type RefNode = NodeBase & { type: "ref"; ref: string };
 export type EnumNode = NodeBase & {
   type: "enum";
   children: ({ key: string; value: string | number })[];
 };
+
 export type ListNode = NodeBase & { type: "list"; elementType: TypeNode };
 export type ObjectNode = NodeBase & { type: "object"; children: TypeTree };
 export type DictionaryNode = NodeBase & {
