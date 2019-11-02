@@ -6,7 +6,7 @@ import {
   RefNode,
   EnumNode,
   NodeBase
-} from "../../lib/node-types";
+} from "../../node-types";
 
 export type ClassDefinition = {
   type: "object";

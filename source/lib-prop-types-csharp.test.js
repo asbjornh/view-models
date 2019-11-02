@@ -1,12 +1,9 @@
 const test = require("ava");
 
-const { compile } = require("./index");
-const normalize = require("../../test-utils/normalize-string");
+const compile = require("./compile").default;
+const normalize = require("../test-utils/normalize-string");
 
-const {
-  classes,
-  components
-} = require("../../fixtures/javascript/source-code");
+const { classes, components } = require("../fixtures/javascript/source-code");
 
 const template = (t, input, expected, options) => {
   const transformedSource = compile(input, options);

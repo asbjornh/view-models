@@ -1,4 +1,4 @@
-import { TypeNode, ListNode } from "../../lib/node-types";
+import { TypeNode, ListNode } from "../../node-types";
 
 const isList = (node: TypeNode): node is ListNode => node.type === "list";
 

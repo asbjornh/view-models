@@ -1,5 +1,5 @@
 import isEquivalent from "../../utils/is-equivalent-string";
-import { TypeTree } from "../../lib/node-types";
+import { TypeTree } from "../../node-types";
 
 export default function validateNames(className: string, types: TypeTree) {
   const nameCollision = Object.keys(types).find(isEquivalent(className));

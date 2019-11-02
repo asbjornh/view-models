@@ -12,8 +12,8 @@ import parseMeta from "../utils/parse-meta";
 import parsePropTypes from "./parse-prop-types";
 import resolveReferences from "./resolve-references";
 import { throwError } from "../../utils/error-handling";
-import { metaTypeNames } from "../../lib/node-types";
-import { ParseResult } from "../../lib/compiler-types";
+import { metaTypeNames } from "../../node-types";
+import { ParseResult } from "../../compiler-types";
 
 export default function propTypesParser(code: string): ParseResult | undefined {
   const ast = parse(code, {

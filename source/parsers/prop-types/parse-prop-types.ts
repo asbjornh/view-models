@@ -7,7 +7,7 @@ import {
   TypeNode,
   isTypeNode,
   validateType
-} from "../../lib/node-types";
+} from "../../node-types";
 
 import filter from "../../utils/filter";
 import isComponentReference from "./is-component-reference";

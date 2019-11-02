@@ -1,7 +1,7 @@
 import assert from "assert";
 
-import generateCsharp from "../generators/csharp";
-import parsePropTypes from "../parsers/prop-types";
+import generateCsharp from "./generators/csharp";
+import parsePropTypes from "./parsers/prop-types";
 import { CompilerOptions } from "./compiler-types";
 
 const defaultOptions = {
@@ -12,7 +12,7 @@ const defaultOptions = {
   parser: parsePropTypes
 };
 
-export function compile(sourceCode: string, options?: CompilerOptions) {
+export default function compile(sourceCode: string, options?: CompilerOptions) {
   const opts = { ...defaultOptions, ...(options || {}) };
   const { baseClass, generator, indent, namespace, parser } = opts;
   assert(typeof parser === "function", "Options.parser is not a function.");

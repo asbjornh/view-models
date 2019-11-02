@@ -2,8 +2,8 @@ import flattenDefinitions from "../utils/flatten-definitions";
 import generateDefinition from "./generate-definition";
 import indentBraces from "../utils/indent-braces";
 import validateNames from "./validate-names";
-import { TypeTree } from "../../lib/node-types";
-import { GeneratorOptions } from "../../lib/compiler-types";
+import { TypeTree } from "../../node-types";
+import { GeneratorOptions } from "../../compiler-types";
 
 const imports = [
   "System.Collections.Generic",

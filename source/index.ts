@@ -1,7 +1,7 @@
-import compile from "./lib/index";
+import compile from "./compile";
 import parsePropTypes from "./parsers/prop-types";
 
-import { Parser, Generator } from "./lib/compiler-types";
+import { Parser, Generator } from "./compiler-types";
 
 const generators: { [key: string]: Generator } = {};
 const parsers: { [key: string]: Parser } = {

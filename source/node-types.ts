@@ -1,4 +1,4 @@
-import { throwError } from "../utils/error-handling";
+import { throwError } from "./utils/error-handling";
 
 export const typeNames = {
   bool: "bool",

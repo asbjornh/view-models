@@ -3,7 +3,7 @@ const test = require("ava");
 
 const findMeta = require("./find-meta").default;
 const parseMeta = require("./parse-meta").default;
-const { metaTypeNames } = require("../../lib/node-types");
+const { metaTypeNames } = require("../../node-types");
 
 const parseFromSource = sourceCode => {
   const metaNode = findMeta(

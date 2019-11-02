@@ -1,7 +1,7 @@
 import capitalize from "../utils/capitalize";
 import unknownToPascal from "../utils/unknown-to-pascal";
 
-import { EnumNode } from "../../lib/node-types";
+import { EnumNode } from "../../node-types";
 
 // Returns the body of an enum definition as string
 export default function enumProperties(

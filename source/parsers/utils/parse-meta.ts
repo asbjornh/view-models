@@ -1,10 +1,6 @@
 import * as t from "@babel/types";
 
-import {
-  MetaTypeNode,
-  MetaTypeTree,
-  validateMetaType
-} from "../../lib/node-types";
+import { MetaTypeNode, MetaTypeTree, validateMetaType } from "../../node-types";
 
 export default function parseMeta(metaValue: t.ObjectExpression) {
   return metaValue.properties.reduce((accum: MetaTypeTree, property) => {

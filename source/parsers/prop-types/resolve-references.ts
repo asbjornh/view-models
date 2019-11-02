@@ -1,7 +1,7 @@
 import traverse, { NodePath } from "@babel/traverse";
 import * as t from "@babel/types";
 
-import { MetaTypeTree } from "../../lib/node-types";
+import { MetaTypeTree } from "../../node-types";
 
 import isObjectMethod from "../utils/is-object-method";
 import isMemberExpression from "../utils/is-member-expression";
