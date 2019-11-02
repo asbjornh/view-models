@@ -1,5 +1,5 @@
 import flattenDefinitions from "../utils/flatten-definitions";
-import { generateClass, generateClassExtends } from "./generators";
+import generateDefinition from "./generate-definition";
 import indentBraces from "../utils/indent-braces";
 import validateNames from "./validate-names";
 import { TypeTree } from "../../lib/node-types";
@@ -18,16 +18,11 @@ export default function generateCsharp(
 ) {
   validateNames(className, types);
 
-  const classesString =
-    Object.keys(types).length === 0 && baseClass !== className
-      ? baseClass
-        ? generateClassExtends(className, baseClass)
-        : ""
-      : flattenDefinitions(types, className)
-          .map(({ name, properties }) =>
-            generateClass(name, properties, baseClass)
-          )
-          .join("\n\n");
+  const classesString = flattenDefinitions(types, className)
+    .map(({ name, properties }) =>
+      generateDefinition(name, properties, baseClass)
+    )
+    .join("\n\n");
 
   const classesWithNamespace = namespace
     ? `namespace ${namespace}\n{\n${classesString}\n}`

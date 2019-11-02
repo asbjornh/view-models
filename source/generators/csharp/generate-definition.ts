@@ -8,47 +8,22 @@ import {
   FlatNode
 } from "../utils/flatten-definitions";
 
-export function generateClass(
+export default function generateDefinition(
   name: string,
   types: ClassDefinition | EnumDefinition,
   baseClass?: string
 ) {
   return types.type === "object"
-    ? generateObject(name, types, baseClass)
+    ? generateClass(name, types, baseClass)
     : generateEnum(name, types);
 }
-
-export const generateClassExtends = (className: string, superClass: string) =>
-  `public class ${className} : ${superClass}\n{\n}`;
-
-const generate = (node: FlatNode): string => {
-  if (
-    node.type === "bool" ||
-    node.type === "double" ||
-    node.type === "double?" ||
-    node.type === "float" ||
-    node.type === "float?" ||
-    node.type === "int" ||
-    node.type === "int?" ||
-    node.type === "string"
-  ) {
-    return node.type;
-  } else if (node.type === "ref") {
-    return node.parents ? parentPrefixedName(node.ref, node.parents) : node.ref;
-  } else if (node.type === "list") {
-    return `IList<${generate(node.elementType)}>`;
-  } else if (node.type === "dictionary") {
-    return `IDictionary<string, ${generate(node.valueType)}>`;
-  }
-  throw new Error(`Type '${node.type}' is not supported in generator`);
-};
 
 const generateEnum = (name: string, node: EnumDefinition) => {
   const body = enumProperties(name, node);
   return `public enum ${parentPrefixedName(name, node.parents)}\n{\n${body}\n}`;
 };
 
-const generateObject = (
+const generateClass = (
   name: string,
   node: ClassDefinition,
   baseClass?: string
@@ -73,4 +48,26 @@ const generateObject = (
 
 const generateProperty = (name: string, node: FlatNode) =>
   `${node.required ? "[Required]\n" : ""}` +
-  `public ${generate(node)} ${capitalize(name)} { get; set; }`;
+  `public ${generateType(node)} ${capitalize(name)} { get; set; }`;
+
+const generateType = (node: FlatNode): string => {
+  if (
+    node.type === "bool" ||
+    node.type === "double" ||
+    node.type === "double?" ||
+    node.type === "float" ||
+    node.type === "float?" ||
+    node.type === "int" ||
+    node.type === "int?" ||
+    node.type === "string"
+  ) {
+    return node.type;
+  } else if (node.type === "ref") {
+    return node.parents ? parentPrefixedName(node.ref, node.parents) : node.ref;
+  } else if (node.type === "list") {
+    return `IList<${generateType(node.elementType)}>`;
+  } else if (node.type === "dictionary") {
+    return `IDictionary<string, ${generateType(node.valueType)}>`;
+  }
+  throw new Error(`Type '${node.type}' is not supported in generator`);
+};

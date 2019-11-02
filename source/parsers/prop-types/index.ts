@@ -1,4 +1,5 @@
 import { parse } from "@babel/parser";
+import traverse from "@babel/traverse";
 import * as t from "@babel/types";
 
 import findMeta from "../utils/find-meta";
@@ -35,6 +36,15 @@ export default function propTypesParser(code: string): ParseResult | undefined {
   if (propTypesName) {
     resolveReferences(ast, componentName, propTypesName, meta);
   }
+
+  // Remove prop-types identifier from types (PropTypes.string -> string)
+  traverse(ast, {
+    MemberExpression(path) {
+      if (t.isIdentifier(path.node.object, { name: propTypesName })) {
+        path.replaceWith(path.node.property);
+      }
+    }
+  });
 
   const typesNode = findPropTypes(ast, componentName);
 

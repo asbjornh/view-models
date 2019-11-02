@@ -67,7 +67,7 @@ const template = (
   );
 };
 
-test("Basic propTypes", template, basicDefinition, imports + basicClass);
+test("Basic types", template, basicDefinition, imports + basicClass);
 
 test(
   "With namespace",

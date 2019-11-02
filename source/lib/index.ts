@@ -4,13 +4,17 @@ import generateCsharp from "../generators/csharp";
 import parsePropTypes from "../parsers/prop-types";
 import { CompilerOptions } from "./compiler-types";
 
-export function compile(
-  sourceCode: string,
-  { baseClass, generator, indent, namespace, parser }: CompilerOptions = {
-    generator: generateCsharp,
-    parser: parsePropTypes
-  }
-) {
+const defaultOptions = {
+  baseClass: "",
+  generator: generateCsharp,
+  indent: 2,
+  namespace: "",
+  parser: parsePropTypes
+};
+
+export function compile(sourceCode: string, options?: CompilerOptions) {
+  const opts = { ...defaultOptions, ...(options || {}) };
+  const { baseClass, generator, indent, namespace, parser } = opts;
   assert(typeof parser === "function", "Options.parser is not a function.");
   assert(
     typeof generator === "function",
