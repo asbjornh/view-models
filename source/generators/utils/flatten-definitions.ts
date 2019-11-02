@@ -2,42 +2,48 @@ import { getInnerNode, listHasObject } from "./list";
 import {
   TypeTree,
   TypeNode,
-  BasicNode,
+  PrimitiveNode,
   RefNode,
   EnumNode,
   NodeBase
 } from "../../lib/node-types";
 
-type ClassDefinition = {
+export type ClassDefinition = {
   type: "object";
   parents?: string[];
   children: FlatTree;
 };
 
-type EnumDefinition = { parents: string[] } & EnumNode;
+export type EnumDefinition = FlatNodeBase & { parents: string[] } & EnumNode;
 
-type FlatDefinition = {
+export type FlatDefinition = {
   name: string;
   properties: ClassDefinition | EnumDefinition;
 };
 
-type FlatListNode = NodeBase & { type: "list"; elementType: FlatNode };
-type FlatDictionaryNode = NodeBase & {
-  type: "dictionary";
-  valueType: FlatNode;
-};
+type FlatNodeBase = { parents?: string[] };
+
+type FlatPrimitiveNode = FlatNodeBase & PrimitiveNode;
+type FlatRefNode = FlatNodeBase & RefNode;
+type FlatListNode = NodeBase &
+  FlatNodeBase & {
+    type: "list";
+    elementType: FlatNode;
+  };
+type FlatDictionaryNode = NodeBase &
+  FlatNodeBase & {
+    type: "dictionary";
+    valueType: FlatNode;
+  };
 
 // NOTE: ObjectNode is left out since it's recursive. ListNodes are also recursive, but can be serialized to `IList<IList<type>>` so it's included.
-type FlatNodeBase =
-  | BasicNode
-  | RefNode
-  | EnumNode
+export type FlatNode =
+  | FlatPrimitiveNode
+  | FlatRefNode
   | FlatListNode
   | FlatDictionaryNode;
 
-type FlatNode = { parents?: string[] } & FlatNodeBase;
-
-type FlatTree = { [key: string]: FlatNode };
+export type FlatTree = { [key: string]: FlatNode };
 
 // Returns an array of objects representing the classes to be generated
 //  - Every value of type 'enum' and 'object' will get a class definition

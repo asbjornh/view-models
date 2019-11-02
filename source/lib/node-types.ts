@@ -14,7 +14,7 @@ export const typeNames = {
 export type TypeName = keyof typeof typeNames;
 
 export type NodeBase = { required?: boolean };
-export type BasicNode = NodeBase & { type: TypeName };
+export type PrimitiveNode = NodeBase & { type: TypeName };
 export type RefNode = NodeBase & { type: "ref"; ref: string };
 export type EnumNode = NodeBase & {
   type: "enum";
@@ -29,7 +29,7 @@ export type DictionaryNode = NodeBase & {
 };
 
 export type TypeNode =
-  | BasicNode
+  | PrimitiveNode
   | RefNode
   | EnumNode
   | ListNode
