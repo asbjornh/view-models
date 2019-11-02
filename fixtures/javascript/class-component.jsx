@@ -78,7 +78,7 @@ class ClassComponent extends React.Component {
   };
 
   render() {
-    return <div />;
+    return null;
   }
 }
 

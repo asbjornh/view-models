@@ -3,13 +3,13 @@
     "esModuleInterop": true,
     "target": "es5",
     "lib": ["es2017"],
-    "outDir": "dist",
+    "outDir": "lib",
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
-    "sourceMap": true
+    "sourceMap": false
   },
-  "include": ["source", "debug.ts"]
+  "include": ["source"]
 }

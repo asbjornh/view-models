@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-const BaseClassComponent = ({ prop }) => <div className="">{prop}</div>;
+const BaseClassComponent = ({ prop }) => prop;
 
 BaseClassComponent.propTypes = {
   prop: PropTypes.string

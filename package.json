@@ -2,9 +2,10 @@
   "name": "viewmodels",
   "version": "0.0.0",
   "description": "Generate viewmodels from react components",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "ava --verbose"
+    "test": "ava --verbose --config=ava.config.source.js",
+    "test:js": "tsc && ava --verbose --config=ava.config.javascript.js"
   },
   "repository": {
     "type": "git",
@@ -17,19 +18,23 @@
   },
   "homepage": "https://github.com/asbjornh/viewmodels#readme",
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@types/babel__traverse": "^7.0.7",
     "ava": "^2.4.0",
+    "babel-loader": "^8.0.6",
+    "eslint": "^6.6.0",
+    "eslint-loader": "^3.0.2",
+    "prop-types": "^15.7.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "tempy": "^0.3.0",
     "ts-node": "^8.4.1",
-    "typescript": "^3.6.3"
+    "typescript": "^3.6.3",
+    "webpack": "^4.41.2"
   },
   "dependencies": {
     "@babel/parser": "^7.6.2",
     "@babel/traverse": "^7.6.2",
     "@babel/types": "^7.6.1"
-  },
-  "ava": {
-    "require": [
-      "ts-node/register"
-    ]
   }
 }
