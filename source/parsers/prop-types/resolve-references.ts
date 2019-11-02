@@ -19,13 +19,14 @@ export default function resolveReferences(
 
       if (
         !callee.isMemberExpression() ||
-        !isMemberExpression(propTypesIdentifier, "oneOf")
+        !isMemberExpression(propTypesIdentifier, "oneOf", path.node.callee)
       ) {
         return;
       }
 
-      type PropertyPath = NodePath<t.ObjectProperty>;
-      const propPath = path.findParent(t.isObjectProperty) as PropertyPath;
+      const propPath = path.findParent(t.isObjectProperty) as NodePath<
+        t.ObjectProperty
+      >;
       const propName: string = propPath.node.key.name;
       const metaType = meta[propName] ? meta[propName].type : "";
       const argument = path.node.arguments[0];

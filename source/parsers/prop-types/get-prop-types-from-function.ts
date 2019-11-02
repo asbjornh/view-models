@@ -8,7 +8,7 @@ import filter from "../../utils/filter";
 export default function getPropTypesFromFunction(
   node: t.CallExpression
 ): [t.ObjectExpression, string | undefined] {
-  if (!isMemberExpression("Object", "assign")(node.callee)) {
+  if (!isMemberExpression("Object", "assign", node.callee)) {
     throw new Error(`Unsupported function '${getFunctionName(node)}'.`);
   }
 

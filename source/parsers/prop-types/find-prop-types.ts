@@ -7,10 +7,8 @@ import isMemberExpression from "../utils/is-member-expression";
 
 /** Returns Babel node containing only the propTypes value */
 export default function findPropTypes(AST: t.File, componentName: string) {
-  const isComponentTypesIdentifier = isMemberExpression(
-    componentName,
-    "propTypes"
-  );
+  const isComponentTypesIdentifier = (node: t.Node) =>
+    isMemberExpression(componentName, "propTypes", node);
 
   const expressions = filter(AST.program.body, t.isExpressionStatement);
   const assigmnets = filter(
