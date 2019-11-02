@@ -53,9 +53,9 @@ test("Bad propTypes value", t => {
 });
 
 test(
-  "Bad propTypes value with exclude",
+  "Bad propTypes value with ignore",
   template,
-  `const Component = () => {}; Component.propTypes = false; Component.viewModelMeta = "exclude"; export default Component;`,
+  `const Component = () => {}; Component.propTypes = false; Component.viewModelMeta = "ignore"; export default Component;`,
   undefined
 );
 
@@ -89,10 +89,10 @@ test(
     d: PropTypes.array
   };
   Component.viewModelMeta = {
-    a: 'exclude',
-    b: 'exclude',
-    c: 'exclude',
-    d: 'exclude',
+    a: 'ignore',
+    b: 'ignore',
+    c: 'ignore',
+    d: 'ignore',
   };
   export default Component;`,
 
@@ -164,11 +164,11 @@ test(
 );
 
 test(
-  "Excluded component",
+  "Ignored component",
   template,
   `const Component = () => {};
   Component.propTypes = {};
-  Component.viewModelMeta = "exclude";
+  Component.viewModelMeta = "ignore";
   export default Component;`,
   undefined
 );
@@ -222,10 +222,10 @@ test(
 );
 
 test(
-  "Without propTypes literal and with exclude meta",
+  "Without propTypes literal and with ignore meta",
   template,
   `const Component = () => {};
-  Component.viewModelMeta = "exclude";
+  Component.viewModelMeta = "ignore";
   export default Component;`,
   undefined
 );

@@ -38,7 +38,7 @@ export default function parsePropTypes(
 }
 
 function parseType(node: t.Node, meta?: MetaTypeNode): TypeNode | undefined {
-  if (meta && meta.type === "exclude") return;
+  if (meta && meta.type === "ignore") return;
 
   return t.isCallExpression(node)
     ? parseCallExpression(node, meta)

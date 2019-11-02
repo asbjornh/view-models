@@ -40,7 +40,7 @@ export type TypeTree = {
   [key: string]: TypeNode;
 };
 
-export const metaTypeNames = { exclude: "exclude", ...typeNames };
+export const metaTypeNames = { ignore: "ignore", ...typeNames };
 
 export type MetaTypeName = keyof typeof metaTypeNames;
 
@@ -66,7 +66,7 @@ export const validateType = (name: string): TypeName =>
   isBasicType(name) ? name : throwError(`Type '${name}' is not supported.`);
 
 export const isTypeNode = (n?: TypeNode | MetaTypeNode): n is TypeNode =>
-  !!n && n.type !== "exclude";
+  !!n && n.type !== "ignore";
 
 export const isBasicMetaType = (name: string): name is MetaTypeName =>
   metaTypeNames[name as MetaTypeName] ? true : false;

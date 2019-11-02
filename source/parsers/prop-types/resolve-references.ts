@@ -37,8 +37,8 @@ export default function resolveReferences(
         );
       }
 
-      // Abort if meta type is 'exclude'. Actual removal of the node happens later
-      if (metaType === "exclude") return;
+      // Abort if meta type is 'ignore'. Actual removal of the node happens later
+      if (metaType === "ignore") return;
 
       const missingLiteralError = (argumentName: string) =>
         new Error(

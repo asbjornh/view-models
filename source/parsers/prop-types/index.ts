@@ -23,8 +23,8 @@ export default function propTypesParser(code: string): ParseResult | undefined {
 
   const metaNode = findMeta(ast);
   if (t.isStringLiteral(metaNode)) {
-    const msg = `Unsupported viewModelMeta value '${metaNode.value}'. Expected 'exclude'.`;
-    return metaNode.value === metaTypeNames.exclude
+    const msg = `Unsupported viewModelMeta value '${metaNode.value}'. Expected 'ignore'.`;
+    return metaNode.value === metaTypeNames.ignore
       ? undefined
       : throwError(msg);
   }

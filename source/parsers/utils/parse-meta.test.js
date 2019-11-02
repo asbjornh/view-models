@@ -46,8 +46,8 @@ test(
   }
 );
 
-test("Nested", template, 'C.viewModelMeta = { a: { b: "exclude" } };', {
-  a: { type: "object", children: { b: { type: "exclude" } } }
+test("Nested", template, 'C.viewModelMeta = { a: { b: "ignore" } };', {
+  a: { type: "object", children: { b: { type: "ignore" } } }
 });
 
 test("No meta", template, "const C = () => <div />;", {});
@@ -91,7 +91,7 @@ test(
   "Throws on misspelled string",
   throwsTemplate,
   'C.viewModelMeta = { a: "exclud" };',
-  "Invalid meta type for 'a': Expected one of [exclude,bool,double,double?,float,float?,int,int?,string] but got 'exclud'."
+  "Invalid meta type for 'a': Expected one of [ignore,bool,double,double?,float,float?,int,int?,string] but got 'exclud'."
 );
 
 test(

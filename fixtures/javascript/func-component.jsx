@@ -27,7 +27,7 @@ FunctionalComponent.propTypes = {
       propertyB: pt.string.isRequired
     })
   ).isRequired,
-  shapeExclude: pt.shape({
+  shapeIgnore: pt.shape({
     object: pt.object
   }),
   shapeMeta: pt.shape({
@@ -35,7 +35,7 @@ FunctionalComponent.propTypes = {
   }).isRequired,
   objectArray: pt.arrayOf(pt.object).isRequired,
   nestedList: pt.arrayOf(pt.arrayOf(pt.arrayOf(pt.string))),
-  nestedExclude: pt.shape({
+  nestedIgnore: pt.shape({
     a: pt.object
   }),
   nestedShape: pt.shape({
@@ -53,7 +53,7 @@ FunctionalComponent.propTypes = {
   enumInline: pt.oneOf([1, 2]),
   enumObject: pt.oneOf(Object.keys(enumObject)),
   instance: pt.instanceOf(Link),
-  excludeMe: pt.number,
+  ignoreMe: pt.number,
   node: pt.node,
   element: pt.element,
   function: pt.func
@@ -64,13 +64,13 @@ FunctionalComponent.propTypes.mutationProp = pt.string;
 FunctionalComponent.viewModelMeta = {
   intNumber: "int",
   floatNumber: "float",
-  excludeMe: "exclude",
-  shapeExclude: "exclude",
+  ignoreMe: "ignore",
+  shapeIgnore: "ignore",
   shapeMeta: {
     object: Link
   },
-  nestedExclude: {
-    a: "exclude"
+  nestedIgnore: {
+    a: "ignore"
   },
   objectArray: [Link],
   linkMeta: Link,

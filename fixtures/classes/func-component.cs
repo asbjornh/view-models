@@ -20,7 +20,7 @@ public class FunctionalComponent
   [Required]
   public IList<Link> ObjectArray { get; set; }
   public IList<IList<IList<string>>> NestedList { get; set; }
-  public FunctionalComponent_NestedExclude NestedExclude { get; set; }
+  public FunctionalComponent_NestedIgnore NestedIgnore { get; set; }
   public FunctionalComponent_NestedShape NestedShape { get; set; }
   public Link Link { get; set; }
   public IList<Link> LinkList { get; set; }
@@ -50,7 +50,7 @@ public class FunctionalComponent_ShapeMeta
   public Link Object { get; set; }
 }
 
-public class FunctionalComponent_NestedExclude
+public class FunctionalComponent_NestedIgnore
 {
 }
 

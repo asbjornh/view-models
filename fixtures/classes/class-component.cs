@@ -19,7 +19,7 @@ public class ClassComponent
   [Required]
   public IList<Link> ObjectArray { get; set; }
   public IList<IList<IList<string>>> NestedList { get; set; }
-  public ClassComponent_NestedExclude NestedExclude { get; set; }
+  public ClassComponent_NestedIgnore NestedIgnore { get; set; }
   public ClassComponent_NestedShape NestedShape { get; set; }
   public Link Link { get; set; }
   public IList<Link> LinkList { get; set; }
@@ -48,7 +48,7 @@ public class ClassComponent_ShapeMeta
   public Link Object { get; set; }
 }
 
-public class ClassComponent_NestedExclude
+public class ClassComponent_NestedIgnore
 {
 }
 

@@ -288,33 +288,33 @@ test(
 );
 
 test(
-  "Removes excluded props",
+  "Removes ignored props",
   template,
   `({ a: oneOfType([string, number]), b: array })`,
-  { a: { type: "exclude" }, b: { type: "exclude" } },
+  { a: { type: "ignore" }, b: { type: "ignore" } },
   {}
 );
 
 test(
-  "Removes nested excluded props",
+  "Removes nested ignored props",
   template,
   `({ a: shape({ b: object }) })`,
-  { a: { type: "object", children: { b: { type: "exclude" } } } },
+  { a: { type: "object", children: { b: { type: "ignore" } } } },
   { a: { type: "object", children: {} } }
 );
 
-test("Invalid function call with exclude", t => {
+test("Invalid function call with ignore", t => {
   const ast = parse(`({ a: someFunc() })`);
-  const meta = { a: { type: "exclude" } };
+  const meta = { a: { type: "ignore" } };
 
   t.notThrows(() => {
     parsePropTypes(ast, meta);
   });
 });
 
-test("Invalid function call and object method with exclude", t => {
+test("Invalid function call and object method with ignore", t => {
   const ast = parse(`({ a: someFunc(Object.entries({a:1})) })`);
-  const meta = { a: { type: "exclude" } };
+  const meta = { a: { type: "ignore" } };
 
   t.notThrows(() => {
     parsePropTypes(ast, meta);
