@@ -4,7 +4,8 @@
   "description": "Generate viewmodels from react components",
   "main": "lib/index.js",
   "scripts": {
-    "test": "ava --verbose --config=ava.config.source.js",
+    "test": "yarn test:ts && yarn test:js",
+    "test:ts": "ava --verbose --config=ava.config.source.js",
     "test:js": "tsc && ava --verbose --config=ava.config.javascript.js"
   },
   "repository": {
