@@ -1,13 +1,19 @@
 import compile from "./compile";
-import generateCsharp from "./generators/csharp";
-import parsePropTypes from "./parsers/prop-types";
+
+import csharp from "./generators/csharp";
+import kotlin from "./generators/kotlin";
+
+import propTypes from "./parsers/prop-types";
 
 import { Parser, Generator } from "./compiler-types";
 
 const generators: { [key: string]: Generator } = {
-  csharp: generateCsharp
+  csharp,
+  kotlin
 };
+
 const parsers: { [key: string]: Parser } = {
-  propTypes: parsePropTypes
+  propTypes
 };
+
 export { compile, generators, parsers };
