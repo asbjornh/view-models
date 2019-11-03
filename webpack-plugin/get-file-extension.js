@@ -2,8 +2,8 @@ const { generators } = require("../lib/index.js");
 
 const fileExtensions = {
   [generators.csharp.name]: "cs",
-  [generators.kotlin.name]: "kt"
-  // [generators.typescript.name]: "ts"
+  [generators.kotlin.name]: "kt",
+  [generators.typescript.name]: "ts"
 };
 
 module.exports = generator => {

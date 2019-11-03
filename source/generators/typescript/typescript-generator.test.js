@@ -33,26 +33,18 @@ const basicDefinition = {
 };
 
 const basicClass = `
-package Component
-
-open class Component(
-  val text: String,
-  val numbers: Array<Array<Array<Int>>>? = null,
-  val singleObject: Component_SingleObject? = null,
-  val objects: Array<Component_Objects>
-)
-
-class Component_SingleObject(
-  val propertyA: Component_SingleObject_PropertyA
-)
-
-class Component_SingleObject_PropertyA(
-  val propertyB: String? = null
-)
-
-class Component_Objects(
-  val propertyB: String? = null
-)`;
+export interface Component {
+  text: string,
+  numbers?: [[[number]]],
+  singleObject?: {
+    propertyA: {
+      propertyB?: string
+    }
+  },
+  objects: [{
+    propertyB?: string
+  }]
+}`;
 
 const template = (
   t,
@@ -81,18 +73,18 @@ test(
       valueType: { type: "object", children: { d: { type: "string" } } }
     }
   },
-  `package Component
+  `
+  import { Link } from "./Link";
 
-  import Link.*
-
-  open class Component(
-    val a: Map<String, String>? = null,
-    val b: Map<String, Link>? = null,
-    val c: Map<String, Component_C>? = null
-  )
-  class Component_C(
-    val d: String? = null
-  )`
+  export interface Component { 
+    a?: { [key: string]: string },
+    b?: { [key: string]: Link },
+    c?: {
+      [key: string]: {
+        d?: string
+      }
+    }
+  }`
 );
 
 test(
@@ -118,33 +110,9 @@ test(
       ]
     }
   },
-  `package Component
-
-  open class Component(
-    val a: Component_A? = null,
-    val b: Component_B? = null
-  )
-
-  enum class Component_A(val stringValue: String) {
-    value1("value-1"),
-    value2("-value-2"),
-    value3(".value-3"),
-    value4("#value-4");
-
-    override fun toString(): String {
-      return stringValue;
-    }
-  }
-
-  enum class Component_B(val stringValue: String) {
-    value1("A"),
-    value2("B"),
-    value3("C"),
-    value4("D");
-
-    override fun toString(): String {
-      return stringValue;
-    }
+  `export interface Component { 
+    a?: "value-1" | "-value-2" | ".value-3" | "#value-4",
+    b?: "A" | "B" | "C" | "D"
   }`
 );
 
@@ -152,10 +120,11 @@ test(
   "Namespace",
   template,
   { a: { type: "string" } },
-  `package ViewModels.Component
-  open class Component(
-    val a: String? = null
-  )`,
+  `namespace ViewModels {
+    export interface Component { 
+      a?: string
+    }
+  }`,
   { namespace: "ViewModels" }
 );
 
@@ -163,34 +132,24 @@ test(
   "Extending other component",
   template,
   {},
-  `package Component
-  import OtherComponent.*
-  typealias Component = OtherComponent`,
+  `import { OtherComponent } from "./OtherComponent";
+  export interface Component extends OtherComponent {
+  }`,
   { baseClass: "OtherComponent" }
-);
-
-test(
-  "Extending other component with namespace",
-  template,
-  {},
-  `package ViewModels.Component
-  import ViewModels.OtherComponent.*
-  typealias Component = OtherComponent`,
-  { baseClass: "OtherComponent", namespace: "ViewModels" }
 );
 
 test(
   "With baseClass and namespace",
   template,
   { a: { type: "ref", ref: "Link" } },
-  `package ViewModels.Component
+  `import { BaseClass } from "./BaseClass";
+  import { Link } from "./Link";
 
-  import ViewModels.BaseClass.*
-  import ViewModels.Link.*
-
-  open class Component(
-    val a: Link? = null
-  ) : BaseClass()`,
+  namespace ViewModels {
+    export interface Component extends BaseClass { 
+      a?: Link
+    }
+  }`,
   {
     baseClass: "BaseClass",
     namespace: "ViewModels"
