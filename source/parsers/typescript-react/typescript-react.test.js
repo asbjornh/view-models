@@ -1,16 +1,16 @@
-const test = require('ava');
+const test = require("ava");
 
-const { compile, parsers } = require('../../../index');
-const normalize = require('../../utils/_normalize-string');
+const { compile, parsers } = require("../../index");
+const normalize = require("../../../test-utils/normalize-string");
 const {
   components,
   classes
-} = require('../../../fixtures/typescript/source-code');
+} = require("../../../fixtures/typescript/source-code");
 
 const template = (t, sourceCode, expected, options) => {
   const transformedSource = compile(
     sourceCode,
-    Object.assign({}, options, { parser: parsers.typescript })
+    Object.assign({}, options, { parser: parsers.typescriptReact })
   );
   t.is(normalize(expected), normalize(transformedSource.code));
 };
@@ -20,21 +20,21 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;`;
 
 test(
-  'Class component',
+  "Class component",
   template,
   components.classComponent,
   classes.classComponent
 );
 
 test(
-  'Functional component',
+  "Functional component",
   template,
   components.funcComponent,
   classes.funcComponent
 );
 
 test(
-  'Empty component',
+  "Empty component",
   template,
   `const Component = (props: {}) => {}; export default Component;`,
 
@@ -46,7 +46,7 @@ test(
 );
 
 test(
-  'With type definition',
+  "With type definition",
   template,
   `type A = { b?: string };
   export const C = (p: A) => null;`,
@@ -59,7 +59,7 @@ test(
 );
 
 test(
-  'With interface definition',
+  "With interface definition",
   template,
   `interface A { b?: string }
   export const C = (p: A) => null;`,
@@ -71,7 +71,7 @@ test(
 );
 
 test(
-  'With react type',
+  "With react type",
   template,
   `type A = { b?: string };
   export const C: React.FunctionComponent<A> = props => null;`,
@@ -83,7 +83,7 @@ test(
 );
 
 test(
-  'With react type literal',
+  "With react type literal",
   template,
   `export const C: React.FunctionComponent<{ b?: string }> = props => null;`,
   `${csharpImports}
@@ -94,7 +94,7 @@ test(
 );
 
 test(
-  'Type literal (class)',
+  "Type literal (class)",
   template,
   `export class C extends React.Component<{ b?: string }> {}`,
   `${csharpImports}
@@ -104,7 +104,7 @@ test(
   }`
 );
 
-test('Throws on multiple exports', t => {
+test("Throws on multiple exports", t => {
   const sourceCode = `
   export const Component = (props: {}) => null,
   A = true;`;
@@ -118,7 +118,7 @@ test('Throws on multiple exports', t => {
   );
 });
 
-test('Throws on name collisions', t => {
+test("Throws on name collisions", t => {
   const sourceCode = `
   const Component = (props: { component: string }) => <div>{props.component}</div>;
   export default Component;`;
@@ -133,7 +133,7 @@ test('Throws on name collisions', t => {
 });
 
 test(
-  'Strips client-only types',
+  "Strips client-only types",
   template,
   `
   type ComponentProps = {
@@ -150,7 +150,7 @@ test(
 );
 
 test(
-  'Imported type reference',
+  "Imported type reference",
   template,
   `import { AnotherComponent } from './another-component';
   const Component = (props: AnotherComponent) => <div />;
@@ -163,7 +163,7 @@ test(
 );
 
 test(
-  'Excluded component',
+  "Excluded component",
   template,
   `const Component = (props: {}) => {};
   Component.propTypesMeta = "exclude";
@@ -172,7 +172,7 @@ test(
 );
 
 test(
-  'Excluded props',
+  "Excluded props",
   template,
   `const Component = (props: {
     a: string,
@@ -194,7 +194,7 @@ test(
 );
 
 test(
-  'Meta types',
+  "Meta types",
   template,
   `const Component = (props: {
     a?: number,

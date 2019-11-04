@@ -1,12 +1,12 @@
-const { parse } = require('@babel/parser');
-const test = require('ava');
-const traverse = require('@babel/traverse').default;
+const { parse } = require("@babel/parser");
+const test = require("ava");
+const traverse = require("@babel/traverse").default;
 
-const typeNodeName = require('../../../lib/parse/typescript/type-node-name');
+const typeNodeName = require("./type-node-name").default;
 
 const template = (t, input, expected) => {
   const ast = parse(input, {
-    plugins: ['typescript']
+    plugins: ["typescript"]
   });
 
   traverse(ast, {
@@ -17,15 +17,15 @@ const template = (t, input, expected) => {
   });
 };
 
-test.cb('Object', template, 'type A = object;', 'object');
-test.cb('Any', template, 'type A = any;', 'any');
-test.cb('Never', template, 'type A = never;', 'never');
-test.cb('Void', template, 'type A = void;', 'void');
-test.cb('literal', template, 'type A = "some-string";', 'literal type');
-test.cb('Union', template, 'type A = number | string;', 'union type');
+test.cb("Object", template, "type A = object;", "object");
+test.cb("Any", template, "type A = any;", "any");
+test.cb("Never", template, "type A = never;", "never");
+test.cb("Void", template, "type A = void;", "void");
+test.cb("literal", template, 'type A = "some-string";', "literal type");
+test.cb("Union", template, "type A = number | string;", "union type");
 test.cb(
-  'Intersection',
+  "Intersection",
   template,
-  'type A = number & string;',
-  'intersection type'
+  "type A = number & string;",
+  "intersection type"
 );

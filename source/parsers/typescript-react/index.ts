@@ -40,7 +40,7 @@ export default function typescriptReact(
   if (types) {
     return {
       className: typeName || componentName,
-      types: parseTypes(types, meta, typeDeclarations)
+      types: parseTypes(types, typeDeclarations, meta)
     };
   }
 

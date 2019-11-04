@@ -9,6 +9,7 @@ import {
   TypeTree,
   MetaTypeNode
 } from "../../node-types";
+import filter from "../../utils/filter";
 
 // NOTE: JSX.Element is supposedly the thing typescript has that is most similar to PropTypes.node
 const typesToStrip = ["JSX.Element"];
@@ -42,6 +43,24 @@ export default function parseTypes(
   }, {});
 }
 
+const getChildMeta = (node?: MetaTypeNode): MetaTypeTree | undefined => {
+  if (node && node.type === "object") return node.children;
+};
+
+const getNumberFromMeta = (node?: MetaTypeNode) => {
+  if (!node) return;
+  if (
+    node.type === "double" ||
+    node.type === "double?" ||
+    node.type === "int" ||
+    node.type === "int?" ||
+    node.type === "float" ||
+    node.type === "float?"
+  ) {
+    return node.type;
+  }
+};
+
 const parseType = (
   node: t.Node,
   typeDeclarations: { [key: string]: (t.TSEnumMember | t.TSTypeElement)[] },
@@ -62,11 +81,13 @@ const parseType = (
   } else if (t.isTSFunctionType(node)) {
     return undefined;
   } else if (t.isTSNumberKeyword(node)) {
-    return { ...base, type: meta ? meta.type : "int" };
+    const type = getNumberFromMeta(meta) || "int";
+    return { ...base, type };
   } else if (t.isTSStringKeyword(node)) {
     return { ...base, type: "string" };
   } else if (t.isTSTypeLiteral(node)) {
-    const type = parseTypes(node.members, typeDeclarations, meta);
+    const childMeta = getChildMeta(meta);
+    const type = parseTypes(node.members, typeDeclarations, childMeta);
     return type ? { ...base, type: "object", children: type } : undefined;
   } else if (t.isTSParenthesizedType(node)) {
     return parse(node.typeAnnotation, meta);
@@ -78,13 +99,16 @@ const parseType = (
 
     // When type isn't defined in file
     if (!types) return { ...base, type: "ref", ref: name };
+
     if (some(types, t.isTSEnumMember)) {
-      const children = types.map(n =>
-        n.initializer ? n.initializer.value : null
-      );
+      const children = filter(
+        types.map(n => n.initializer),
+        t.isStringLiteral
+      ).map(node => ({ key: node.value, value: node.value }));
       return { ...base, type: "enum", children };
     }
-    return parseTypes(types, typeDeclarations, meta);
+
+    // return parseTypes(types, typeDeclarations);
   }
 
   throw new Error(`Type '${typeNodeName(node)}' is not supported.`);
