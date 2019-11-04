@@ -15,7 +15,7 @@ import { throwError } from "../../utils/error-handling";
 import { metaTypeNames } from "../../node-types";
 import { ParseResult } from "../../compiler-types";
 
-export default function propTypesParser(code: string): ParseResult | undefined {
+export default function propTypes(code: string): ParseResult | undefined {
   const ast = parse(code, {
     plugins: ["jsx", "classProperties"],
     sourceType: "module"
