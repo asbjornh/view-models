@@ -1,17 +1,17 @@
-const path = require('path');
+const path = require("path");
 
-const filterPaths = require('./filter-paths');
-const getFileExtension = require('./get-file-extension');
-const generateClasses = require('./generate-classes');
-const { log, logError } = require('./log');
+const filterPaths = require("./filter-paths");
+const getFileExtension = require("./get-file-extension");
+const generateClasses = require("./generate-classes");
+const { log, logError } = require("./log");
 
 const defaultOptions = {
   compilerOptions: {},
-  exclude: ['node_modules'],
+  exclude: ["node_modules"],
   fileExtension: undefined,
   log: false,
   match: [/\.jsx$/],
-  path: ''
+  path: ""
 };
 
 function PropTypesCSharpPlugin(options) {
@@ -20,7 +20,7 @@ function PropTypesCSharpPlugin(options) {
 
 PropTypesCSharpPlugin.prototype.apply = function(compiler) {
   compiler.hooks.emit.tap(
-    { name: 'PropTypesCSharpPlugin' },
+    { name: "PropTypesCSharpPlugin" },
     compilation => runThePlugin(compilation, this.options) // This callback runs every time the 'emit' webpack event occurs
   );
 };
@@ -33,14 +33,14 @@ function runThePlugin(compilation, options) {
 
   if (
     compilation.errors.length || // Abort if compilation has errors
-    !assertArray(options.exclude, 'options.exclude') ||
-    !assertArray(options.match, 'options.match')
+    !assertArray(options.exclude, "options.exclude") ||
+    !assertArray(options.match, "options.match")
   ) {
     return;
   }
 
   if (options.log) {
-    process.stdout.write('[C# plugin]: Generating classes...\n');
+    process.stdout.write("[C# plugin]: Generating classes...\n");
   }
 
   const modulePaths = filterPaths(
@@ -56,7 +56,7 @@ function runThePlugin(compilation, options) {
   const fileExtension =
     options.fileExtension ||
     getFileExtension(options.compilerOptions.generator) ||
-    'cs';
+    "cs";
 
   if (!result.error) {
     result.classes.forEach(({ code, className }) => {
@@ -70,5 +70,5 @@ function runThePlugin(compilation, options) {
   }
 }
 
-PropTypesCSharpPlugin['default'] = PropTypesCSharpPlugin;
+PropTypesCSharpPlugin["default"] = PropTypesCSharpPlugin;
 module.exports = PropTypesCSharpPlugin;

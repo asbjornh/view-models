@@ -4,6 +4,7 @@
   "description": "Generate viewmodels from react components",
   "main": "lib/index.js",
   "scripts": {
+    "lint": "eslint eslint-plugin babel-plugin webpack-plugin",
     "test": "yarn test:ts && yarn test:js",
     "test:ts": "ava --verbose --config=ava.config.typescript.js",
     "test:js": "tsc && ava --verbose --config=ava.config.javascript.js"
@@ -23,9 +24,14 @@
     "@types/babel__traverse": "^7.0.7",
     "@types/react": "^16.9.11",
     "ava": "^2.4.0",
+    "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "eslint": "^6.6.0",
+    "eslint-ava-rule-tester": "^4.0.0",
+    "eslint-config-prettier": "^6.5.0",
     "eslint-loader": "^3.0.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "prettier": "^1.18.2",
     "prop-types": "^15.7.2",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
