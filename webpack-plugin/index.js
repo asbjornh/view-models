@@ -25,6 +25,7 @@ PropTypesCSharpPlugin.prototype.apply = function(compiler) {
   );
 };
 
+// TODO: Rename 'match' option to 'include'
 function runThePlugin(compilation, options) {
   const assertArray = (arr, name) =>
     Array.isArray(arr)
