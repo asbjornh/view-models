@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "yarn test:ts && yarn test:js",
-    "test:ts": "ava --verbose --config=ava.config.source.js",
+    "test:ts": "ava --verbose --config=ava.config.typescript.js",
     "test:js": "tsc && ava --verbose --config=ava.config.javascript.js"
   },
   "repository": {
