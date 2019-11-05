@@ -1,13 +1,13 @@
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable react/prefer-stateless-function */
-import * as React from 'react';
-import { PropTypesMeta } from '../../prop-types-meta';
+import * as React from "react";
+import { PropTypesMeta } from "../../prop-types-meta";
 
-import { Link } from './link';
+import { Link } from "./link";
 
 enum EnumObject {
-  ValueA = 'value-a',
-  ValueB = 'value-b'
+  ValueA = "value-a",
+  ValueB = "value-b"
 }
 
 type ClassComponentProps = {
@@ -23,7 +23,7 @@ type ClassComponentProps = {
   objects: { propertyB: string }[];
   objectArray: Link[];
   nestedList?: string[][][];
-  nestedExclude?: {
+  nestedIgnore?: {
     a: string;
   };
   nestedNumber?: number[][][];
@@ -41,29 +41,29 @@ type ClassComponentProps = {
   requiredEnum: EnumObject;
   optionalEnum?: EnumObject;
 
-  // These should be excluded
-  excludeMe: number;
+  // These should be ignored
+  ignoreMe: number;
   node: JSX.Element;
   function: () => void;
-  shapeExclude?: { a: string };
+  shapeIgnore?: { a: string };
 };
 
 class ClassComponent extends React.Component<ClassComponentProps> {
   static propTypes = {};
 
-  static propTypesMeta: PropTypesMeta<ClassComponentProps> = {
-    intNumber: 'int',
-    floatNumber: 'float',
-    excludeMe: 'exclude',
-    shapeExclude: 'exclude',
-    nestedExclude: {
-      a: 'exclude'
+  static viewModelMeta: PropTypesMeta<ClassComponentProps> = {
+    intNumber: "int",
+    floatNumber: "float",
+    ignoreMe: "ignore",
+    shapeIgnore: "ignore",
+    nestedIgnore: {
+      a: "ignore"
     },
-    nestedNumber: [[['float']]],
+    nestedNumber: [[["float"]]],
     nestedShape: {
       a: {
         b: {
-          c: 'float'
+          c: "float"
         }
       }
     }

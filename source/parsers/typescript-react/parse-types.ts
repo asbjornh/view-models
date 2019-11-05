@@ -47,6 +47,10 @@ const getChildMeta = (node?: MetaTypeNode): MetaTypeTree | undefined => {
   if (node && node.type === "object") return node.children;
 };
 
+const getListMeta = (node?: MetaTypeNode): MetaTypeNode | undefined => {
+  if (node && node.type === "list") return node.elementType;
+};
+
 const getNumberFromMeta = (node?: MetaTypeNode) => {
   if (!node) return;
   if (
@@ -74,7 +78,7 @@ const parseType = (
     parseType(n, typeDeclarations, m, r);
 
   if (t.isTSArrayType(node)) {
-    const type = parse(node.elementType, meta);
+    const type = parse(node.elementType, getListMeta(meta));
     return type ? { ...base, type: "list", elementType: type } : undefined;
   } else if (t.isTSBooleanKeyword(node)) {
     return { ...base, type: "bool" };
@@ -108,7 +112,9 @@ const parseType = (
       return { ...base, type: "enum", children };
     }
 
-    // return parseTypes(types, typeDeclarations);
+    throw new Error(
+      `Unable to resolve type '${name}'. This might be a bug! Consider reporting the issue on GitHub! :)`
+    );
   }
 
   throw new Error(`Type '${typeNodeName(node)}' is not supported.`);

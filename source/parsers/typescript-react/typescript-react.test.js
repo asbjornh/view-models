@@ -109,7 +109,7 @@ test("Throws on multiple exports", t => {
   export const Component = (props: {}) => null,
   A = true;`;
   const error = t.throws(() => {
-    compile(sourceCode, { parser: parsers.typescript });
+    compile(sourceCode, { parser: parsers.typescriptReact });
   });
 
   t.is(
@@ -123,7 +123,7 @@ test("Throws on name collisions", t => {
   const Component = (props: { component: string }) => <div>{props.component}</div>;
   export default Component;`;
   const error = t.throws(() => {
-    compile(sourceCode, { parser: parsers.typescript });
+    compile(sourceCode, { parser: parsers.typescriptReact });
   });
 
   t.is(
@@ -163,24 +163,24 @@ test(
 );
 
 test(
-  "Excluded component",
+  "Ignored component",
   template,
   `const Component = (props: {}) => {};
-  Component.propTypesMeta = "exclude";
+  Component.viewModelMeta = "ignore";
   export default Component;`,
   undefined
 );
 
 test(
-  "Excluded props",
+  "Ignored props",
   template,
   `const Component = (props: {
     a: string,
     b?: { c: string }
   }) => {};
-  Component.propTypesMeta = {
-    a: "exclude",
-    b: { c: "exclude" }
+  Component.viewModelMeta = {
+    a: "ignore",
+    b: { c: "ignore" }
   };
   export default Component;`,
   `${csharpImports}
@@ -201,7 +201,7 @@ test(
     b?: { c?: number },
     d?: number[]
   }) => {};
-  Component.propTypesMeta = {
+  Component.viewModelMeta = {
     a: "float?",
     b: { c: "double" },
     d: ["int?"]

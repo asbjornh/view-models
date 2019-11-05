@@ -17,7 +17,7 @@ public class ClassComponentProps
   [Required]
   public IList<Link> ObjectArray { get; set; }
   public IList<IList<IList<string>>> NestedList { get; set; }
-  public ClassComponentProps_NestedExclude NestedExclude { get; set; }
+  public ClassComponentProps_NestedIgnore NestedIgnore { get; set; }
   public IList<IList<IList<float>>> NestedNumber { get; set; }
   public ClassComponentProps_NestedShape NestedShape { get; set; }
   public Link Link { get; set; }
@@ -41,7 +41,7 @@ public class ClassComponentProps_Objects
   public string PropertyB { get; set; }
 }
 
-public class ClassComponentProps_NestedExclude
+public class ClassComponentProps_NestedIgnore
 {
 }
 

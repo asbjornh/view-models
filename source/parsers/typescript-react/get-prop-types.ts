@@ -40,24 +40,21 @@ export default function getPropTypes(ast: t.File, componentName: string) {
         types = type.members;
       }
     },
-    ArrowFunctionExpression: path => {
+    ArrowFunctionExpression: (path: NodePath<t.ArrowFunctionExpression>) => {
       if (!t.isVariableDeclarator(path.parent)) return;
       if (!t.isIdentifier(path.parent.id)) return;
       if (path.parent.id.name !== componentName) return;
 
       const arg = path.node.params[0];
 
-      if (t.isTSParameterProperty(arg)) {
+      if (t.isTSParameterProperty(arg))
         throw new Error(`Unexpected parameter property`);
-      } else if (t.isNoop(arg.typeAnnotation)) {
+
+      if (t.isNoop(arg.typeAnnotation))
         throw new Error(`Unexpected noop in type annotation`);
-      } else if (arg.typeAnnotation === null) {
-        return;
-      }
 
-      const argType = arg.typeAnnotation.typeAnnotation;
-
-      if (argType) {
+      if (arg.typeAnnotation) {
+        const argType = arg.typeAnnotation.typeAnnotation;
         if (t.isTSTypeReference(argType)) {
           const name = getDefinitionName(argType.typeName);
           types = typeDeclarations[name];
@@ -72,7 +69,7 @@ export default function getPropTypes(ast: t.File, componentName: string) {
 
       const parentType = path.parent.id.typeAnnotation.typeAnnotation;
 
-      if (!t.isTSExpressionWithTypeArguments(parentType)) return;
+      if (!t.isTSTypeReference(parentType)) return;
 
       if (parentType.typeParameters !== null) {
         const type = parentType.typeParameters.params[0];

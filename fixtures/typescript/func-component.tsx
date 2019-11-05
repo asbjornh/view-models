@@ -23,7 +23,7 @@ type FuncComponentProps = {
   objects: { propertyB: string }[];
   objectArray: Link[];
   nestedList?: string[][][];
-  nestedExclude?: {
+  nestedIgnore?: {
     a: string;
   };
   nestedNumber?: number[][][];
@@ -41,11 +41,11 @@ type FuncComponentProps = {
   requiredEnum: EnumObject;
   optionalEnum?: EnumObject;
 
-  // These should be excluded
-  excludeMe: number;
+  // These should be ignored
+  ignoreMe: number;
   node: JSX.Element;
   function: () => void;
-  shapeExclude?: { a: string };
+  shapeIgnore?: { a: string };
 };
 
 const FuncComponent: WithPropTypesMeta<
@@ -53,13 +53,13 @@ const FuncComponent: WithPropTypesMeta<
   React.FunctionComponent<FuncComponentProps>
 > = props => null;
 
-FuncComponent.propTypesMeta = {
+FuncComponent.viewModelMeta = {
   intNumber: "int",
   floatNumber: "float",
-  excludeMe: "exclude",
-  shapeExclude: "exclude",
-  nestedExclude: {
-    a: "exclude"
+  ignoreMe: "ignore",
+  shapeIgnore: "ignore",
+  nestedIgnore: {
+    a: "ignore"
   },
   nestedNumber: [[["float"]]],
   nestedShape: {
