@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable react/prefer-stateless-function */
 import * as React from "react";
-import { WithPropTypesMeta, PropTypesMeta } from "../../prop-types-meta";
+import { WithMeta } from "../../source/index";
 
 import { Link } from "./link";
 
@@ -48,10 +48,8 @@ type FuncComponentProps = {
   shapeIgnore?: { a: string };
 };
 
-const FuncComponent: WithPropTypesMeta<
-  FuncComponentProps,
-  React.FunctionComponent<FuncComponentProps>
-> = props => null;
+const FuncComponent: WithMeta<FuncComponentProps> &
+  React.FunctionComponent<FuncComponentProps> = props => null;
 
 FuncComponent.viewModelMeta = {
   intNumber: "int",

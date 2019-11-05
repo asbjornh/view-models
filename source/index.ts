@@ -9,6 +9,8 @@ import typescriptReact from "./parsers/typescript-react";
 
 import { Parser, Generator } from "./compiler-types";
 
+export { WithMeta, ViewModelMeta } from "./with-meta";
+
 const generators: { [key: string]: Generator } = {
   csharp,
   kotlin,

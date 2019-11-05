@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable react/prefer-stateless-function */
 import * as React from "react";
-import { PropTypesMeta } from "../../prop-types-meta";
+import { ViewModelMeta } from "../../source/index";
 
 import { Link } from "./link";
 
@@ -51,7 +51,7 @@ type ClassComponentProps = {
 class ClassComponent extends React.Component<ClassComponentProps> {
   static propTypes = {};
 
-  static viewModelMeta: PropTypesMeta<ClassComponentProps> = {
+  static viewModelMeta: ViewModelMeta<ClassComponentProps> = {
     intNumber: "int",
     floatNumber: "float",
     ignoreMe: "ignore",

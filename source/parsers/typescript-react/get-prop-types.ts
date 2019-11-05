@@ -2,6 +2,7 @@ import traverse, { NodePath } from "@babel/traverse";
 import * as t from "@babel/types";
 
 import getDefinitionName from "./get-definition-name";
+import filter from "../../utils/filter";
 
 export default function getPropTypes(ast: t.File, componentName: string) {
   let typeName: string | undefined;
@@ -67,12 +68,15 @@ export default function getPropTypes(ast: t.File, componentName: string) {
 
       if (!t.isTSTypeAnnotation(path.parent.id.typeAnnotation)) return;
 
-      const parentType = path.parent.id.typeAnnotation.typeAnnotation;
+      const fType = path.parent.id.typeAnnotation.typeAnnotation;
+      const funcType = t.isTSIntersectionType(fType)
+        ? getTypeFromIntersection(fType)
+        : fType;
 
-      if (!t.isTSTypeReference(parentType)) return;
+      if (!t.isTSTypeReference(funcType)) return;
 
-      if (parentType.typeParameters !== null) {
-        const type = parentType.typeParameters.params[0];
+      if (funcType.typeParameters !== null) {
+        const type = funcType.typeParameters.params[0];
         if (t.isTSTypeReference(type)) {
           const name = getDefinitionName(type.typeName);
           types = typeDeclarations[name];
@@ -85,4 +89,14 @@ export default function getPropTypes(ast: t.File, componentName: string) {
   });
 
   return { typeDeclarations, typeName, types };
+}
+
+function getTypeFromIntersection(
+  node: t.TSIntersectionType
+): t.TSTypeReference | undefined {
+  const typeReferences = filter(node.types, t.isTSTypeReference);
+  return typeReferences.find(n => {
+    const name = getDefinitionName(n.typeName);
+    return name === "WithMeta" || name === "React.FunctionComponent";
+  });
 }
