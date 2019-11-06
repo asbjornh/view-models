@@ -61,19 +61,9 @@ Object.values(metaTypeNames).forEach(stringType => {
   );
 });
 
-test(
-  "Extracts component reference",
-  template,
-  "C.viewModelMeta = { a: SomeComponent };",
-  { a: { type: "ref", ref: "SomeComponent" } }
-);
-
-test(
-  "Transforms Array",
-  template,
-  "C.viewModelMeta = { a: [SomeComponent] };",
-  { a: { type: "list", elementType: { type: "ref", ref: "SomeComponent" } } }
-);
+test("Transforms Array", template, "C.viewModelMeta = { a: ['ignore'] };", {
+  a: { type: "list", elementType: { type: "ignore" } }
+});
 
 test(
   "Array with object literal",
@@ -98,7 +88,7 @@ test(
   "Throws on function",
   throwsTemplate,
   "C.viewModelMeta = { a: Object.keys(obj) };",
-  "Invalid meta type for 'a': unsupported type"
+  "Invalid meta type for 'a': Expected a string, array or object but got a 'CallExpression'"
 );
 
 test(
@@ -112,17 +102,25 @@ test(
   "Throws on invalid array element",
   throwsTemplate,
   "C.viewModelMeta = { a: [Component.propTypes] };",
-  "Invalid meta type for 'a': unsupported type"
+  "Invalid meta type for 'a': Expected a string, array or object but got a 'MemberExpression'"
 );
 
-const unsupportedTypes = ["null", "false", "true", "Array()"];
+const unsupportedTypes = [
+  ["null", "NullLiteral"],
+  ["false", "BooleanLiteral"],
+  ["true", "BooleanLiteral"],
+  ["Array()", "CallExpression"]
+];
 
 test("Throws on unsupported meta types", t => {
-  unsupportedTypes.forEach(type => {
+  unsupportedTypes.forEach(([type, nodeType]) => {
     const error = t.throws(() => {
       parseFromSource(`C.viewModelMeta = { a: ${type} };`);
     });
 
-    t.is("Invalid meta type for 'a': unsupported type", error.message);
+    t.is(
+      `Invalid meta type for 'a': Expected a string, array or object but got a '${nodeType}'`,
+      error.message
+    );
   });
 });

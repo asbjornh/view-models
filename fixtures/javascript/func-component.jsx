@@ -29,10 +29,7 @@ FunctionalComponent.propTypes = {
   shapeIgnore: pt.shape({
     object: pt.object
   }),
-  shapeMeta: pt.shape({
-    object: pt.object
-  }).isRequired,
-  objectArray: pt.arrayOf(pt.object).isRequired,
+  floatArray: pt.arrayOf(pt.number).isRequired,
   nestedList: pt.arrayOf(pt.arrayOf(pt.arrayOf(pt.string))),
   nestedIgnore: pt.shape({
     a: pt.object
@@ -46,8 +43,6 @@ FunctionalComponent.propTypes = {
   }),
   link: pt.shape(Link.propTypes),
   linkList: pt.arrayOf(pt.shape(Link.propTypes)),
-  linkMeta: pt.object,
-  linkListMeta: pt.array,
   enumArray: pt.oneOf(enumArray).isRequired,
   enumInline: pt.oneOf([1, 2]),
   enumObject: pt.oneOf(Object.keys(enumObject)),
@@ -65,15 +60,10 @@ FunctionalComponent.viewModelMeta = {
   floatNumber: "float",
   ignoreMe: "ignore",
   shapeIgnore: "ignore",
-  shapeMeta: {
-    object: Link
-  },
   nestedIgnore: {
     a: "ignore"
   },
-  objectArray: [Link],
-  linkMeta: Link,
-  linkListMeta: [Link]
+  floatArray: ["float"]
 };
 
 export default FunctionalComponent;

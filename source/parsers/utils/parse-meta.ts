@@ -18,14 +18,14 @@ export default function parseMeta(metaValue: t.ObjectExpression) {
 function parseNode(node: t.Node): MetaTypeNode {
   if (t.isStringLiteral(node)) {
     return { type: validateMetaType(node.value) };
-  } else if (t.isIdentifier(node)) {
-    return { type: "ref", ref: node.name };
   } else if (t.isObjectExpression(node)) {
     return { type: "object", children: parseMeta(node) };
   } else if (t.isArrayExpression(node)) {
     return { type: "list", elementType: getFirstElement(node) };
   }
-  throw new Error("unsupported type");
+  throw new Error(
+    `Expected a string, array or object but got a '${node.type}'`
+  );
 }
 
 const getFirstElement = (node: t.ArrayExpression): MetaTypeNode => {

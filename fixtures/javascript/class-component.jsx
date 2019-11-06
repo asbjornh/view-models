@@ -28,10 +28,8 @@ class ClassComponent extends React.Component {
     shapeIgnore: pt.shape({
       object: pt.object
     }),
-    shapeMeta: pt.shape({
-      object: pt.object
-    }).isRequired,
-    objectArray: pt.arrayOf(pt.object).isRequired,
+    floatArray: pt.arrayOf(pt.number).isRequired,
+    objectArray: pt.arrayOf(pt.shape({ a: pt.number, b: pt.number })),
     nestedList: pt.arrayOf(pt.arrayOf(pt.arrayOf(pt.string))),
     nestedIgnore: pt.shape({
       a: pt.object
@@ -45,8 +43,6 @@ class ClassComponent extends React.Component {
     }),
     link: pt.shape(Link.propTypes),
     linkList: pt.arrayOf(pt.shape(Link.propTypes)),
-    linkMeta: pt.object,
-    linkListMeta: pt.array,
     enumArray: pt.oneOf(enumArray).isRequired,
     enumInline: pt.oneOf([1, 2]),
     enumObject: pt.oneOf(Object.keys(enumObject)),
@@ -64,15 +60,11 @@ class ClassComponent extends React.Component {
     floatNumber: "float",
     ignoreMe: "ignore",
     shapeIgnore: "ignore",
-    shapeMeta: {
-      object: Link
-    },
     nestedIgnore: {
       a: "ignore"
     },
-    objectArray: [Link],
-    linkMeta: Link,
-    linkListMeta: [Link]
+    floatArray: ["float"],
+    objectArray: [{ a: "int?", b: "float" }]
   };
 
   render() {

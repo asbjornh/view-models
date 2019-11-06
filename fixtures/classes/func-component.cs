@@ -16,16 +16,12 @@ public class FunctionalComponent
   [Required]
   public IList<FunctionalComponent_Objects> Objects { get; set; }
   [Required]
-  public FunctionalComponent_ShapeMeta ShapeMeta { get; set; }
-  [Required]
-  public IList<Link> ObjectArray { get; set; }
+  public IList<float> FloatArray { get; set; }
   public IList<IList<IList<string>>> NestedList { get; set; }
   public FunctionalComponent_NestedIgnore NestedIgnore { get; set; }
   public FunctionalComponent_NestedShape NestedShape { get; set; }
   public Link Link { get; set; }
   public IList<Link> LinkList { get; set; }
-  public Link LinkMeta { get; set; }
-  public IList<Link> LinkListMeta { get; set; }
   [Required]
   public FunctionalComponent_EnumArray EnumArray { get; set; }
   public FunctionalComponent_EnumInline EnumInline { get; set; }
@@ -43,11 +39,6 @@ public class FunctionalComponent_Objects
 {
   [Required]
   public string PropertyB { get; set; }
-}
-
-public class FunctionalComponent_ShapeMeta
-{
-  public Link Object { get; set; }
 }
 
 public class FunctionalComponent_NestedIgnore

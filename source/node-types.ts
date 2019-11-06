@@ -45,15 +45,10 @@ export const metaTypeNames = { ignore: "ignore", ...typeNames };
 export type MetaTypeName = keyof typeof metaTypeNames;
 
 export type BasicMetaNode = { type: MetaTypeName };
-export type RefMetaNode = { type: "ref"; ref: string };
 export type ListMetaNode = { type: "list"; elementType: MetaTypeNode };
 export type ObjectMetaNode = { type: "object"; children: MetaTypeTree };
 
-export type MetaTypeNode =
-  | BasicMetaNode
-  | RefMetaNode
-  | ListMetaNode
-  | ObjectMetaNode;
+export type MetaTypeNode = BasicMetaNode | ListMetaNode | ObjectMetaNode;
 
 export type MetaTypeTree = {
   [key: string]: MetaTypeNode;

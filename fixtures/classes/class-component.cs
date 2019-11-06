@@ -15,16 +15,13 @@ public class ClassComponent
   [Required]
   public IList<ClassComponent_Objects> Objects { get; set; }
   [Required]
-  public ClassComponent_ShapeMeta ShapeMeta { get; set; }
-  [Required]
-  public IList<Link> ObjectArray { get; set; }
+  public IList<float> FloatArray { get; set; }
+  public IList<ClassComponent_ObjectArray> ObjectArray { get; set; }
   public IList<IList<IList<string>>> NestedList { get; set; }
   public ClassComponent_NestedIgnore NestedIgnore { get; set; }
   public ClassComponent_NestedShape NestedShape { get; set; }
   public Link Link { get; set; }
   public IList<Link> LinkList { get; set; }
-  public Link LinkMeta { get; set; }
-  public IList<Link> LinkListMeta { get; set; }
   [Required]
   public ClassComponent_EnumArray EnumArray { get; set; }
   public ClassComponent_EnumInline EnumInline { get; set; }
@@ -43,9 +40,10 @@ public class ClassComponent_Objects
   public string PropertyB { get; set; }
 }
 
-public class ClassComponent_ShapeMeta
+public class ClassComponent_ObjectArray
 {
-  public Link Object { get; set; }
+  public int? A { get; set; }
+  public float B { get; set; }
 }
 
 public class ClassComponent_NestedIgnore
