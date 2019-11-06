@@ -3,6 +3,15 @@
   "version": "0.1.0",
   "description": "Generate viewmodels from react components",
   "main": "lib/index.js",
+  "files": [
+    "lib",
+    "babel-plugin",
+    "eslint-plugin",
+    "webpack-plugin",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "lint": "eslint eslint-plugin babel-plugin webpack-plugin",
     "test": "yarn test:ts && yarn test:js",
@@ -19,6 +28,11 @@
     "url": "https://github.com/asbjornh/view-models/issues"
   },
   "homepage": "https://github.com/asbjornh/view-models#readme",
+  "dependencies": {
+    "@babel/parser": "^7.6.2",
+    "@babel/traverse": "^7.6.2",
+    "@babel/types": "^7.6.1"
+  },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@types/babel__traverse": "^7.0.7",
@@ -39,10 +53,5 @@
     "ts-node": "^8.4.1",
     "typescript": "^3.6.3",
     "webpack": "^4.41.2"
-  },
-  "dependencies": {
-    "@babel/parser": "^7.6.2",
-    "@babel/traverse": "^7.6.2",
-    "@babel/types": "^7.6.1"
   }
 }
