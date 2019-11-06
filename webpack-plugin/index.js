@@ -9,8 +9,8 @@ const defaultOptions = {
   compilerOptions: {},
   exclude: ["node_modules"],
   fileExtension: undefined,
+  include: [/\.jsx$/],
   log: false,
-  match: [/\.jsx$/],
   path: ""
 };
 
@@ -25,7 +25,6 @@ PropTypesCSharpPlugin.prototype.apply = function(compiler) {
   );
 };
 
-// TODO: Rename 'match' option to 'include'
 function runThePlugin(compilation, options) {
   const assertArray = (arr, name) =>
     Array.isArray(arr)
@@ -35,7 +34,7 @@ function runThePlugin(compilation, options) {
   if (
     compilation.errors.length || // Abort if compilation has errors
     !assertArray(options.exclude, "options.exclude") ||
-    !assertArray(options.match, "options.match")
+    !assertArray(options.include, "options.include")
   ) {
     return;
   }
@@ -46,7 +45,7 @@ function runThePlugin(compilation, options) {
 
   const modulePaths = filterPaths(
     Array.from(compilation.fileDependencies),
-    options.match,
+    options.include,
     options.exclude
   );
 

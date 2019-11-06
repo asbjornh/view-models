@@ -2,8 +2,8 @@ const test = require("ava");
 
 const filterPaths = require("./filter-paths");
 
-const template = (t, paths, match, exclude, expected) => {
-  t.deepEqual(expected, filterPaths(paths, match, exclude));
+const template = (t, paths, include, exclude, expected) => {
+  t.deepEqual(expected, filterPaths(paths, include, exclude));
 };
 
 const unixPaths = [
@@ -23,7 +23,7 @@ const posixPaths = unixPaths.map(path => path.replace(/\//g, "\\"));
 // Double backslash
 const morePosixPaths = unixPaths.map(path => path.replace(/\//g, "\\\\"));
 
-const matchPatterns = [/.jsx$/];
+const includePatterns = [/.jsx$/];
 const excludePatterns = ["/root/two", "\\root\\three", "\\\\root\\\\four"];
 
 test("Unix paths", template, unixPaths, [/.jsx$/], excludePatterns, [
@@ -34,7 +34,7 @@ test(
   "Posix paths (single backslash)",
   template,
   posixPaths,
-  matchPatterns,
+  includePatterns,
   excludePatterns,
   ["\\root\\one\\one.jsx"]
 );
@@ -43,11 +43,11 @@ test(
   "Posix paths (double backslash)",
   template,
   morePosixPaths,
-  matchPatterns,
+  includePatterns,
   excludePatterns,
   ["\\\\root\\\\one\\\\one.jsx"]
 );
 
-test("Empty path", template, [undefined], matchPatterns, excludePatterns, []);
+test("Empty path", template, [undefined], includePatterns, excludePatterns, []);
 
 test("Without arguments", template, undefined, undefined, undefined, []);
