@@ -9,13 +9,13 @@ import typescriptReact from "./parsers/typescript-react";
 
 import { Parser, Generator } from "./compiler-types";
 
-const generators: { [key: string]: Generator } = {
+const generators = {
   csharp,
   kotlin,
   typescript
 };
 
-const parsers: { [key: string]: Parser } = {
+const parsers = {
   propTypes,
   typescriptReact
 };
