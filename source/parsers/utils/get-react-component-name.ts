@@ -50,7 +50,8 @@ const multipleExportsError = new Error(
 const missingNameError = new Error(
   `Component name not found. Make sure that:
 • your component is exported as an ES module
-• the file has at most one named export or a default export`
+• the file has at most one named export or a default export
+• the component doesn't use a HOC`
 );
 
 const getNameFromDeclaration = (
