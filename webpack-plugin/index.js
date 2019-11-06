@@ -18,6 +18,8 @@ function PropTypesCSharpPlugin(options) {
   this.options = Object.assign({}, defaultOptions, options);
 }
 
+// TODO: Rename baseClass -> extends
+// TODO: Rename className -> name
 PropTypesCSharpPlugin.prototype.apply = function(compiler) {
   compiler.hooks.emit.tap(
     { name: "PropTypesCSharpPlugin" },
