@@ -20,7 +20,7 @@ npm install --save-dev view-models
 
 ### Webpack plugin
 
-Config example. See complete list of options [below](#webpack)
+Config example. See complete list of options [here](https://github.com/asbjornh/viewmodels/blob/master/docs/webpack-plugin.md)
 
 ```js
 const ViewModelsPlugin = require('view-models/webpack-plugin');
@@ -44,7 +44,7 @@ module.exports = {
 
 ### Babel plugin
 
-Read more [below](#babel)
+Read more [here](https://github.com/asbjornh/viewmodels/blob/master/docs/babel-plugin.md)
 
 ```json
 {
@@ -54,7 +54,7 @@ Read more [below](#babel)
 
 ### Eslint plugin
 
-Read more [below](#eslint)
+Read more [here](https://github.com/asbjornh/viewmodels/blob/master/docs/eslint-plugin.md)
 
 `npm install --save-dev eslint-plugin-view-models`
 
