@@ -146,7 +146,7 @@ const duplicate2Path = path.resolve(
 runWebpackAndTestError(
   "Aborts when duplicate names exist",
   "./fixtures/javascript/app-duplicate-component.js",
-  `C# class generator plugin
+  `ViewModel plugin
 Found duplicate component names in:
 FunctionalComponent (${duplicate1Path})
 FunctionalComponent (${duplicate2Path})`
@@ -158,9 +158,9 @@ const errorComponentPath = path.resolve(
 );
 
 runWebpackAndTestError(
-  "Aborts when class generation fails",
+  "Aborts when type generation fails",
   "./fixtures/javascript/app-error-component.js",
-  `C# class generator plugin
+  `ViewModel plugin
 ${errorComponentPath}
 Invalid type for prop 'a':
 Type 'object' is not supported.`

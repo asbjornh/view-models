@@ -1,4 +1,4 @@
-import generateClass from "./generators";
+import generateInterface from "./generators";
 import getReferences from "../utils/get-references";
 import indentBraces from "../utils/indent-braces";
 import { TypeTree } from "../../node-types";
@@ -9,17 +9,17 @@ export default function typescript(
   typeName: string,
   { baseClass, indent = 2, namespace }: GeneratorOptions = {}
 ) {
-  const classString = generateClass(typeName, types, baseClass);
+  const typeString = generateInterface(typeName, types, baseClass);
 
-  const classesWithNamespace = namespace
-    ? `namespace ${namespace} {\n${classString}\n}`
-    : classString;
+  const typesWithNamespace = namespace
+    ? `namespace ${namespace} {\n${typeString}\n}`
+    : typeString;
   const componentImports = getReferences(types);
   const importsString = [...(baseClass ? [baseClass] : []), ...componentImports]
     .map(i => `import { ${i} } from "./${i}";`)
     .join("\n");
 
-  const fileContent = `${importsString}\n\n${classesWithNamespace}\n`;
+  const fileContent = `${importsString}\n\n${typesWithNamespace}\n`;
 
   return indentBraces(fileContent, indent);
 }

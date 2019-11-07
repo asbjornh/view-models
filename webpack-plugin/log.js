@@ -1,18 +1,18 @@
 const logError = (compilation, error) => {
-  compilation.errors.push(`C# class generator plugin\n${error}`);
+  compilation.errors.push(`ViewModel plugin\n${error}`);
 };
 
 // Writes errors/warnings and status messages (if enabled)
-const log = (options, compilation, { classes, duration, error }) => {
+const log = (options, compilation, { types, duration, error }) => {
   const errorLogger = logError.bind(null, compilation);
 
   if (error) errorLogger(error);
 
-  if (!classes || !duration) return;
+  if (!types || !duration) return;
 
-  classes.forEach(({ error }) => error && errorLogger(error));
+  types.forEach(({ error }) => error && errorLogger(error));
 
-  const numberOfClasses = classes.reduce(
+  const numberOfTypes = types.reduce(
     (accum, { error, code, typeName }) =>
       accum + (!error && !!code && !!typeName ? 1 : 0),
     0
@@ -20,7 +20,7 @@ const log = (options, compilation, { classes, duration, error }) => {
 
   if (options.log) {
     process.stdout.write(
-      `[C# plugin]: Generated ${numberOfClasses} classes in ${duration}ms\n`
+      `[ViewModels plugin]: Generated ${numberOfTypes} view models in ${duration}ms\n`
     );
   }
 };

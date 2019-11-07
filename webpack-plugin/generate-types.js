@@ -2,13 +2,13 @@ const fs = require("fs");
 
 const { compile } = require("../lib");
 
-module.exports = function generateClasses(modulePaths, compilerOptions) {
+module.exports = function generateTypes(modulePaths, compilerOptions) {
   const startTime = new Date().getTime();
-  const classes = modulePaths.map(attemptGenerateClass(compilerOptions));
-  const duplicates = checkForDuplicates(classes, modulePaths);
+  const types = modulePaths.map(attemptGenerateType(compilerOptions));
+  const duplicates = checkForDuplicates(types, modulePaths);
 
   return {
-    classes,
+    types,
     duration: new Date().getTime() - startTime,
     error: duplicates.length
       ? `Found duplicate component names in:\n${duplicates.join("\n")}`
@@ -16,7 +16,7 @@ module.exports = function generateClasses(modulePaths, compilerOptions) {
   };
 };
 
-function attemptGenerateClass(compilerOptions) {
+function attemptGenerateType(compilerOptions) {
   return modulePath => {
     try {
       const sourceCode = fs.readFileSync(modulePath, "utf-8");

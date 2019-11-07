@@ -1,6 +1,6 @@
 import { TypeNode, TypeTree } from "../../node-types";
 
-export default function generateClass(
+export default function generateInterface(
   name: string,
   types: TypeTree,
   baseClass?: string

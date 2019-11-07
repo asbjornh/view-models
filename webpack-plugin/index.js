@@ -2,7 +2,7 @@ const path = require("path");
 
 const filterPaths = require("./filter-paths");
 const getFileExtension = require("./get-file-extension");
-const generateClasses = require("./generate-classes");
+const generateTypes = require("./generate-types");
 const { log, logError } = require("./log");
 
 const defaultOptions = {
@@ -41,7 +41,7 @@ function runThePlugin(compilation, options) {
   }
 
   if (options.log) {
-    process.stdout.write("[C# plugin]: Generating classes...\n");
+    process.stdout.write("[ViewModel plugin]: Generating types...\n");
   }
 
   const modulePaths = filterPaths(
@@ -50,7 +50,7 @@ function runThePlugin(compilation, options) {
     options.exclude
   );
 
-  const result = generateClasses(modulePaths, options.compilerOptions);
+  const result = generateTypes(modulePaths, options.compilerOptions);
   log(options, compilation, result);
 
   const outputPath = path.normalize(options.path);
@@ -60,7 +60,7 @@ function runThePlugin(compilation, options) {
     "cs";
 
   if (!result.error) {
-    result.classes.forEach(({ code, typeName }) => {
+    result.types.forEach(({ code, typeName }) => {
       if (code && typeName) {
         const fileName = `${typeName}.${fileExtension}`;
         const filePath = path.join(outputPath, fileName);

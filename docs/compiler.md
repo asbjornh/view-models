@@ -42,7 +42,7 @@ type CompilerOptions = {
 
 **indent**: Number of spaces of indentation in generated file
 
-**namespace**: Namespace to wrap around generated class
+**namespace**: Namespace for the generated view model
 
 **parser**: What input language/framework to parse. If you want to create your own parser, a `Parser` type is exposed.
 
