@@ -78,19 +78,19 @@ test(
 );
 
 test(
-  "With base class",
+  "With supertype",
   template,
   {},
   imports +
     `public class Component : BaseClass
   {
   }`,
-  { baseClass: "BaseClass", typeName: "Component" }
+  { supertype: "BaseClass", typeName: "Component" }
 );
 
-// Base class should only be applied to the class that doesn't have 'parents'
+// Supertype should only be applied to the class if it doesn't have 'parents'
 test(
-  "Nested properties with base class",
+  "Nested properties with supertype",
   template,
   {
     componentProperty: {
@@ -106,18 +106,18 @@ test(
     public class Component_ComponentProperty
     {
     }`,
-  { baseClass: "BaseClass", typeName: "Component" }
+  { supertype: "BaseClass", typeName: "Component" }
 );
 
 test(
-  "With name collision between class name and base class",
+  "With name collision between class name and supertype",
   template,
   {},
   imports +
     `public class Component
   {
   }`,
-  { baseClass: "Component" }
+  { supertype: "Component" }
 );
 
 test(
@@ -278,7 +278,7 @@ test(
 public class Component : AnotherComponent
 {
 }`,
-  { baseClass: "AnotherComponent" },
+  { supertype: "AnotherComponent" },
   "Component",
   false
 );

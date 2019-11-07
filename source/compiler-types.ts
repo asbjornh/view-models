@@ -1,9 +1,9 @@
 import { TypeTree } from "./node-types";
 
 export type GeneratorOptions = {
-  baseClass?: string;
   indent?: number;
   namespace?: string;
+  supertype?: string;
 };
 
 export type Generator = (
@@ -13,7 +13,7 @@ export type Generator = (
 ) => string;
 
 export type ParseResult = {
-  superClass?: string;
+  supertype?: string;
   typeName: string;
   types: TypeTree;
 };
@@ -21,9 +21,9 @@ export type ParseResult = {
 export type Parser = (code: string) => ParseResult | undefined;
 
 export type CompilerOptions = {
-  baseClass?: string;
   generator: Generator;
   indent?: number;
   namespace?: string;
   parser: Parser;
+  supertype?: string;
 };

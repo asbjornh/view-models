@@ -7,15 +7,15 @@ import { GeneratorOptions } from "../../compiler-types";
 export default function typescript(
   types: TypeTree,
   typeName: string,
-  { baseClass, indent = 2, namespace }: GeneratorOptions = {}
+  { supertype, indent = 2, namespace }: GeneratorOptions = {}
 ) {
-  const typeString = generateInterface(typeName, types, baseClass);
+  const typeString = generateInterface(typeName, types, supertype);
 
   const typesWithNamespace = namespace
     ? `namespace ${namespace} {\n${typeString}\n}`
     : typeString;
   const componentImports = getReferences(types);
-  const importsString = [...(baseClass ? [baseClass] : []), ...componentImports]
+  const importsString = [...(supertype ? [supertype] : []), ...componentImports]
     .map(i => `import { ${i} } from "./${i}";`)
     .join("\n");
 

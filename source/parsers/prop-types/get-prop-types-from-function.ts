@@ -13,7 +13,7 @@ export default function getPropTypesFromFunction(
   }
 
   const superComponent = find(node.arguments, t.isMemberExpression);
-  const superClass =
+  const superType =
     superComponent && t.isIdentifier(superComponent.object)
       ? superComponent.object.name
       : undefined;
@@ -25,5 +25,5 @@ export default function getPropTypesFromFunction(
     throw new Error("Couldn't find any propTypes value");
   }
 
-  return [propTypes, superClass];
+  return [propTypes, superType];
 }

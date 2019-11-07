@@ -125,7 +125,7 @@ class Component extends React.Component {
 
 ## Inheritance
 
-You can inherit types from other components using a plain reference or using `Object.assign`. The output type definition will then inherit from the generated type definition of the referenced component. The `baseClass` option will be overridden when inheriting. Make sure that the component you're inheriting from also has a generated type definition!
+You can inherit types from other components using a plain reference or using `Object.assign`. The output type definition will then inherit from the generated type definition of the referenced component. The `supertype` option will be overridden when inheriting. Make sure that the component you're inheriting from also has a generated type definition!
 
 Simple:
 

@@ -14,13 +14,13 @@ const imports = [
 export default function generateCsharp(
   types: TypeTree,
   typeName: string,
-  { baseClass, indent = 2, namespace }: GeneratorOptions = {}
+  { supertype, indent = 2, namespace }: GeneratorOptions = {}
 ) {
   validateNames(typeName, types);
 
   const classesString = flattenDefinitions(types, typeName)
     .map(({ name, properties }) =>
-      generateDefinition(name, properties, baseClass)
+      generateDefinition(name, properties, supertype)
     )
     .join("\n\n");
 

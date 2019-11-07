@@ -28,15 +28,13 @@ Source code to generate a view model for.
 
 ```ts
 type CompilerOptions = {
-  baseClass?: string;
   generator?: Generator; // Default C#
   indent?: number; // Default 2
   namespace?: string;
   parser?: Parser; // Default propTypes
+  supertype?: string;
 };
 ```
-
-**baseClass**: Base class that generated classes will extend
 
 **generator**: Set output language (defaults to `C#`). Curently, `C#`, `Kotlin` and `Typescript` are supported out of the box but new ones can be added. A `Generator` type is exposed from the same file as the compiler. The easiest way of adding a new language is probably to clone one of the existing generators in `source/generators` and work from there. If you do make a generator for another language, please consider submitting a PR!
 
@@ -45,6 +43,8 @@ type CompilerOptions = {
 **namespace**: Namespace for the generated view model
 
 **parser**: What input language/framework to parse. If you want to create your own parser, a `Parser` type is exposed.
+
+**supertype**: Generated view models will extend this type
 
 ### Example
 

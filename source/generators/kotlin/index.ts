@@ -9,23 +9,23 @@ import indentBraces from "../utils/indent-braces";
 export default function kotlin(
   types: TypeTree,
   typeName: string,
-  { baseClass, indent = 2, namespace }: GeneratorOptions = {}
+  { supertype, indent = 2, namespace }: GeneratorOptions = {}
 ) {
   const classesString =
-    baseClass && Object.keys(types).length === 0
-      ? generateTypeAlias(typeName, baseClass)
+    supertype && Object.keys(types).length === 0
+      ? generateTypeAlias(typeName, supertype)
       : flattenDefinitions(types, typeName)
           .map(({ name, properties }) =>
-            generateDefinition(name, properties, baseClass)
+            generateDefinition(name, properties, supertype)
           )
           .join("\n\n");
 
   const componentImports =
     typeof types === "string" ? [] : generateImports(types, namespace);
-  const baseClassImport = baseClass
-    ? [dotNotation(namespace, baseClass, "*")]
+  const superClassImport = supertype
+    ? [dotNotation(namespace, supertype, "*")]
     : [];
-  const imports = [...baseClassImport, ...componentImports]
+  const imports = [...superClassImport, ...componentImports]
     .map(i => `import ${i}`)
     .join("\n");
   const importsString = imports.length > 0 ? `${imports}\n\n` : "";

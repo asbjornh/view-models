@@ -135,23 +135,23 @@ test(
   `import { OtherComponent } from "./OtherComponent";
   export interface Component extends OtherComponent {
   }`,
-  { baseClass: "OtherComponent" }
+  { supertype: "OtherComponent" }
 );
 
 test(
-  "With baseClass and namespace",
+  "With supertype and namespace",
   template,
   { a: { type: "ref", ref: "Link" } },
-  `import { BaseClass } from "./BaseClass";
+  `import { Supertype } from "./Supertype";
   import { Link } from "./Link";
 
   namespace ViewModels {
-    export interface Component extends BaseClass { 
+    export interface Component extends Supertype { 
       a?: Link
     }
   }`,
   {
-    baseClass: "BaseClass",
+    supertype: "Supertype",
     namespace: "ViewModels"
   }
 );

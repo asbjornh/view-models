@@ -166,7 +166,7 @@ test(
   `package Component
   import OtherComponent.*
   typealias Component = OtherComponent`,
-  { baseClass: "OtherComponent" }
+  { supertype: "OtherComponent" }
 );
 
 test(
@@ -176,11 +176,11 @@ test(
   `package ViewModels.Component
   import ViewModels.OtherComponent.*
   typealias Component = OtherComponent`,
-  { baseClass: "OtherComponent", namespace: "ViewModels" }
+  { supertype: "OtherComponent", namespace: "ViewModels" }
 );
 
 test(
-  "With baseClass and namespace",
+  "With supertype and namespace",
   template,
   { a: { type: "ref", ref: "Link" } },
   `package ViewModels.Component
@@ -192,7 +192,7 @@ test(
     val a: Link? = null
   ) : BaseClass()`,
   {
-    baseClass: "BaseClass",
+    supertype: "BaseClass",
     namespace: "ViewModels"
   }
 );

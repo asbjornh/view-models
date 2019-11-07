@@ -79,12 +79,12 @@ runWebpackAndTest(
 );
 
 runWebpackAndTest(
-  "Adds base class",
+  "Adds supertype",
   "./fixtures/javascript/app-baseclass.js",
   {
     compilerOptions: {
       namespace: "Namespace",
-      baseClass: "BaseClass"
+      supertype: "BaseClass"
     }
   },
   (t, compilation) => {

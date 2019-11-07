@@ -50,7 +50,7 @@ module.exports = {
       path: '../view-models',
       compilerOptions: {
         namespace: 'ViewModels',
-        baseClass: 'SomeBaseClass',
+        supertype: 'SomeTypeName',
         indent: 4,
         parser: parsers.typescriptReact,
         generator: generators.kotlin

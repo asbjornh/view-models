@@ -11,10 +11,10 @@ import {
 export default function generateDefinition(
   name: string,
   types: ClassDefinition | EnumDefinition,
-  baseClass?: string
+  superClass?: string
 ) {
   return types.type === "object"
-    ? generateClass(name, types, baseClass)
+    ? generateClass(name, types, superClass)
     : generateEnum(name, types);
 }
 
@@ -26,7 +26,7 @@ const generateEnum = (name: string, node: EnumDefinition) => {
 const generateClass = (
   name: string,
   node: ClassDefinition,
-  baseClass?: string
+  superClass?: string
 ) => {
   const { children } = node;
   const properties = Object.entries(children)
@@ -37,11 +37,11 @@ const generateClass = (
     ? parentPrefixedName(name, node.parents)
     : capitalize(name);
 
-  // NOTE: If the class doesn't have parents, it is the main component class, and should extend the baseClass if any.
+  // NOTE: If the class doesn't have parents, it is the main component class, and should extend the superClass if any.
   const isComponentClass = !node.parents;
   const classExtends =
-    isComponentClass && baseClass && baseClass !== className
-      ? ` : ${baseClass}`
+    isComponentClass && superClass && superClass !== className
+      ? ` : ${superClass}`
       : "";
   return `public class ${className}${classExtends}\n{\n${body}}`;
 };

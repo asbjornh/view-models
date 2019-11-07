@@ -100,7 +100,7 @@ test(
 );
 
 test(
-  "Adds baseclass",
+  "Adds supertype",
   template,
   `import PropTypes from 'prop-types';
   const Component = ({ a }) => <div></div>;
@@ -112,7 +112,7 @@ test(
   {
   }`,
   {
-    baseClass: "BaseClass"
+    supertype: "BaseClass"
   }
 );
 
@@ -145,7 +145,7 @@ test(
 );
 
 test(
-  "Extending overrides base class",
+  "Extending overrides supertype",
   template,
   `const Component = () => <div />;
   Component.propTypes = AnotherComponent.propTypes;
@@ -156,7 +156,7 @@ test(
   {
   }`,
   {
-    baseClass: "BaseClass"
+    supertype: "BaseClass"
   }
 );
 

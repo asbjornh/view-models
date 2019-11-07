@@ -15,7 +15,7 @@ Since Kotlin doesn't have a `namespace` keyword, the `namespace` compiler option
 
 ## Required properties
 
-With the Kotlin generator, components can only extend other components if they have no required props. This also applies to the `baseClass` option. This is due to the fact that this compiler does static analysis of one react component at a time and therefore doesn't know what arguments to pass the constructors of other classes.
+With the Kotlin generator, components can only extend other components if they have no required props. This also applies to the `supertype` option. This is due to the fact that this compiler does static analysis of one react component at a time and therefore doesn't know what arguments to pass the constructors of other classes.
 
 ## Inheritance
 

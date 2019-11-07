@@ -14,14 +14,13 @@ const defaultOptions = {
   path: ""
 };
 
-function PropTypesCSharpPlugin(options) {
+function ViewModelsPlugin(options) {
   this.options = Object.assign({}, defaultOptions, options);
 }
 
-// TODO: Rename baseClass -> supertype
-PropTypesCSharpPlugin.prototype.apply = function(compiler) {
+ViewModelsPlugin.prototype.apply = function(compiler) {
   compiler.hooks.emit.tap(
-    { name: "PropTypesCSharpPlugin" },
+    { name: "ViewModelsPlugin" },
     compilation => runThePlugin(compilation, this.options) // This callback runs every time the 'emit' webpack event occurs
   );
 };
@@ -71,5 +70,5 @@ function runThePlugin(compilation, options) {
   }
 }
 
-PropTypesCSharpPlugin["default"] = PropTypesCSharpPlugin;
-module.exports = PropTypesCSharpPlugin;
+ViewModelsPlugin["default"] = ViewModelsPlugin;
+module.exports = ViewModelsPlugin;

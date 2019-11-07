@@ -5,16 +5,16 @@ import parsePropTypes from "./parsers/prop-types";
 import { CompilerOptions } from "./compiler-types";
 
 const defaultOptions = {
-  baseClass: "",
   generator: generateCsharp,
   indent: 2,
   namespace: "",
-  parser: parsePropTypes
+  parser: parsePropTypes,
+  supertype: ""
 };
 
 export default function compile(sourceCode: string, options?: CompilerOptions) {
   const opts = { ...defaultOptions, ...(options || {}) };
-  const { baseClass, generator, indent, namespace, parser } = opts;
+  const { generator, indent, namespace, parser, supertype } = opts;
   assert(typeof parser === "function", "Options.parser is not a function.");
   assert(
     typeof generator === "function",
@@ -24,12 +24,12 @@ export default function compile(sourceCode: string, options?: CompilerOptions) {
 
   if (!parseResult) return {};
 
-  const { typeName, types, superClass } = parseResult;
+  const { typeName, types, supertype: parsedSupertype } = parseResult;
 
   const code = generator(types, typeName, {
-    baseClass: superClass || baseClass,
     indent,
-    namespace
+    namespace,
+    supertype: parsedSupertype || supertype
   });
 
   return { code, typeName };

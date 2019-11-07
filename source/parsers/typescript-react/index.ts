@@ -45,7 +45,7 @@ export default function typescriptReact(
   }
 
   if (typeName) {
-    return { typeName: componentName, types: {}, superClass: typeName };
+    return { typeName: componentName, types: {}, supertype: typeName };
   }
 
   throw new Error(`Couldn't find types for '${componentName}'.`);

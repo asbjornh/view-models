@@ -3,12 +3,12 @@ import { TypeNode, TypeTree } from "../../node-types";
 export default function generateInterface(
   name: string,
   types: TypeTree,
-  baseClass?: string
+  supertype?: string
 ) {
   // NOTE: Convert TypeTree to TypeNode in order to reuse 'generateType'
   const typesObjectNode: TypeNode = { type: "object", children: types };
   const body = generateType(typesObjectNode);
-  const extendsString = baseClass ? ` extends ${baseClass}` : "";
+  const extendsString = supertype ? ` extends ${supertype}` : "";
 
   return `export interface ${name}${extendsString} ${body}`;
 }
