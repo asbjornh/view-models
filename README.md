@@ -5,7 +5,7 @@
 
 Tools for converting type definitions in client side apps to type definitions in server-side languages. Currently supports converting types from React or TypeScript/React to C#, Kotlin or TypeScript.
 
-These tools were developed for adding type safety to websites that employ server-side rendering where the client and server use different languages (like rendering React components from C# using [ReactJS.NET](https://reactjs.net/)). Combining this with CI/CD helps uncover breaking changes in the client/server integration before they reach end users.
+These tools were developed for adding type safety to websites that employ server-side rendering where the client and server use different languages (like rendering React components in C# using [ReactJS.NET](https://reactjs.net/)). Combining this with CI/CD helps uncover breaking changes in the client/server integration before they reach end users.
 
 The `React -> C#` parser/generator combo has been used in production in several web apps since 2018. The other parsers and generators are currently experimental.
 
@@ -93,3 +93,5 @@ Read more [here](https://github.com/asbjornh/viewmodels/blob/master/docs/eslint-
 ## <a id="about"></a> About
 
 This is a TypeScript rewrite of [@creuna/prop-types-csharp](https://github.com/Creuna-Oslo/prop-types-csharp) which I created while employed at [Creuna](https://github.com/Creuna-Oslo). At Creuna we started using `ReactJS.NET` for server-side rendering pretty heavily around 2017 and soon discovered that a javascript/C# integration can be quite brittle. Breakage was common. I introduced this tool mid-2018 and since sorting out the initial kinks it has been very helpful in reducing runtime breakage.
+
+If you're migrating from `@creuna/prop-types-csharp` [here's](https://github.com/asbjornh/viewmodels/blob/master/docs/prop-types-csharp-migration.md) a migration guide.
