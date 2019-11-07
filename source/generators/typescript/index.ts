@@ -6,10 +6,10 @@ import { GeneratorOptions } from "../../compiler-types";
 
 export default function typescript(
   types: TypeTree,
-  className: string,
+  typeName: string,
   { baseClass, indent = 2, namespace }: GeneratorOptions = {}
 ) {
-  const classString = generateClass(className, types, baseClass);
+  const classString = generateClass(typeName, types, baseClass);
 
   const classesWithNamespace = namespace
     ? `namespace ${namespace} {\n${classString}\n}`

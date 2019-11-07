@@ -59,12 +59,12 @@ const template = (
   input,
   expected,
   options,
-  className = "Component",
+  typeName = "Component",
   removeIndentation
 ) => {
   t.is(
     normalize(expected, removeIndentation),
-    normalize(stringify(input, className, options), removeIndentation)
+    normalize(stringify(input, typeName, options), removeIndentation)
   );
 };
 

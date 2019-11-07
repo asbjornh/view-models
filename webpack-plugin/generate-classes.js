@@ -27,16 +27,16 @@ function attemptGenerateClass(compilerOptions) {
   };
 }
 
-function checkForDuplicates(classes, modulePaths) {
-  return classes.reduce((accum, { className }, index) => {
-    const indexOfDuplicate = classes
+function checkForDuplicates(typeDefinitions, modulePaths) {
+  return typeDefinitions.reduce((accum, { typeName }, index) => {
+    const indexOfDuplicate = typeDefinitions
       .slice(index + 1) // Ensures that the same pair of duplicates doesn't get reported twice
-      .findIndex(c => c.className === className);
+      .findIndex(c => c.typeName === typeName);
 
-    if (className && indexOfDuplicate !== -1) {
+    if (typeName && indexOfDuplicate !== -1) {
       return accum.concat(
-        `${className} (${modulePaths[index]})`,
-        `${className} (${modulePaths[indexOfDuplicate + 1]})`
+        `${typeName} (${modulePaths[index]})`,
+        `${typeName} (${modulePaths[indexOfDuplicate + 1]})`
       );
     }
 

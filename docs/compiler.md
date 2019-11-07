@@ -7,15 +7,15 @@ import { compile } from "view-models";
 ## compile
 
 ```ts
-(sourceCode: string, options?: CompilerOptions): { className?: string, code?: string }
+(sourceCode: string, options?: CompilerOptions): { typeName?: string, code?: string }
 ```
 
 ### Returns
 
 Returns an `object` containing:
 
-**className**: `String`
-Name of React component (derived from export declaration).
+**typeName**: `String`
+Name of the generated type definition.
 
 **code**: `String`
 Source code for generated view model.
@@ -51,7 +51,7 @@ type CompilerOptions = {
 ```js
 const { compile } = require("view-models");
 
-const { className, code } = compile(sourceCode, {
+const { code, typeName } = compile(sourceCode, {
   indent: 4,
   namespace: "Some.Awesome.Namespace"
 });
@@ -62,7 +62,7 @@ const { className, code } = compile(sourceCode, {
 ```js
 const { compile, generators, parsers } = require("view-models");
 
-const { className, code } = compile(sourceCode, {
+const { code, typeName } = compile(sourceCode, {
   parser: parsers.typescript,
   generator: generators.kotlin
 });

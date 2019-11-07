@@ -58,12 +58,12 @@ const template = (
   input,
   expected,
   options,
-  className = "Component",
+  typeName = "Component",
   removeIndentation
 ) => {
   t.is(
     normalize(expected, removeIndentation),
-    normalize(generate(input, className, options), removeIndentation)
+    normalize(generate(input, typeName, options), removeIndentation)
   );
 };
 
@@ -85,7 +85,7 @@ test(
     `public class Component : BaseClass
   {
   }`,
-  { baseClass: "BaseClass", className: "Component" }
+  { baseClass: "BaseClass", typeName: "Component" }
 );
 
 // Base class should only be applied to the class that doesn't have 'parents'
@@ -106,7 +106,7 @@ test(
     public class Component_ComponentProperty
     {
     }`,
-  { baseClass: "BaseClass", className: "Component" }
+  { baseClass: "BaseClass", typeName: "Component" }
 );
 
 test(

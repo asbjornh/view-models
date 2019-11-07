@@ -50,18 +50,18 @@ export type FlatTree = { [key: string]: FlatNode };
 //  - Values of type 'list' will get a class definition if 'children' is an 'object'
 export default function flattenDefinitions(
   types: TypeTree,
-  className: string
+  typeName: string
 ): FlatDefinition[] {
   const componentClass: FlatDefinition = {
-    name: className,
+    name: typeName,
     properties: {
       type: "object",
-      children: flattenTree(types, [className])
+      children: flattenTree(types, [typeName])
     }
   };
 
   // Create new definitions for values of type 'object' and 'enum' or array of 'object'
-  const childClasses = createShallowDefinitions(types, [className]);
+  const childClasses = createShallowDefinitions(types, [typeName]);
 
   return [componentClass, ...childClasses];
 }

@@ -24,13 +24,13 @@ export default function compile(sourceCode: string, options?: CompilerOptions) {
 
   if (!parseResult) return {};
 
-  const { className, types, superClass } = parseResult;
+  const { typeName, types, superClass } = parseResult;
 
-  const code = generator(types, className, {
+  const code = generator(types, typeName, {
     baseClass: superClass || baseClass,
     indent,
     namespace
   });
 
-  return { className, code };
+  return { code, typeName };
 }

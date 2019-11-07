@@ -8,13 +8,13 @@ import indentBraces from "../utils/indent-braces";
 
 export default function kotlin(
   types: TypeTree,
-  className: string,
+  typeName: string,
   { baseClass, indent = 2, namespace }: GeneratorOptions = {}
 ) {
   const classesString =
     baseClass && Object.keys(types).length === 0
-      ? generateTypeAlias(className, baseClass)
-      : flattenDefinitions(types, className)
+      ? generateTypeAlias(typeName, baseClass)
+      : flattenDefinitions(types, typeName)
           .map(({ name, properties }) =>
             generateDefinition(name, properties, baseClass)
           )
@@ -30,7 +30,7 @@ export default function kotlin(
     .join("\n");
   const importsString = imports.length > 0 ? `${imports}\n\n` : "";
 
-  const packageString = `package ${dotNotation(namespace, className)}`;
+  const packageString = `package ${dotNotation(namespace, typeName)}`;
 
   const fileContent = `${packageString}\n\n${importsString}${classesString}\n`;
 

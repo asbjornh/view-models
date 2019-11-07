@@ -8,13 +8,13 @@ export type GeneratorOptions = {
 
 export type Generator = (
   types: TypeTree,
-  className: string,
+  typeName: string,
   options: GeneratorOptions
 ) => string;
 
 export type ParseResult = {
-  className: string;
   superClass?: string;
+  typeName: string;
   types: TypeTree;
 };
 

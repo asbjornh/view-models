@@ -13,8 +13,8 @@ const log = (options, compilation, { classes, duration, error }) => {
   classes.forEach(({ error }) => error && errorLogger(error));
 
   const numberOfClasses = classes.reduce(
-    (accum, { error, code, className }) =>
-      accum + (!error && !!code && !!className ? 1 : 0),
+    (accum, { error, code, typeName }) =>
+      accum + (!error && !!code && !!typeName ? 1 : 0),
     0
   );
 

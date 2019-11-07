@@ -18,8 +18,7 @@ function PropTypesCSharpPlugin(options) {
   this.options = Object.assign({}, defaultOptions, options);
 }
 
-// TODO: Rename baseClass -> extends
-// TODO: Rename className -> name
+// TODO: Rename baseClass -> supertype
 PropTypesCSharpPlugin.prototype.apply = function(compiler) {
   compiler.hooks.emit.tap(
     { name: "PropTypesCSharpPlugin" },
@@ -61,9 +60,9 @@ function runThePlugin(compilation, options) {
     "cs";
 
   if (!result.error) {
-    result.classes.forEach(({ code, className }) => {
-      if (code && className) {
-        const fileName = `${className}.${fileExtension}`;
+    result.classes.forEach(({ code, typeName }) => {
+      if (code && typeName) {
+        const fileName = `${typeName}.${fileExtension}`;
         const filePath = path.join(outputPath, fileName);
         const asset = { source: () => code, size: () => code.length };
         compilation.assets[filePath] = asset;

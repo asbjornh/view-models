@@ -39,13 +39,13 @@ export default function typescriptReact(
 
   if (types) {
     return {
-      className: typeName || componentName,
+      typeName: typeName || componentName,
       types: parseTypes(types, typeDeclarations, meta)
     };
   }
 
   if (typeName) {
-    return { className: componentName, types: {}, superClass: typeName };
+    return { typeName: componentName, types: {}, superClass: typeName };
   }
 
   throw new Error(`Couldn't find types for '${componentName}'.`);
