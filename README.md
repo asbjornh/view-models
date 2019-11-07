@@ -1,5 +1,8 @@
 # ViewModels
 
+[![npm version](https://img.shields.io/npm/v/view-models.svg)](https://npmjs.com/package/view-models)
+[![Travis status](https://travis-ci.org/asbjornh/view-models.svg?branch=master)](https://travis-ci.org/asbjornh/view-models)
+
 Tools for converting type definitions in client side apps to type definitions in server-side languages. Currently supports converting types from React or TypeScript/React to C#, Kotlin or TypeScript.
 
 These tools were developed for adding type safety to websites that employ server-side rendering where the client and server use different languages (like rendering React components from C# using [ReactJS.NET](https://reactjs.net/)). Combining this with CI/CD helps uncover breaking changes in the client/server integration before they reach end users.
