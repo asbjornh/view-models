@@ -1,17 +1,17 @@
-const path = require('path');
+const path = require("path");
 
-const PropTypesCSharpPlugin = require('../../webpack-plugin');
+const ViewModelPlugin = require("../../webpack-plugin");
 
-const defaultPluginOptions = { path: 'classes' };
+const defaultPluginOptions = { path: "classes" };
 
 module.exports = function(env = {}, pluginOptions = {}) {
   return {
-    entry: env.entry || './fixtures/javascript/app.js',
+    entry: env.entry || "./fixtures/javascript/app.js",
     output: {
-      path: env.path || path.resolve(__dirname, '..', 'dist'),
-      filename: '[name].js'
+      path: env.path || path.resolve(__dirname, "..", "dist"),
+      filename: "[name].js"
     },
-    mode: 'production',
+    mode: "production",
     module: {
       rules: [
         {
@@ -19,26 +19,26 @@ module.exports = function(env = {}, pluginOptions = {}) {
           exclude: /node_modules/,
           use: [
             {
-              loader: 'babel-loader',
+              loader: "babel-loader",
               options: {
                 plugins: [].concat(
                   env.babelPlugin
-                    ? [path.join(__dirname, '../../babel-plugin')]
+                    ? [path.join(__dirname, "../../babel-plugin")]
                     : [],
-                  '@babel/proposal-class-properties'
+                  "@babel/proposal-class-properties"
                 )
               }
             },
-            'eslint-loader'
+            "eslint-loader"
           ]
         }
       ]
     },
     resolve: {
-      extensions: ['.js', '.jsx']
+      extensions: [".js", ".jsx"]
     },
     plugins: [
-      new PropTypesCSharpPlugin({ ...defaultPluginOptions, ...pluginOptions })
+      new ViewModelPlugin({ ...defaultPluginOptions, ...pluginOptions })
     ]
   };
 };
