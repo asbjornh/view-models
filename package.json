@@ -13,10 +13,12 @@
     "README.md"
   ],
   "scripts": {
+    "build": "tsc",
     "lint": "eslint eslint-plugin babel-plugin webpack-plugin",
     "test": "yarn test:ts && yarn test:js",
     "test:ts": "ava --verbose --config=ava.config.typescript.js",
-    "test:js": "tsc && ava --verbose --config=ava.config.javascript.js"
+    "test:js": "tsc && ava --verbose --config=ava.config.javascript.js",
+    "test:ci": "ava --config=ava.config.typescript.js && ava --config=ava.config.javascript.js"
   },
   "repository": {
     "type": "git",

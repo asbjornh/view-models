@@ -1,0 +1,8 @@
+language: node_js
+node_js: "lts/*"
+cache: yarn
+install: yarn
+script:
+  - yarn lint
+  - yarn build
+  - yarn test:ci
