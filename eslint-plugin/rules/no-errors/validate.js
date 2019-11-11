@@ -12,9 +12,12 @@ module.exports = ({
   context,
   exportDeclarations,
   metaTypes, // Literal node or js object with ObjectProperty nodes as values
-  propTypes,
-  propNames
+  propTypes
 }) => {
+  const propNames = t.isObjectExpression(propTypes)
+    ? propTypes.properties.map(p => p.key)
+    : [];
+
   const report = (node, message) => context.report({ node, message });
 
   if (t.isLiteral(metaTypes, { value: "ignore" })) return;
