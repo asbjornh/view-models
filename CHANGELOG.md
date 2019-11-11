@@ -2,6 +2,7 @@
 
 ## 1.0.0
 
+- BREAKING: [eslint plugin] Renames `all` rule to `no-errors`
 - Fixes eslint plugin not reporting errors on `PropTypes.any` and `PropTypes.symbol`
 - Fixes eslint plugin not reporting errors on identifiers in meta
 

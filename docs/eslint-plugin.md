@@ -4,7 +4,7 @@
 npm install --save-dev eslint-plugin-view-models
 ```
 
-The plugin has a single rule that checks many things: `view-models/all`.
+The plugin has a single rule that checks many things: `view-models/no-errors`.
 
 .eslintrc.json:
 
@@ -12,7 +12,7 @@ The plugin has a single rule that checks many things: `view-models/all`.
 {
   "plugins": ["eslint-plugin-view-models"],
   "rules": {
-    "view-models/all": "error"
+    "view-models/no-errors": "error"
   }
 }
 ```

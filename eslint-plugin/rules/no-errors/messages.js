@@ -1,4 +1,4 @@
-const { metaTypeNames } = require("../lib/node-types");
+const { metaTypeNames } = require("../../../lib/node-types");
 
 module.exports = {
   badIgnore: value => `Expected 'ignore' but got '${value}'`,

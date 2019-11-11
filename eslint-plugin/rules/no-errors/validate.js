@@ -1,8 +1,8 @@
 const t = require("@babel/types");
 
-const { metaTypeNames } = require("../lib/node-types");
+const { metaTypeNames } = require("../../../lib/node-types");
 const getInvalidPropTypes = require("./get-invalid-prop-types");
-const isEquivalent = require("../lib/utils/is-equivalent-string").default;
+const isEquivalent = require("../../../lib/utils/is-equivalent-string").default;
 const messages = require("./messages");
 
 const isAllowed = string => metaTypeNames[string];

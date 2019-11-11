@@ -1,6 +1,7 @@
 const t = require("@babel/types");
 
-const isObjectMethod = require("../lib/parsers/utils/is-object-method").default;
+const isObjectMethod = require("../../../lib/parsers/utils/is-object-method")
+  .default;
 const messages = require("./messages");
 
 const illegalPropTypes = ["any", "array", "object", "oneOfType", "symbol"];
