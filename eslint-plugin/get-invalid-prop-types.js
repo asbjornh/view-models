@@ -3,11 +3,7 @@ const t = require("@babel/types");
 const isObjectMethod = require("../lib/parsers/utils/is-object-method").default;
 const messages = require("./messages");
 
-const illegalTypes = {
-  array: messages.array(),
-  object: messages.object(),
-  oneOfType: messages.oneOfType()
-};
+const illegalPropTypes = ["any", "array", "object", "oneOfType", "symbol"];
 
 const makeHasLiteral = variablesInScope => (node, babelValidator) =>
   variablesInScope.some(
@@ -54,20 +50,20 @@ const getInvalidPropTypes = (objectExpression, scope) => {
       ? propTypeNode.object.property.name
       : propTypeNode.property.name;
 
-    if (illegalTypes[propTypeName]) {
+    if (illegalPropTypes.includes(propTypeName)) {
       accum[key] = {
         node: propTypeNode.property,
-        message: illegalTypes[propTypeName]
+        message: messages.illegalPropType(propTypeName)
       };
     }
 
     if (t.isCallExpression(value)) {
       value.arguments.filter(t.isMemberExpression).forEach(argument => {
         const typeName = argument.property.name;
-        if (illegalTypes[typeName]) {
+        if (illegalPropTypes.includes(typeName)) {
           accum[key] = {
             node: argument.property,
-            message: illegalTypes[typeName]
+            message: messages.illegalPropType(typeName)
           };
         }
       });
@@ -130,7 +126,7 @@ const getInvalidPropTypes = (objectExpression, scope) => {
         } else {
           accum[key] = {
             node: argument,
-            message: messages.missingObjectReference()
+            message: messages.missingObject()
           };
         }
       }

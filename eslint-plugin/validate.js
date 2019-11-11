@@ -59,29 +59,20 @@ module.exports = ({
   }
 
   if (!t.isLiteral(metaTypes)) {
-    Object.values(metaTypes).forEach(node => {
-      const handleLiteral = () => {
+    function validateNode(node) {
+      if (t.isObjectExpression(node)) {
+        node.properties.forEach(node => validateNode(node.value));
+      } else if (t.isLiteral(node)) {
         if (!isAllowed(node.value)) {
           report(node, messages.badStringLiteral(node.value));
         }
-      };
-
-      const handleArray = () => {
-        const [element] = node.elements;
-        if (t.isLiteral(element) && !isAllowed(element)) {
-          report(node, messages.badStringLiteral(element.value));
-        }
-      };
-
-      if (t.isIdentifier(node) || t.isObjectExpression(node)) {
-        return;
-      } else if (t.isLiteral(node)) {
-        handleLiteral(node);
       } else if (t.isArrayExpression(node)) {
-        handleArray(node);
+        validateNode(node.elements[0]);
       } else {
         report(node, messages.badMeta());
       }
-    });
+    }
+
+    Object.values(metaTypes).forEach(validateNode);
   }
 };

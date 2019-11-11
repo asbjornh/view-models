@@ -88,15 +88,6 @@ const validCases = [
   // Invalid function call with meta type (class component)
   'class A { static propTypes = { b: someFunc() }; static viewModelMeta = { b: "ignore" }; }',
 
-  // Valid meta type component reference
-  "A.viewModelMeta = { b: B };",
-
-  // Valid meta type array
-  "A.viewModelMeta = { b: [B] };",
-
-  // Valid meta type array (class component)
-  "class A { static viewModelMeta = { b: [B] }; }",
-
   // Valid meta type 'ignore'
   'A.viewModelMeta = { b: "ignore" };',
 
@@ -126,13 +117,13 @@ const validCases = [
   }`,
 
   // Object with nested meta
-  "A.propTypes = { b: PropTypes.object }; A.viewModelMeta = { b: { c: Link } };",
+  "A.propTypes = { b: PropTypes.object }; A.viewModelMeta = { b: { c: 'ignore' } };",
 
   // Empty shape
   "A.propTypes = { b: PropTypes.shape() };",
 
   // Nested shape with bad prop and nested meta
-  "A.propTypes = { b: PropTypes.shape({ c: PropTypes.object }) }; A.viewModelMeta = { b: { c: Link } };",
+  "A.propTypes = { b: PropTypes.shape({ c: PropTypes.object }) }; A.viewModelMeta = { b: { c: 'ignore' } };",
 
   // Reference to object literal in Object.keys
   'const obj = { c: "d" }; A.propTypes = { c: PropTypes.oneOf(Object.keys(obj)) };',
@@ -153,40 +144,64 @@ const invalidCases = [
 
   ['A.viewModelMeta = "igno";', messages.badIgnore("igno")],
 
-  // PropTypes.object
-  ["A.propTypes = { b: PropTypes.object };", messages.object()],
+  // Illegal propTypes
+  [
+    `A.propTypes = {
+      b: PropTypes.object,
+      c: PropTypes.array,
+      d: PropTypes.oneOfType(),
+      e: PropTypes.any,
+      f: PropTypes.symbol
+    };`,
+    messages.illegalPropType("object"),
+    messages.illegalPropType("array"),
+    messages.illegalPropType("oneOfType"),
+    messages.illegalPropType("any"),
+    messages.illegalPropType("symbol")
+  ],
 
-  // PropTypes.object (class component)
-  ["class A { static propTypes = { b: PropTypes.object };}", messages.object()],
-
-  // PropTypes.array
-  ["A.propTypes = { b: PropTypes.array };", messages.array()],
-
-  // PropTypes.array (class component)
-  ["class A { static propTypes = { b: PropTypes.array }; }", messages.array()],
+  // Illegal propTypes (class component)
+  [
+    `class A {
+      static propTypes = {
+        b: PropTypes.object,
+        c: PropTypes.array,
+        d: PropTypes.oneOfType(),
+        e: PropTypes.any,
+        f: PropTypes.symbol
+      };
+    }`,
+    messages.illegalPropType("object"),
+    messages.illegalPropType("array"),
+    messages.illegalPropType("oneOfType"),
+    messages.illegalPropType("any"),
+    messages.illegalPropType("symbol")
+  ],
 
   // PropTypes.object.isRequired
-  ["A.propTypes = { b: PropTypes.object.isRequired };", messages.object()],
+  [
+    "A.propTypes = { b: PropTypes.object.isRequired };",
+    messages.illegalPropType("object")
+  ],
 
   // Object in arrayOf
   [
     "A.propTypes = { b: PropTypes.arrayOf(PropTypes.object) };",
-    messages.object()
+    messages.illegalPropType("object")
   ],
 
   // PropTypes.object.isRequired (class component)
   [
     "class A { static propTypes = { b: PropTypes.object.isRequired }; }",
-    messages.object()
+    messages.illegalPropType("object")
   ],
 
-  // PropTypes.oneOfType
-  ["A.propTypes = { b: PropTypes.oneOfType() };", messages.oneOfType()],
-
-  // PropTypes.oneOfType (class component)
+  // Identifier in meta
   [
-    "class A { static propTypes = { b: PropTypes.oneOfType() }; }",
-    messages.oneOfType()
+    "A.viewModelMeta = { b: B, c: [C], d: { e: { f: F } } };",
+    messages.badMeta(),
+    messages.badMeta(),
+    messages.badMeta()
   ],
 
   // Name collision
@@ -216,11 +231,20 @@ const invalidCases = [
   // Nested without meta
   [
     "A.propTypes = { b: PropTypes.shape({ c: PropTypes.object }) };",
-    messages.object()
+    messages.illegalPropType("object")
   ],
 
   // Typos in string literals
-  ['A.viewModelMeta = { b: "igno" };', messages.badStringLiteral("igno")],
+  [
+    `A.viewModelMeta = {
+      b: "igno",
+      c: ["igno"],
+      d: { e: "igno" }
+    };`,
+    messages.badStringLiteral("igno"),
+    messages.badStringLiteral("igno"),
+    messages.badStringLiteral("igno")
+  ],
 
   // Invalid meta (function)
   ["A.viewModelMeta = { b: someFunc(B) };", messages.badMeta()],
@@ -246,7 +270,7 @@ const invalidCases = [
   // Incomplete statement (should not make the plugin crash)
   [
     "const arr = [1,2]; A.propTypes = { c: PropTypes.oneOf(Object.values()) };",
-    messages.missingObjectReference()
+    messages.missingObject()
   ],
 
   // Imported arrays in oneOf

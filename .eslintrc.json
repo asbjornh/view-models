@@ -16,8 +16,8 @@
     "strict": 0,
     "eqeqeq": 1,
     "no-console": 1,
+    "no-inner-declarations": 0,
     "no-irregular-whitespace": 1,
-    "no-use-before-define": [2, "nofunc"],
     "no-unused-vars": [
       2,
       {
