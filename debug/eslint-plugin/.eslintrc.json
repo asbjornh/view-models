@@ -1,0 +1,7 @@
+{
+  "plugins": ["eslint-plugin-local-rules"],
+  "rules": {
+    "local-rules/no-errors": "error",
+    "local-rules/no-unused-meta": ["warn", { "test": "test" }]
+  }
+}
