@@ -1,17 +1,5 @@
 const t = require("@babel/types");
 
-const getMeta = node => {
-  if (!node) return {};
-  // Manual type check for string because ESTree has no concept of StringLiteral:
-  if (t.isLiteral(node) && typeof node.value === "string") return node;
-  if (!node.properties) return {};
-
-  return node.properties.reduce(
-    (accum, property) => ({ ...accum, [property.key.name]: property.value }),
-    {}
-  );
-};
-
 // This function decorates a visitor object with functions that extract the propTypes, meta types and file exports.
 module.exports = function viewModelsVisitor(visitor) {
   let exportDeclarations = [];
@@ -44,7 +32,7 @@ module.exports = function viewModelsVisitor(visitor) {
         }
 
         if (t.isIdentifier(node.key, { name: "viewModelMeta" })) {
-          metaTypes = getMeta(node.value);
+          metaTypes = node.value;
         }
       },
       AssignmentExpression: node => {
@@ -60,7 +48,7 @@ module.exports = function viewModelsVisitor(visitor) {
           t.isMemberExpression(node.left) &&
           node.left.property.name === "viewModelMeta"
         ) {
-          metaTypes = getMeta(node.right);
+          metaTypes = node.right;
         }
       }
     },

@@ -7,6 +7,18 @@ const messages = require("./messages");
 
 const isAllowed = string => metaTypeNames[string];
 
+const getMeta = node => {
+  if (!node) return {};
+  // Manual type check for string because ESTree has no concept of StringLiteral:
+  if (t.isLiteral(node) && typeof node.value === "string") return node;
+  if (!node.properties) return {};
+
+  return node.properties.reduce(
+    (accum, property) => ({ ...accum, [property.key.name]: property.value }),
+    {}
+  );
+};
+
 module.exports = ({
   bodyNode,
   context,
@@ -14,16 +26,17 @@ module.exports = ({
   metaTypes, // Literal node or js object with ObjectProperty nodes as values
   propTypes
 }) => {
+  const meta = getMeta(metaTypes);
   const propNames = t.isObjectExpression(propTypes)
     ? propTypes.properties.map(p => p.key)
     : [];
 
   const report = (node, message) => context.report({ node, message });
 
-  if (t.isLiteral(metaTypes, { value: "ignore" })) return;
+  if (t.isLiteral(meta, { value: "ignore" })) return;
 
-  if (t.isLiteral(metaTypes)) {
-    report(metaTypes, messages.badIgnore(metaTypes.value));
+  if (t.isLiteral(meta)) {
+    report(meta, messages.badIgnore(meta.value));
   }
 
   if (exportDeclarations.length > 1) {
@@ -58,10 +71,10 @@ module.exports = ({
         });
     };
 
-    recursiveValidatePropTypes(invalidPropTypes, metaTypes);
+    recursiveValidatePropTypes(invalidPropTypes, meta);
   }
 
-  if (!t.isLiteral(metaTypes)) {
+  if (!t.isLiteral(meta)) {
     function validateNode(node) {
       if (t.isObjectExpression(node)) {
         node.properties.forEach(node => validateNode(node.value));
@@ -76,6 +89,6 @@ module.exports = ({
       }
     }
 
-    Object.values(metaTypes).forEach(validateNode);
+    Object.values(meta).forEach(validateNode);
   }
 };
