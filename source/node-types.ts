@@ -11,6 +11,16 @@ export const typeNames = {
   string: "string"
 };
 
+export const metaTypeNames = {
+  ignore: "ignore",
+  double: "double",
+  "double?": "double?",
+  float: "float",
+  "float?": "float?",
+  int: "int",
+  "int?": "int?"
+};
+
 export type TypeName = keyof typeof typeNames;
 
 export type NodeBase = { required?: boolean };
@@ -39,8 +49,6 @@ export type TypeNode =
 export type TypeTree = {
   [key: string]: TypeNode;
 };
-
-export const metaTypeNames = { ignore: "ignore", ...typeNames };
 
 export type MetaTypeName = keyof typeof metaTypeNames;
 
