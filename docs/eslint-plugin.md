@@ -46,7 +46,7 @@ This rule disallows the use of property names in `viewModelMeta` when there's no
 
 ### no-meta-mismatch
 
-This rule disallows the use of meta types that don't match their corresponding propType. Examples:
+This rule disallows the use of meta types that don't match their corresponding propType. Note that currently only top-level properties are checked. Examples:
 
 ```js
 Component.propTypes = {
