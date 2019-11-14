@@ -83,7 +83,7 @@ module.exports = ({
           report(node, messages.badStringLiteral(node.value));
         }
       } else if (t.isArrayExpression(node)) {
-        validateNode(node.elements[0]);
+        node.elements.forEach(validateNode);
       } else {
         report(node, messages.badMeta());
       }
