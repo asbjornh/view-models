@@ -13,6 +13,16 @@ Exported TypeScript types:
 - `WithPropTypesMeta` -> `WithMeta`
   - The `WithMeta` type takes only one type argument and should be used as an intersection type with `React.FunctionComponent`
 
-Compiler options (Webpack plugin)
+Webpack plugin
+
+- option: `match` -> `include`
+
+Compiler options (Also applies to `compilerOptions` in Webpack plugin)
 
 - `baseClass` -> `supertype`
+
+Eslint plugin:
+
+- plugin: `@creuna/eslint-plugin-prop-types-csharp` -> `eslint-plugin-view-models`
+- rule: `@creuna/prop-types-csharp/all` -> `view-models/no-errors`
+- Also, there's two new useful rules (`no-unused-meta` and `no-meta-mismatch`)
