@@ -13,7 +13,8 @@ This eslint plugin has rules for working with `view-models` and javascript-React
   "plugins": ["eslint-plugin-view-models"],
   "rules": {
     "view-models/no-errors": "error",
-    "view-models/no-unused-meta": "warn"
+    "view-models/no-unused-meta": "warn",
+    "view-models/no-meta-mismatch": "warn"
   }
 }
 ```
@@ -22,7 +23,7 @@ Note that while the eslint plugin is installed separately from `view-models`, th
 
 ## Configuration
 
-All rules support a `include` option for specifying what files the rule should be active for. The option takes a list of strings that are matched to the name of a file. The default value for `include` is `[".jsx"]` which means the rules will run for files that include `.jsx` in the file name.
+All rules support a `include` option for specifying what files the rule should be active for. The option takes a list of strings that are matched to the name of a file. The default value for `include` is `[".jsx"]` which means the rules will run for files that include `.jsx` in the file name. Example (applies to all rules):
 
 ```json
 {
@@ -42,3 +43,20 @@ As the name implies, this rule checks for many common sources of compile errors 
 ### no-unused-meta
 
 This rule disallows the use of property names in `viewModelMeta` when there's no corresponding property name in `propTypes`. Note that currently only top-level properties are checked.
+
+### no-meta-mismatch
+
+This rule disallows the use of meta types that don't match their corresponding propType. Examples:
+
+```js
+Component.propTypes = {
+  a: PropTypes.string,
+  b: PropTypes.shape({}),
+  c: PropTypes.arrayOf()
+};
+Component.viewModelMeta = {
+  a: "int", // Error because "int" doesn't match "string"
+  b: ["int"], // Error because array doesn't match "shape"
+  c: {} // Error because object doesn't match "arrayOf"
+};
+```

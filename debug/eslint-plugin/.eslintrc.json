@@ -1,7 +1,8 @@
 {
   "plugins": ["eslint-plugin-local-rules"],
   "rules": {
-    "local-rules/no-errors": "error",
-    "local-rules/no-unused-meta": ["warn", { "include": [".jsx", ".model.js"] }]
+    "local-rules/no-errors": ["error", { "include": [".model.js"] }],
+    "local-rules/no-unused-meta": ["warn", { "include": [".model.js"] }],
+    "local-rules/no-meta-mismatch": ["warn", { "include": [".model.js"] }]
   }
 }

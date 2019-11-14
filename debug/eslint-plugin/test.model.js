@@ -2,6 +2,6 @@ import PropTypes from "prop-types";
 
 const A = {};
 A.propTypes = { b: PropTypes.string };
-A.viewModelMeta = { b: "ignore", c: "int" };
+A.viewModelMeta = { b: [], c: "int" };
 
 export default A;
