@@ -1,15 +1,14 @@
 const t = require("@babel/types");
 
+const matchesFile = require("../../utils/matches-file");
 const viewModelsVisitor = require("../../utils/view-models-visitor");
 
 const message = name => `'${name}' is not defined in component propTypes`;
 
-// TODO: add option for overriding the ".jsx" check
 module.exports = {
   create: function(context) {
-    if (!context.getFilename().includes(".jsx")) {
-      return {};
-    }
+    const [options = {}] = context.options;
+    if (!matchesFile(context.getFilename(), options.include)) return {};
 
     // The exported visitor functions gather information about propTypes, viewModelMeta and file exports. The 'Program:exit' visitor will execute last. When it runs, the validate function is called with the gathered data. 'validate' will report any errors to eslint via the 'context' object.
     return viewModelsVisitor(getState => ({

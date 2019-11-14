@@ -320,6 +320,13 @@ ruleTester.run("no-errors", plugin.rules["no-errors"], {
 
 // Test non-jsx files
 ruleTester.run("no-errors", plugin.rules["no-errors"], {
-  valid: [{ code: "C.propTypes = { a: propTypes.object };", filename: "a.js" }],
-  invalid: []
+  valid: [{ code: "C.propTypes = {};", filename: "a.js" }],
+  invalid: [
+    {
+      code: "C.propTypes = {};",
+      options: [{ include: [".js"] }],
+      filename: "a.js",
+      errors: [{ message: "No export statement. Couldn't get component name." }]
+    }
+  ]
 });

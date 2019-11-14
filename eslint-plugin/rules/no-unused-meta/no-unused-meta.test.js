@@ -57,6 +57,13 @@ ruleTester.run("no-unused-meta", plugin.rules["no-unused-meta"], {
 
 // Test non-jsx files
 ruleTester.run("no-unused-meta", plugin.rules["no-unused-meta"], {
-  valid: [{ code: "C.propTypes = { a: propTypes.object };", filename: "a.js" }],
-  invalid: []
+  valid: [{ code: "C.viewModelMeta = { a: 'ignore' };", filename: "a.js" }],
+  invalid: [
+    {
+      code: "C.viewModelMeta = { a: 'ignore' };",
+      options: [{ include: [".js"] }],
+      filename: "a.js",
+      errors: [{ message: "Component has no propTypes" }]
+    }
+  ]
 });
