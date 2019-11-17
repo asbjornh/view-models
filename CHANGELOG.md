@@ -3,7 +3,7 @@
 ## 1.0.0
 
 - BREAKING: [eslint plugin] Renames `all` rule to `no-errors`
-- FEATURE: [eslint plugin] Adds `no-unused-meta` and `no-meta-mismatch` rules
+- FEATURE: [eslint plugin] Adds `no-unused-meta`, `no-meta-mismatch` and `no-prop-mapping` rules
 - FEATURE: [eslint plugin] Adds `include` option to rules
 - FIX: [eslint plugin] Fixes eslint plugin not reporting errors on `PropTypes.any` and `PropTypes.symbol`
 - FIX: [eslint plugin] Fixes eslint plugin not reporting errors on identifiers in meta
