@@ -65,7 +65,10 @@ Read more [here](https://github.com/asbjornh/viewmodels/blob/master/docs/eslint-
 {
   "plugins": ["eslint-plugin-view-models"],
   "rules": {
-    "view-models/all": 2
+    "view-models/no-errors": "error",
+    "view-models/no-unused-meta": "warn",
+    "view-models/no-meta-mismatch": "warn",
+    "view-models/no-prop-mapping": "warn"
   }
 }
 ```

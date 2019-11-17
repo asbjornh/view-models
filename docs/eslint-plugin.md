@@ -14,7 +14,8 @@ This eslint plugin has rules for working with `view-models` and javascript-React
   "rules": {
     "view-models/no-errors": "error",
     "view-models/no-unused-meta": "warn",
-    "view-models/no-meta-mismatch": "warn"
+    "view-models/no-meta-mismatch": "warn",
+    "view-models/no-prop-mapping": "warn"
   }
 }
 ```
@@ -59,4 +60,20 @@ Component.viewModelMeta = {
   b: ["int"], // Error because array doesn't match "shape"
   c: {} // Error because object doesn't match "arrayOf"
 };
+```
+
+### no-prop-mapping
+
+Disallows rendering props of a type inherited from another component without spreading those props. Manually mapping from props to the props of another component is a bad idea when inheriting types from that component because it you risk introducing some hard to catch bugs (this has happened). Note that currently only top-level props are checked. Also, this rule might report errors when there are none if there's a lot of shenanigans going on with props (like aliasing or destructuring).
+
+Example:
+
+```js
+// This is OK:
+const Component = ({ link }) => <Link {...link} />;
+Component.propTypes = { link: PropTypes.exact(Link.propTypes) };
+
+// This is an error:
+const Component = ({ link }) => <Link url={link.url} text={link.text} />;
+Component.propTypes = { link: PropTypes.exact(Link.propTypes) };
 ```
