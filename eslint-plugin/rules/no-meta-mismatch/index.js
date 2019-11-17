@@ -2,6 +2,7 @@ const t = require("@babel/types");
 
 const matchesFile = require("../../utils/matches-file");
 const viewModelsVisitor = require("../../utils/view-models-visitor");
+const { getPropTypeName } = require("../../utils/ast-utils");
 
 const message = (metaType, propType) =>
   `'${metaType}' does not match 'PropTypes.${propType}'`;
@@ -32,7 +33,7 @@ module.exports = {
 };
 
 function validateMeta(propNode, metaNode, context) {
-  const typeName = getTypeName(propNode.value);
+  const typeName = getPropTypeName(propNode.value);
   const metaValue = metaNode.value;
 
   if (!typeName) return;
@@ -51,19 +52,5 @@ function validateMeta(propNode, metaNode, context) {
     if (typeName !== "shape" && typeName !== "exact") {
       context.report(metaValue, message("object", typeName));
     }
-  }
-}
-
-function getTypeName(node) {
-  if (t.isMemberExpression(node)) {
-    return t.isIdentifier(node.property, { name: "isRequired" })
-      ? getTypeName(node.object)
-      : t.isIdentifier(node.object, { name: "PropTypes" })
-      ? getTypeName(node.property)
-      : undefined;
-  } else if (t.isCallExpression(node)) {
-    return getTypeName(node.callee);
-  } else if (t.isIdentifier(node)) {
-    return node.name;
   }
 }
