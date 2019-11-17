@@ -123,6 +123,14 @@ class Component extends React.Component {
 }
 ```
 
+## Referenes to other components
+
+Referencing the types of other components is supported by `prop-types` by passing the propTypes of another component to `shape` or `exact`. This is very practical when working with `view-models` because you can reuse the same view models in the client and on the server.
+
+```js
+Component.propTypes = { link: PropTypes.exact(Link.propTypes) };
+```
+
 ## Inheritance
 
 You can inherit types from other components using a plain reference or using `Object.assign`. The output type definition will then inherit from the generated type definition of the referenced component. The `supertype` option will be overridden when inheriting. Make sure that the component you're inheriting from also has a generated type definition!
