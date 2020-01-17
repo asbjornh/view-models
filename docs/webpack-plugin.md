@@ -51,6 +51,7 @@ module.exports = {
       compilerOptions: {
         namespace: 'ViewModels',
         supertype: 'SomeTypeName',
+        header: '// This is an automatically generated file',
         indent: 4,
         parser: parsers.typescriptReact,
         generator: generators.kotlin

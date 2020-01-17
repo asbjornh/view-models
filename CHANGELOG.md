@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0
+
+- FEATURE: Adds `header` option to `compilerOptions`, used to insert arbitrary text at the top of generated files
+
 ## 1.0.0
 
 - BREAKING: [eslint plugin] Renames `all` rule to `no-errors`

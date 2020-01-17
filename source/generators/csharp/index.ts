@@ -14,7 +14,7 @@ const imports = [
 export default function generateCsharp(
   types: TypeTree,
   typeName: string,
-  { supertype, indent = 2, namespace }: GeneratorOptions = {}
+  { header, supertype, indent = 2, namespace }: GeneratorOptions = {}
 ) {
   validateNames(typeName, types);
 
@@ -28,8 +28,9 @@ export default function generateCsharp(
     ? `namespace ${namespace}\n{\n${classesString}\n}`
     : classesString;
   const importsString = imports.map(i => `using ${i};`).join("\n");
+  const headerString = header ? `${header}\n` : "";
 
-  const fileContent = `${importsString}\n\n${classesWithNamespace}\n`;
+  const fileContent = `${headerString}${importsString}\n\n${classesWithNamespace}\n`;
 
   return indentBraces(fileContent, indent);
 }

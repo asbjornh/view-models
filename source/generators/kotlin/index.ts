@@ -9,7 +9,7 @@ import indentBraces from "../utils/indent-braces";
 export default function kotlin(
   types: TypeTree,
   typeName: string,
-  { supertype, indent = 2, namespace }: GeneratorOptions = {}
+  { header, supertype, indent = 2, namespace }: GeneratorOptions = {}
 ) {
   const classesString =
     supertype && Object.keys(types).length === 0
@@ -28,11 +28,12 @@ export default function kotlin(
   const imports = [...superClassImport, ...componentImports]
     .map(i => `import ${i}`)
     .join("\n");
+
   const importsString = imports.length > 0 ? `${imports}\n\n` : "";
-
   const packageString = `package ${dotNotation(namespace, typeName)}`;
+  const headerString = header ? `${header}\n` : "";
 
-  const fileContent = `${packageString}\n\n${importsString}${classesString}\n`;
+  const fileContent = `${headerString}${packageString}\n\n${importsString}${classesString}\n`;
 
   return indentBraces(fileContent, indent, ["{", "("], ["}", ")"]);
 }

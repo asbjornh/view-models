@@ -29,6 +29,7 @@ Source code to generate a view model for.
 ```ts
 type CompilerOptions = {
   generator?: Generator; // Default C#
+  header?: string;
   indent?: number; // Default 2
   namespace?: string;
   parser?: Parser; // Default propTypes
@@ -37,6 +38,8 @@ type CompilerOptions = {
 ```
 
 **generator**: Set output language (defaults to `C#`). Curently, `C#`, `Kotlin` and `Typescript` are supported out of the box but new ones can be added. A `Generator` type is exposed from the same file as the compiler. The easiest way of adding a new language is probably to clone one of the existing generators in `source/generators` and work from there. If you do make a generator for another language, please consider submitting a PR!
+
+**header**: Any text to insert at the top of every generated file
 
 **indent**: Number of spaces of indentation in generated file
 
