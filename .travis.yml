@@ -1,4 +1,5 @@
 language: node_js
+version: 1.0 # Added to fix npm deploy "missing api_key" erro
 node_js: "lts/*"
 cache: yarn
 install: yarn
@@ -7,6 +8,7 @@ script:
   - yarn build
   - yarn test:ci
 deploy:
+  edge: true # Added to fix npm deploy "missing api_key" error
   provider: npm
   email: $NPM_EMAIL
   api_key: $NPM_TOKEN
