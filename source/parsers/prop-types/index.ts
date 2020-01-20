@@ -52,6 +52,7 @@ export default function propTypes(code: string): ParseResult | undefined {
     typesNode: t.ObjectExpression | null,
     supertype?: string
   ): ParseResult => ({
+    componentName,
     supertype,
     typeName: componentName,
     types: typesNode ? parsePropTypes(typesNode, meta) : {}

@@ -11,6 +11,7 @@ const defaultOptions = {
   fileExtension: undefined,
   include: [/\.jsx$/],
   log: false,
+  metaFileGenerator: () => [],
   path: ""
 };
 
@@ -59,13 +60,24 @@ function runThePlugin(compilation, options) {
     "cs";
 
   if (!result.error) {
-    result.types.forEach(({ code, typeName }) => {
-      if (code && typeName) {
-        const fileName = `${typeName}.${fileExtension}`;
-        const filePath = path.join(outputPath, fileName);
-        const asset = { source: () => code, size: () => code.length };
-        compilation.assets[filePath] = asset;
-      }
+    const types = result.types.filter(type => type.code && type.typeName);
+    types.forEach(({ code, typeName }) => {
+      const fileName = `${typeName}.${fileExtension}`;
+      const filePath = path.join(outputPath, fileName);
+      const asset = { source: () => code, size: () => code.length };
+      compilation.assets[filePath] = asset;
+    });
+    const metadata = types.map(({ componentName, sourcePath, typeName }) => ({
+      componentName,
+      sourcePath,
+      typeName
+    }));
+    options.metaFileGenerator(metadata).forEach(file => {
+      const filePath = path.join(outputPath, file.path);
+      compilation.assets[filePath] = {
+        source: () => file.content,
+        size: () => file.content.length
+      };
     });
   }
 }

@@ -135,6 +135,41 @@ runWebpackAndTest(
   }
 );
 
+const metaFileGenerator = metadatas => {
+  const properties = metadatas
+    .map(
+      meta => `public static string ${meta.typeName} = "${meta.componentName}";`
+    )
+    .join("\n  ");
+  const content = `public static class Manifest\n{\n  ${properties}\n}`;
+  return [{ path: "../Manifest.cs", content }];
+};
+
+runWebpackAndTest(
+  "metaFileGenerator",
+  "./fixtures/javascript/app.js",
+  { metaFileGenerator, path: "view-models" },
+  (t, compilation) => {
+    const { outputPath } = compilation;
+    const manifestFile = compilation.assets.find(asset =>
+      asset.name.endsWith("Manifest.cs")
+    );
+    t.not(undefined, manifestFile);
+    // NOTE: Manifest.cs should exist in output root since path (../Manifest.cs) is relative to the view-models folder
+    const manifestFilePath = path.join(outputPath, "Manifest.cs");
+
+    t.is(true, fs.existsSync(manifestFilePath));
+    const expectedManifest = [
+      "public static class Manifest",
+      "{",
+      '  public static string ClassComponent = "ClassComponent";',
+      '  public static string FunctionalComponent = "FunctionalComponent";',
+      "}"
+    ].join("\n");
+    t.is(expectedManifest, fs.readFileSync(manifestFilePath, "utf8"));
+  }
+);
+
 const duplicate1Path = path.resolve(
   __dirname,
   "../fixtures/javascript/func-component.jsx"

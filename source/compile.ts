@@ -25,7 +25,12 @@ export default function compile(sourceCode: string, options?: CompilerOptions) {
 
   if (!parseResult) return {};
 
-  const { typeName, types, supertype: parsedSupertype } = parseResult;
+  const {
+    componentName,
+    typeName,
+    types,
+    supertype: parsedSupertype
+  } = parseResult;
 
   const code = generator(types, typeName, {
     header,
@@ -34,5 +39,5 @@ export default function compile(sourceCode: string, options?: CompilerOptions) {
     supertype: parsedSupertype || supertype
   });
 
-  return { code, typeName };
+  return { componentName, code, typeName };
 }

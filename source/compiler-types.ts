@@ -14,6 +14,7 @@ export type Generator = (
 ) => string;
 
 export type ParseResult = {
+  componentName: string;
   supertype?: string;
   typeName: string;
   types: TypeTree;

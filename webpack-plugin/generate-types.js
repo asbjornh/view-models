@@ -20,7 +20,10 @@ function attemptGenerateType(compilerOptions) {
   return modulePath => {
     try {
       const sourceCode = fs.readFileSync(modulePath, "utf-8");
-      return compile(sourceCode, compilerOptions);
+      return {
+        ...compile(sourceCode, compilerOptions),
+        sourcePath: modulePath
+      };
     } catch (error) {
       return { error: `\n${modulePath}\n${error.message}\n` };
     }
