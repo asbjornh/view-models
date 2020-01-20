@@ -2,7 +2,8 @@
 
 ## 1.1.0
 
-- FEATURE: Adds `header` option to `compilerOptions`, used to insert arbitrary text at the top of generated files
+- FEATURE: [compiler] Adds `header` option to `compilerOptions`, used to insert arbitrary text at the top of generated files
+- FEATURE: [webpack plugin] Adds `metaFileGenerator` option to webpack plugin
 
 ## 1.0.0
 
