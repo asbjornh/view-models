@@ -12,11 +12,9 @@ const log = (options, compilation, { types, duration, error }) => {
 
   types.forEach(({ error }) => error && errorLogger(error));
 
-  const numberOfTypes = types.reduce(
-    (accum, { error, code, typeName }) =>
-      accum + (!error && !!code && !!typeName ? 1 : 0),
-    0
-  );
+  const numberOfTypes = types.filter(
+    ({ error, code, typeName }) => !error && code && typeName
+  ).length;
 
   if (options.log) {
     process.stdout.write(
