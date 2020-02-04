@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1
+
+- FIX: Fixes [#6](https://github.com/asbjornh/view-models/issues/6) - bad array type output
+
 ## 1.1.0
 
 - FEATURE: [compiler] Adds `header` option to `compilerOptions`, used to insert arbitrary text at the top of generated files

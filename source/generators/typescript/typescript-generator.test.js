@@ -35,15 +35,15 @@ const basicDefinition = {
 const basicClass = `
 export interface Component {
   text: string,
-  numbers?: [[[number]]],
+  numbers?: number[][][],
   singleObject?: {
     propertyA: {
       propertyB?: string
     }
   },
-  objects: [{
+  objects: {
     propertyB?: string
-  }]
+  }[]
 }`;
 
 const template = (
