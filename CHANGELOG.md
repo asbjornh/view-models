@@ -1,8 +1,12 @@
 # Changelog
 
+## 1.1.2
+
+- FIX: Fixes [#7](https://github.com/asbjornh/view-models/issues/7) - syntax error in booleans output by typescript generator
+
 ## 1.1.1
 
-- FIX: Fixes [#6](https://github.com/asbjornh/view-models/issues/6) - bad array type output
+- FIX: Fixes [#6](https://github.com/asbjornh/view-models/issues/6) - bad array type output by typescript generator
 
 ## 1.1.0
 

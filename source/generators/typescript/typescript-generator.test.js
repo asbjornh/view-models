@@ -5,6 +5,7 @@ const normalize = require("../../../test-utils/normalize-string");
 
 const basicDefinition = {
   text: { type: "string", required: true },
+  bool: { type: "bool" },
   numbers: {
     type: "list",
     elementType: {
@@ -35,6 +36,7 @@ const basicDefinition = {
 const basicClass = `
 export interface Component {
   text: string,
+  bool?: boolean,
   numbers?: number[][][],
   singleObject?: {
     propertyA: {

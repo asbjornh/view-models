@@ -23,8 +23,10 @@ const generateType = (node: TypeNode): string => {
     node.type === "int?"
   ) {
     return "number";
-  } else if (node.type === "bool" || node.type === "string") {
-    return node.type;
+  } else if (node.type === "bool") {
+    return "boolean";
+  } else if (node.type === "string") {
+    return "string";
   } else if (node.type === "ref") {
     return node.ref;
   } else if (node.type === "list") {
