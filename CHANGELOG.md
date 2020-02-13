@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.0
+
+- FEATURE: Adds CLI
+- FIX: Fixes `"ignore"` literal not accepted by `WithMeta`
+
 ## 1.1.2
 
 - FIX: Fixes [#7](https://github.com/asbjornh/view-models/issues/7) - syntax error in booleans output by typescript generator

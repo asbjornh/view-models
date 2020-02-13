@@ -1,10 +1,14 @@
 {
   "name": "view-models",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Generate viewmodels from react components",
   "main": "lib/index.js",
+  "bin": {
+    "view-models": "./cli/index.js"
+  },
   "files": [
     "lib",
+    "cli",
     "babel-plugin",
     "eslint-plugin",
     "webpack-plugin",
