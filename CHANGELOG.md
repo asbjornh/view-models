@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0
+
+- BREAKING: Changes the default file extension for generated TypeScript files from `.ts` to `.d.ts`
+
 ## 1.2.0
 
 - FEATURE: Adds CLI
