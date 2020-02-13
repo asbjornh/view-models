@@ -19,7 +19,11 @@ npm install --save-dev view-models
 - [Docs](#docs)
 - [About](#about)
 
-## <a id="tldr"></a> TLDR config
+## <a id="tldr"></a> TLDR usage
+
+### CLI
+
+To see the CLI help, run `view-models --help`.
 
 ### Webpack plugin
 

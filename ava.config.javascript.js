@@ -3,6 +3,7 @@ export default {
   files: [
     "webpack-plugin/**/*.test.js",
     "babel-plugin/**/*.test.js",
-    "eslint-plugin/**/*.test.js"
+    "eslint-plugin/**/*.test.js",
+    "cli/**/*.test.js"
   ]
 };

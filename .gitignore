@@ -3,3 +3,4 @@ lib
 *.log
 yarn.lock
 package-lock.json
+dist
