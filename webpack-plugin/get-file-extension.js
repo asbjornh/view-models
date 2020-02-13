@@ -8,7 +8,7 @@ const fileExtensions = {
 
 module.exports = generator => {
   if (typeof generator !== "function" || !generator.name) {
-    return;
+    return "cs";
   }
 
   return fileExtensions[generator.name];

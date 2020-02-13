@@ -56,8 +56,7 @@ function runThePlugin(compilation, options) {
   const outputPath = path.normalize(options.path);
   const fileExtension =
     options.fileExtension ||
-    getFileExtension(options.compilerOptions.generator) ||
-    "cs";
+    getFileExtension(options.compilerOptions.generator);
 
   if (!result.error) {
     const types = result.types.filter(type => type.code && type.typeName);
