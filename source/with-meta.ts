@@ -23,9 +23,9 @@ type MetaTypeArray<T> = T extends Array<infer U>
 
 interface DeepMetaTypeArray<T> extends Array<MetaTypeArray<T>> {}
 
-export type ViewModelMeta<Props> = Props extends string
-  ? "ignore"
-  : {
+export type ViewModelMeta<Props> =
+  | "ignore"
+  | {
       [P in keyof Props]?: Props[P] extends
         | TypeLiteral
         | TypeLiteral[]
