@@ -1,7 +1,7 @@
 import * as React from "react";
 import { WithMeta } from "../../source/index";
 
-import { Link } from "./link";
+import { LinkProps } from "./link";
 
 enum EnumObject {
   ValueA = "value-a",
@@ -19,7 +19,7 @@ type FuncComponentProps = {
     propertyA: string;
   };
   objects: { propertyB: string }[];
-  objectArray: Link[];
+  objectArray: LinkProps[];
   nestedList?: string[][][];
   nestedIgnore?: {
     a: string;
@@ -32,10 +32,10 @@ type FuncComponentProps = {
       };
     };
   };
-  link?: Link;
-  linkList?: Link[];
-  linkMeta?: Link;
-  linkListMeta?: Link[];
+  link?: LinkProps;
+  linkList?: LinkProps[];
+  linkMeta?: LinkProps;
+  linkListMeta?: LinkProps[];
   requiredEnum: EnumObject;
   optionalEnum?: EnumObject;
 

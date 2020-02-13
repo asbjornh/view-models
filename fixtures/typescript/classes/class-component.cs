@@ -15,27 +15,27 @@ public class ClassComponentProps
   [Required]
   public IList<ClassComponentProps_Objects> Objects { get; set; }
   [Required]
-  public IList<Link> ObjectArray { get; set; }
+  public IList<LinkProps> ObjectArray { get; set; }
   public IList<IList<IList<string>>> NestedList { get; set; }
   public ClassComponentProps_NestedIgnore NestedIgnore { get; set; }
   public IList<IList<IList<float>>> NestedNumber { get; set; }
   public ClassComponentProps_NestedShape NestedShape { get; set; }
-  public Link Link { get; set; }
-  public IList<Link> LinkList { get; set; }
-  public Link LinkMeta { get; set; }
-  public IList<Link> LinkListMeta { get; set; }
+  public LinkProps Link { get; set; }
+  public IList<LinkProps> LinkList { get; set; }
+  public LinkProps LinkMeta { get; set; }
+  public IList<LinkProps> LinkListMeta { get; set; }
   [Required]
   public ClassComponentProps_RequiredEnum RequiredEnum { get; set; }
   public ClassComponentProps_OptionalEnum OptionalEnum { get; set; }
 }
 
-public class ClassComponentProps_SingleObject 
+public class ClassComponentProps_SingleObject
 {
   [Required]
   public string PropertyA { get; set; }
 }
 
-public class ClassComponentProps_Objects 
+public class ClassComponentProps_Objects
 {
   [Required]
   public string PropertyB { get; set; }
