@@ -9,8 +9,9 @@
       "request": "launch",
       "name": "Run Debug",
       "program": "${workspaceFolder}/debug.ts",
-      "preLaunchTask": "tsc: build - tsconfig.json",
-      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+      "preLaunchTask": "tsc: build - tsconfig.debug.json",
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/lib/**/*.js"]
     }
   ]
 }
