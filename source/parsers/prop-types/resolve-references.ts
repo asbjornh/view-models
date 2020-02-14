@@ -3,6 +3,7 @@ import * as t from "@babel/types";
 
 import { MetaTypeTree } from "../../node-types";
 
+import first from "../../utils/first";
 import isObjectMethod from "../utils/is-object-method";
 import isMemberExpression from "../utils/is-member-expression";
 
@@ -29,7 +30,7 @@ export default function resolveReferences(
       >;
       const propName: string = propPath.node.key.name;
       const metaType = meta[propName] ? meta[propName].type : "";
-      const argument = path.node.arguments[0];
+      const argument = first(path.node.arguments);
 
       if (!argument) {
         throw new Error(
@@ -71,7 +72,7 @@ export default function resolveReferences(
       // Object.keys, Object.values
       else if (t.isCallExpression(argument) && isObjectMethod(argument)) {
         const objectMethod = argument;
-        const methodArg = objectMethod.arguments[0];
+        const methodArg = first(objectMethod.arguments);
 
         if (!methodArg) {
           throw new Error(

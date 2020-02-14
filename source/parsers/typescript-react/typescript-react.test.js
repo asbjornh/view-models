@@ -34,6 +34,17 @@ test(
 );
 
 test(
+  "Component without props argument",
+  template,
+  `const Component: React.FunctionComponent<{}> = () => null;
+  export default Component;`,
+  `${csharpImports}
+  public class Component
+  {
+  }`
+);
+
+test(
   "Empty component",
   template,
   `const Component = (props: {}) => {}; export default Component;`,

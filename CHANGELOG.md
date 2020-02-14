@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1
+
+- FIX: Fixes [#8](https://github.com/asbjornh/view-models/issues/8) - `typescriptReact` parser crashing when parsing components with no arguments.
+
 ## 2.0.0
 
 - BREAKING: Changes the default file extension for generated TypeScript files from `.ts` to `.d.ts`

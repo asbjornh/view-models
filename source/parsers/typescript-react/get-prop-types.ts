@@ -3,6 +3,7 @@ import * as t from "@babel/types";
 
 import getDefinitionName from "./get-definition-name";
 import filter from "../../utils/filter";
+import first from "../../utils/first";
 
 export default function getPropTypes(ast: t.File, componentName: string) {
   let typeName: string | undefined;
@@ -46,16 +47,16 @@ export default function getPropTypes(ast: t.File, componentName: string) {
       if (!t.isIdentifier(path.parent.id)) return;
       if (path.parent.id.name !== componentName) return;
 
-      const arg = path.node.params[0];
+      const firstArg = first(path.node.params);
 
-      if (t.isTSParameterProperty(arg))
+      if (t.isTSParameterProperty(firstArg))
         throw new Error(`Unexpected parameter property`);
 
-      if (t.isNoop(arg.typeAnnotation))
+      if (t.isNoop(firstArg?.typeAnnotation))
         throw new Error(`Unexpected noop in type annotation`);
 
-      if (arg.typeAnnotation) {
-        const argType = arg.typeAnnotation.typeAnnotation;
+      if (firstArg?.typeAnnotation) {
+        const argType = firstArg.typeAnnotation.typeAnnotation;
         if (t.isTSTypeReference(argType)) {
           const name = getDefinitionName(argType.typeName);
           types = typeDeclarations[name];
@@ -76,7 +77,7 @@ export default function getPropTypes(ast: t.File, componentName: string) {
       if (!t.isTSTypeReference(funcType)) return;
 
       if (funcType.typeParameters !== null) {
-        const type = funcType.typeParameters.params[0];
+        const type = first(funcType.typeParameters.params);
         if (t.isTSTypeReference(type)) {
           const name = getDefinitionName(type.typeName);
           types = typeDeclarations[name];
