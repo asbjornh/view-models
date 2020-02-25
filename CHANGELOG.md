@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.2
+
+- FIX: Fixes [#9](https://github.com/asbjornh/view-models/issues/9) - bad string literal array output by `typescript` generator
+
 ## 2.0.1
 
 - FIX: Fixes [#8](https://github.com/asbjornh/view-models/issues/8) - `typescriptReact` parser crashing when parsing components with no arguments.
@@ -15,11 +19,11 @@
 
 ## 1.1.2
 
-- FIX: Fixes [#7](https://github.com/asbjornh/view-models/issues/7) - syntax error in booleans output by typescript generator
+- FIX: Fixes [#7](https://github.com/asbjornh/view-models/issues/7) - syntax error in booleans output by `typescript` generator
 
 ## 1.1.1
 
-- FIX: Fixes [#6](https://github.com/asbjornh/view-models/issues/6) - bad array type output by typescript generator
+- FIX: Fixes [#6](https://github.com/asbjornh/view-models/issues/6) - bad array type output by `typescript` generator
 
 ## 1.1.0
 

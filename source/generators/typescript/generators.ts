@@ -30,7 +30,10 @@ const generateType = (node: TypeNode): string => {
   } else if (node.type === "ref") {
     return node.ref;
   } else if (node.type === "list") {
-    return `${generateType(node.elementType)}[]`;
+    const elementType = generateType(node.elementType);
+    return node.elementType.type === "enum"
+      ? `(${elementType})[]`
+      : `${elementType}[]`;
   } else if (node.type === "enum") {
     return node.children.map(({ value }) => `"${value}"`).join(" | ");
   } else if (node.type === "dictionary") {

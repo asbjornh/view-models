@@ -110,11 +110,22 @@ test(
         { key: ".value-3", value: "C" },
         { key: "#value-4", value: "D" }
       ]
+    },
+    c: {
+      type: "list",
+      elementType: {
+        type: "enum",
+        children: [
+          { key: "A", value: "A" },
+          { key: "B", value: "B" }
+        ]
+      }
     }
   },
   `export interface Component { 
     a?: "value-1" | "-value-2" | ".value-3" | "#value-4",
-    b?: "A" | "B" | "C" | "D"
+    b?: "A" | "B" | "C" | "D",
+    c?: ("A" | "B")[]
   }`
 );
 
