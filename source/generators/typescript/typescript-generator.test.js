@@ -120,12 +120,20 @@ test(
           { key: "B", value: "B" }
         ]
       }
+    },
+    d: {
+      type: "enum",
+      children: [
+        { key: "0", value: 0 },
+        { key: "1", value: 1 }
+      ]
     }
   },
   `export interface Component { 
     a?: "value-1" | "-value-2" | ".value-3" | "#value-4",
     b?: "A" | "B" | "C" | "D",
-    c?: ("A" | "B")[]
+    c?: ("A" | "B")[],
+    d?: 0 | 1
   }`
 );
 

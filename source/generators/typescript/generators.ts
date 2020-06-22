@@ -35,7 +35,7 @@ const generateType = (node: TypeNode): string => {
       ? `(${elementType})[]`
       : `${elementType}[]`;
   } else if (node.type === "enum") {
-    return node.children.map(({ value }) => `"${value}"`).join(" | ");
+    return node.children.map(({ value }) => JSON.stringify(value)).join(" | ");
   } else if (node.type === "dictionary") {
     const type = generateType(node.valueType);
     const key = "[key: string]";
