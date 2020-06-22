@@ -6,6 +6,7 @@ import { MetaTypeTree } from "../../node-types";
 import first from "../../utils/first";
 import isObjectMethod from "../utils/is-object-method";
 import isMemberExpression from "../utils/is-member-expression";
+import getPropertyName from "../utils/get-property-name";
 
 /** Replace references in `PropTypes.oneOf` with value literals */
 export default function resolveReferences(
@@ -28,7 +29,7 @@ export default function resolveReferences(
       const propPath = path.findParent(t.isObjectProperty) as NodePath<
         t.ObjectProperty
       >;
-      const propName: string = propPath.node.key.name;
+      const propName = getPropertyName(propPath.node);
       const metaType = meta[propName] ? meta[propName].type : "";
       const argument = first(path.node.arguments);
 

@@ -10,6 +10,7 @@ import {
 } from "../../node-types";
 
 import filter from "../../utils/filter";
+import getPropertyName from "../utils/get-property-name";
 import isComponentReference from "./is-component-reference";
 import isObjectMethod from "../utils/is-object-method";
 import parseFlatArray from "./parse-flat-array";
@@ -23,7 +24,7 @@ export default function parsePropTypes(
 ) {
   return filter(node.properties || [], t.isObjectProperty).reduce(
     (accum: TypeTree, node) => {
-      const propName: string = node.key.name;
+      const propName = getPropertyName(node);
       try {
         const type = parseType(node.value, meta[propName]);
         return Object.assign(accum, type ? { [propName]: type } : {});
@@ -110,12 +111,10 @@ const parseIdentifier = (
     : { type: validateType(name === "number" ? "int" : name) };
 };
 
-const parseProperty = (
-  { key, value }: t.ObjectProperty,
-  meta?: MetaTypeTree
-) => {
-  const type = parseType(value, meta && meta[key.name as string]);
-  return type ? { [key.name]: type } : {};
+const parseProperty = (node: t.ObjectProperty, meta?: MetaTypeTree) => {
+  const name = getPropertyName(node);
+  const type = parseType(node.value, meta && meta[name as string]);
+  return type ? { [name]: type } : {};
 };
 
 const getChildren = (n?: MetaTypeNode) =>
