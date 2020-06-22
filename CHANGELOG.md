@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.3
+
+- FIX: Fixes [#10](https://github.com/asbjornh/view-models/issues/10) - TypeScript generator outputting strings instead of numbers in union types
+
 ## 2.0.2
 
 - FIX: Fixes [#9](https://github.com/asbjornh/view-models/issues/9) - bad string literal array output by `typescript` generator
