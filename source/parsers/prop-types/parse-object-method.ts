@@ -7,7 +7,14 @@ export default function parseObjectMethod(node: t.CallExpression) {
   const [argument] = node.arguments;
   const funcName = getFunctionName(node);
 
-  if (!argument || !t.isMemberExpression(callee)) return;
+  if (
+    !argument ||
+    !t.isMemberExpression(callee) ||
+    !t.isIdentifier(callee.property)
+  ) {
+    return;
+  }
+
   if (!t.isObjectExpression(argument))
     throw new Error(`Unexpected ${argument.type} in '${funcName}'.`);
 
