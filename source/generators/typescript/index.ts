@@ -14,7 +14,9 @@ export default function typescript(
   const typesWithNamespace = namespace
     ? `namespace ${namespace} {\n${typeString}\n}`
     : typeString;
-  const componentImports = getReferences(types);
+  const componentImports = getReferences(types).filter(
+    (el, index, list) => list.indexOf(el) === index // NOTE: Remove duplicates
+  );
   const importsString = [...(supertype ? [supertype] : []), ...componentImports]
     .map(i => `import { ${i} } from "./${i}";`)
     .join("\n");

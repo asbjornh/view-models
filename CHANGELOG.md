@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.4
+
+- FIX: Fixes [#11](https://github.com/asbjornh/view-models/issues/11) - TypeScript generator outputting multiple imports of the same module
+
 ## 2.0.3
 
 - FIX: Fixes [#10](https://github.com/asbjornh/view-models/issues/10) - TypeScript generator outputting strings instead of numbers in union types

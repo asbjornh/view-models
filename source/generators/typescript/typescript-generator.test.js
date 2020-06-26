@@ -65,6 +65,23 @@ const template = (
 test("Basic propTypes", template, basicDefinition, basicClass);
 
 test(
+  "References",
+  template,
+  {
+    a: { type: "ref", ref: "Link" },
+    b: { type: "list", elementType: { type: "ref", ref: "Link" } }
+  },
+  `
+  import { Link } from "./Link";
+
+  export interface Component {
+    a?: Link,
+    b?: Link[]
+  }
+`
+);
+
+test(
   "Dictionary",
   template,
   {
