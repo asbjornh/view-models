@@ -4,7 +4,7 @@ const isObjectMethod = require("../../../lib/parsers/utils/is-object-method")
   .default;
 const messages = require("./messages");
 
-const illegalPropTypes = ["any", "array", "object", "oneOfType", "symbol"];
+const illegalPropTypes = ["array", "object", "oneOfType", "symbol"];
 
 const makeHasLiteral = variablesInScope => (node, babelValidator) =>
   variablesInScope.some(

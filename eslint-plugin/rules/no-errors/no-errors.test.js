@@ -131,7 +131,10 @@ const validCases = [
   "A.propTypes = { b: PropTypes.shape(C.propTypes) };",
 
   // Reference to array literal in oneOf
-  "const arr = [1,2]; A.propTypes = { c: PropTypes.oneOf(arr) };"
+  "const arr = [1,2]; A.propTypes = { c: PropTypes.oneOf(arr) };",
+
+  // Proptypes.any
+  "A.propTypes = { b: PropTypes.any };"
 ].map(code => code + footer);
 
 // These all have 'footer' appended further down
@@ -146,13 +149,11 @@ const invalidCases = [
       b: PropTypes.object,
       c: PropTypes.array,
       d: PropTypes.oneOfType(),
-      e: PropTypes.any,
-      f: PropTypes.symbol
+      e: PropTypes.symbol
     };`,
     messages.illegalPropType("object"),
     messages.illegalPropType("array"),
     messages.illegalPropType("oneOfType"),
-    messages.illegalPropType("any"),
     messages.illegalPropType("symbol")
   ],
 
@@ -163,14 +164,12 @@ const invalidCases = [
         b: PropTypes.object,
         c: PropTypes.array,
         d: PropTypes.oneOfType(),
-        e: PropTypes.any,
-        f: PropTypes.symbol
+        e: PropTypes.symbol
       };
     }`,
     messages.illegalPropType("object"),
     messages.illegalPropType("array"),
     messages.illegalPropType("oneOfType"),
-    messages.illegalPropType("any"),
     messages.illegalPropType("symbol")
   ],
 
