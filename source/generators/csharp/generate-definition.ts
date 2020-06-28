@@ -62,6 +62,8 @@ const generateType = (node: FlatNode): string => {
     node.type === "string"
   ) {
     return node.type;
+  } else if (node.type === "any") {
+    return "dynamic";
   } else if (node.type === "ref") {
     return node.parents ? parentPrefixedName(node.ref, node.parents) : node.ref;
   } else if (node.type === "list") {

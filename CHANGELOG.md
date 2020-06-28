@@ -3,6 +3,8 @@
 ## 2.1.0
 
 - FEATURE: Adds `no-name-mismatch` rule to eslint plugin
+- FEATURE: Adds support for `any` in TypeScript parser
+- FEATURE: Adds support for `PropTypes.any` in PropTypes parser
 
 ## 2.0.4
 

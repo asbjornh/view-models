@@ -12,6 +12,7 @@ const enumObject = {
 const FunctionalComponent = {};
 
 FunctionalComponent.propTypes = {
+  any: pt.any,
   text: pt.string.isRequired,
   isSomething: pt.bool,
   number: pt.number,

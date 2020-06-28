@@ -23,6 +23,8 @@ const generateType = (node: TypeNode): string => {
     node.type === "int?"
   ) {
     return "number";
+  } else if (node.type === "any") {
+    return "any";
   } else if (node.type === "bool") {
     return "boolean";
   } else if (node.type === "string") {

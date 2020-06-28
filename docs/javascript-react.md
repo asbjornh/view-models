@@ -17,11 +17,11 @@ Props of type `func`, `element`, `node` and `instanceOf` are ignored by the pars
 
 ## Invalid propTypes
 
-Some propTypes are ambiguous and cannot be used for view model generation.
+Some propTypes can't be converted to C#/TypeScript/Kotling, because they are ambiguous or can't be represented in all the supported output languages.
 
 **PropTypes.object**
 
-A type of `object` carries very little information and is not considered valid by the parser. `object` should be replaced with `shape` / `exact` / `objectOf` or be explicitly ignored using `viewModelMeta` (see below). Using the propTypes of another component is usually the best choice when passing props to child components:
+Instead of `PropTypes.object`, use `shape` / `exact` / `objectOf` or explicitly ignore the prop using `viewModelMeta` (see below). Using the propTypes of another component is usually the best choice when passing props to child components:
 
 ```jsx
 const Component = ({ link }) => <Link {...link} />;
@@ -40,13 +40,11 @@ public class Component {
 }
 ```
 
+If you need a generic dictionary you can use `PropTypes.objectOf(PropTypes.any)`
+
 **PropTypes.array**
 
-`PropTypes.array` carries almost as little information as `ojbect`, and should be replaced by an `arrayOf` or be explicitly ignored using `viewModelMeta`.
-
-**PropTypes.any**
-
-Use a different type or ignore using `viewModelMeta`.
+Instead of `PropTypes.array` use `PropTypes.arrayOf`. Generic arrays can be typed using `PropTypes.arrayOf(PropTypes.any)`.
 
 **PropTypes.symbol**
 

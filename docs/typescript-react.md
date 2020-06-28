@@ -18,7 +18,7 @@ You can use the `React.FunctionComponent` type with functional components as nor
 
 ## Illegal types
 
-As with the javascript-react parser, some types are not allowed because they are too ambiguous or too complex, like `object`, `any`, intersection and union types.
+As with the javascript-react parser, some types are not allowed because they are too ambiguous, too complex or can't be represented in all of the output languages. For instance, C# and Kotlin both lack a way of expressing union types.
 
 ```tsx
 const A = (props: { b: string }) => null; // view model name: A
@@ -27,9 +27,6 @@ const A: React.FunctionComponent<{ b: string }> = props => null; // view model n
 type BProps = { c: string };
 const B = (props: BProps) => null; // view model name: BProps
 const B: React.FunctionComponent<BProps> = props => null; // view model name: BProps
-
-const CProps = { d: string };
-const C: SomeType<any, CProps> = props => null; // Error because the fist type argument is 'any'
 ```
 
 ## viewModelMeta

@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 
 public class FunctionalComponent 
 {
+  public dynamic Any { get; set; }
   [Required]
   public string Text { get; set; }
   public bool IsSomething { get; set; }

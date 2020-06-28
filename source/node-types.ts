@@ -1,6 +1,7 @@
 import { throwError } from "./utils/error-handling";
 
 export const typeNames = {
+  any: "any",
   bool: "bool",
   double: "double",
   "double?": "double?",
@@ -28,7 +29,7 @@ export type PrimitiveNode = NodeBase & { type: TypeName };
 export type RefNode = NodeBase & { type: "ref"; ref: string };
 export type EnumNode = NodeBase & {
   type: "enum";
-  children: ({ key: string; value: string | number })[];
+  children: { key: string; value: string | number }[];
 };
 
 export type ListNode = NodeBase & { type: "list"; elementType: TypeNode };

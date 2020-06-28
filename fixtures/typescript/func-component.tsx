@@ -9,6 +9,7 @@ enum EnumObject {
 }
 
 type FuncComponentProps = {
+  any?: any;
   text: string;
   isSomething?: boolean;
   number?: number;

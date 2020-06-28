@@ -77,7 +77,9 @@ const parseType = (
   const parse = (n: t.Node, m?: MetaTypeNode, r?: boolean) =>
     parseType(n, typeDeclarations, m, r);
 
-  if (t.isTSArrayType(node)) {
+  if (t.isTSAnyKeyword(node)) {
+    return { ...base, type: "any" };
+  } else if (t.isTSArrayType(node)) {
     const type = parse(node.elementType, getListMeta(meta));
     return type ? { ...base, type: "list", elementType: type } : undefined;
   } else if (t.isTSBooleanKeyword(node)) {
