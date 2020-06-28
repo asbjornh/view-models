@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.0
+
+- FEATURE: Adds `no-name-mismatch` rule to eslint plugin
+
 ## 2.0.4
 
 - FIX: Fixes [#11](https://github.com/asbjornh/view-models/issues/11) - TypeScript generator outputting multiple imports of the same module
