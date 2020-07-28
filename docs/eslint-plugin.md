@@ -66,6 +66,8 @@ Component.viewModelMeta = {
 
 This rule prevents errors caused by inconsistent naming. For instance, if the component `AbcDef` is imported as `abcdef` in another component, that would result in a reference to a generated type that doesn't exist (`abcdef`). Consistent names are enforced by requiring that both exported and imported names match file names. File names and import/export names can use different casing conventions.
 
+Mismatches can be easy to miss. For example, the file name `youtube-player.jsx` has two words (`youtube` and `player`), while the component name `YouTubePlayer` has three (`You`, `Tube` and `Player`).
+
 Examples:
 
 ```js
