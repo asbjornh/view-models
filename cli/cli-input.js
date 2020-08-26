@@ -19,7 +19,7 @@ module.exports = function cliInput() {
     .filter(argv => !argv.startsWith("--") && !argv.startsWith("-"));
 
   if (!config.out) {
-    console.error(`ERROR: 'out' parameter is required.`);
+    console.error(`ERROR: 'out' option is required.`);
     process.exit(1);
   }
 

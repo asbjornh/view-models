@@ -14,7 +14,7 @@ npm install --save-dev view-models
 
 ## Table of contents
 
-- [TLDR config](#tldr)
+- [TLDR usage](#tldr)
 - [Docs](#docs)
 - [About](#about)
 
@@ -23,6 +23,8 @@ npm install --save-dev view-models
 ### CLI
 
 To see the CLI help, run `view-models --help`.
+
+Read more [here](https://github.com/asbjornh/viewmodels/blob/master/docs/cli.md)
 
 ### Webpack plugin
 

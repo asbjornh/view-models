@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.1
+
+- Adds docs for CLI
+
 ## 2.1.0
 
 - FEATURE: Adds `no-name-mismatch` rule to eslint plugin
