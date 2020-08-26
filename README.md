@@ -6,8 +6,6 @@ Tools for converting type definitions in client side apps to type definitions in
 
 These tools were developed for adding type safety to websites that employ server-side rendering where the client and server use different languages (like rendering React components in C# using [ReactJS.NET](https://reactjs.net/)). Combining this with CI/CD helps uncover breaking changes in the client/server integration before they reach end users.
 
-The `React -> C#` parser/generator combo has been used in production in several web apps since 2018. The other parsers and generators are currently experimental.
-
 ```
 npm install --save-dev view-models
 ```
@@ -15,6 +13,7 @@ npm install --save-dev view-models
 ## Table of contents
 
 - [TLDR usage](#tldr)
+- [Reliability](#reliability)
 - [Docs](#docs)
 - [About](#about)
 
@@ -77,6 +76,16 @@ Read more [here](https://github.com/asbjornh/viewmodels/blob/master/docs/eslint-
   }
 }
 ```
+
+## <a id="reliability"></a> Reliability
+
+Only some of the parsers/generators in this package have been properly tested:
+
+- JavaScript-React parser: used in production since 2018
+- Typescript-React parser: experimental
+- C# generator: used in production since 2018
+- TypeScript generator: used in production since 2020
+- Kotlin generator: experimental
 
 ## <a id="docs"></a> Docs
 
