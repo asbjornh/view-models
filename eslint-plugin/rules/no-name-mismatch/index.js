@@ -3,9 +3,9 @@ const t = require("@babel/types");
 const matchesFile = require("../../utils/matches-file");
 const viewModelsVisitor = require("../../utils/view-models-visitor");
 const {
-  getInnerPropType,
   getReferenceName,
-  isObjectType
+  isObjectType,
+  getInnerPropTypes
 } = require("../../utils/ast-utils");
 
 const compareNames = require("./compare-names");
@@ -69,24 +69,32 @@ module.exports = {
 
         // NOTE: Check names of referenced imports
         propTypes.properties.forEach(node => {
-          const type = getInnerPropType(node.value);
-
-          if (!t.isCallExpression(type)) return;
-          if (!t.isMemberExpression(type.callee)) return;
-          if (!isObjectType(type.callee)) return;
-
-          const refName = getReferenceName(type.arguments[0]);
-          if (!refName || !importPaths[refName]) return;
-
-          compareNames(
-            context,
-            importPaths[refName],
-            importNodes[refName],
-            refName,
-            type.arguments[0]
-          );
+          checkProperties(node, context, importPaths, importNodes);
         });
       }
     }));
   }
 };
+
+function checkProperties(node, context, importPaths, importNodes) {
+  const type = node.value;
+
+  getInnerPropTypes(node.value).forEach(node =>
+    checkProperties(node, context, importPaths, importNodes)
+  );
+
+  if (!t.isCallExpression(type)) return;
+  if (!t.isMemberExpression(type.callee)) return;
+  if (!isObjectType(type.callee)) return;
+
+  const refName = getReferenceName(type.arguments[0]);
+  if (!refName || !importPaths[refName]) return;
+
+  compareNames(
+    context,
+    importPaths[refName],
+    importNodes[refName],
+    refName,
+    type.arguments[0]
+  );
+}

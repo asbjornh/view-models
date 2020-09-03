@@ -17,7 +17,9 @@ test.cb("CLI", t => {
         t.fail(err.message);
         return;
       }
-      const files = fs.readdirSync(outDir);
+      const files = fs
+        .readdirSync(outDir)
+        .filter(name => name.endsWith(".d.ts"));
       t.is(3, files.length);
       t.end();
     }

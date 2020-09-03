@@ -42,6 +42,11 @@ const validCases = [
   ],
   [
     "abc-def.jsx",
+    `import JklMno from 'blabla/jkl-mno';
+    A.propTypes = { a: PropTypes.exact(JklMno.propTypes) };`
+  ],
+  [
+    "abc-def.jsx",
     `import JklMno from 'jkl_mno';
     A.propTypes = { a: PropTypes.exact(JklMno.propTypes) };`,
     { fileNaming: "snake" }
@@ -85,6 +90,20 @@ const invalidCases = [
     `import JklMno from 'jkl_mno';
       A.propTypes = { a: PropTypes.exact(JklMno.propTypes) };`,
     [message("JklMno", "pascal", "jkl_mno", "kebab")]
+  ],
+  [
+    "abc-def.jsx",
+    `import Jklmno from 'jkl-mno';
+    A.propTypes = {
+      a: PropTypes.exact({
+        b: PropTypes.arrayOf(PropTypes.exact({
+          c: PropTypes.exact({
+            d: PropTypes.exact(Jklmno.propTypes)
+          })
+        }))
+      }).isRequired
+    };`,
+    [message("Jklmno", "pascal", "jkl-mno", "kebab")]
   ]
 ];
 

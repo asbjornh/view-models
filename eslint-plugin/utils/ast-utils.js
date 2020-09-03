@@ -34,22 +34,37 @@ function isObjectType(node) {
   );
 }
 
+function isPropType(node, typeName) {
+  return isMemberExpression(node, "PropTypes", typeName);
+}
+
 // Returns the PropTypes node without 'PropTypes.' and 'isRequired'
-function getInnerPropType(node) {
+function getCleanPropType(node) {
   if (t.isMemberExpression(node)) {
     return t.isIdentifier(node.property, { name: "isRequired" })
-      ? getInnerPropType(node.object)
+      ? getCleanPropType(node.object)
       : t.isIdentifier(node.object, { name: "PropTypes" })
-      ? getInnerPropType(node.property)
+      ? getCleanPropType(node.property)
       : undefined;
   }
   return node;
 }
 
+// If type has children (such as with PropTypes.shape) those types are returned (as ObjectProperty nodes). Expects a PropTypes valitaror node
+function getInnerPropTypes(node) {
+  const type = getCleanPropType(node);
+  if (!t.isCallExpression(type)) return [];
+  if (isPropType(type.callee, "arrayOf"))
+    return getInnerPropTypes(type.arguments[0]);
+  if (isObjectType(type.callee) && t.isObjectExpression(type.arguments[0]))
+    return type.arguments[0].properties;
+  return [];
+}
+
 // Returns the name of a PropType node (string)
 function getPropTypeName(node) {
   if (t.isMemberExpression(node)) {
-    return getPropTypeName(getInnerPropType(node));
+    return getPropTypeName(getCleanPropType(node));
   } else if (t.isCallExpression(node)) {
     return getPropTypeName(node.callee);
   } else if (t.isIdentifier(node)) {
@@ -58,10 +73,12 @@ function getPropTypeName(node) {
 }
 
 module.exports = {
-  getInnerPropType,
+  getCleanPropType,
   getReferenceName,
+  getInnerPropTypes,
   getPropTypeName,
   isClassProp,
   isMemberExpression,
-  isObjectType
+  isObjectType,
+  isPropType
 };

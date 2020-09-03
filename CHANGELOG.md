@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.2
+
+- FIX: Fixes [#16](https://github.com/asbjornh/view-models/issues/16) - `no-name-mismatch` eslint rule not checking types recursively
+- FIX: Fixes `no-errors` eslint rule not reporting errors for types that are `isRequired`
+- FIX: Fixes `no-errors` eslint rule not reporting errors for types within `PropTypes.arrayOf`
+
 ## 2.1.1
 
 - Adds docs for CLI

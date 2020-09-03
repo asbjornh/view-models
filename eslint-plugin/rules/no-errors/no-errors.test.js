@@ -284,6 +284,22 @@ const invalidCases = [
   [
     "A.propTypes = { b: PropTypes.exact(Something.somethingElse) };",
     messages.illegalReference()
+  ],
+
+  // Deeply nested invalid thing
+  [
+    `A.propTypes = {
+      b: PropTypes.shape({
+        c: PropTypes.arrayOf(
+          PropTypes.shape({
+            d: PropTypes.shape({
+              e: PropTypes.object
+            })
+          })
+        )
+      }).isRequired
+    };`,
+    messages.illegalPropType("object")
   ]
 ]
   .map(([code, ...errors]) => [code + footer, ...errors])

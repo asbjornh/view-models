@@ -3,7 +3,7 @@ const t = require("@babel/types");
 const matchesFile = require("../../utils/matches-file");
 const viewModelsVisitor = require("../../utils/view-models-visitor");
 const {
-  getInnerPropType,
+  getCleanPropType,
   getReferenceName,
   isClassProp,
   isMemberExpression,
@@ -55,7 +55,7 @@ module.exports = {
         if (!t.isObjectExpression(propTypes)) return;
 
         propTypes.properties.forEach(node => {
-          const type = getInnerPropType(node.value);
+          const type = getCleanPropType(node.value);
           const propName = node.key.name;
 
           if (!t.isCallExpression(type)) return;
