@@ -17,6 +17,7 @@ Options:
   --log=(true|false)
   --namespace=<string>
   --out=<output-path>
+  --ext=<file-extension>
   --parser=(typescriptReact|propTypes)
   --supertype=<string>
 `;

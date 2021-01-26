@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.0
+
+- FEATURE: Adds `ext` option to CLI
+
 ## 2.1.2
 
 - FIX: Fixes [#16](https://github.com/asbjornh/view-models/issues/16) - `no-name-mismatch` eslint rule not checking types recursively

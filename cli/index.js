@@ -23,6 +23,10 @@ const compilerOptions = objectFromEntries(
   ].filter(([_, value]) => value !== undefined)
 );
 
+const otherOptions = objectFromEntries(
+  [["ext", config.ext]].filter(([_, value]) => value !== undefined)
+);
+
 const outputPath = path.resolve(process.cwd(), config.out);
 ensureDir(outputPath);
 
@@ -33,7 +37,8 @@ const filesWritten = files
       path.resolve(process.cwd(), filePath),
       "utf8"
     );
-    const ext = getFileExtension(generators[config.generator]);
+    const ext =
+      otherOptions.ext || getFileExtension(generators[config.generator]);
     try {
       const { typeName, code } = compile(fileContent, compilerOptions);
       const fileName = `${typeName}.${ext}`;
