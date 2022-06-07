@@ -23,7 +23,8 @@ export default function parseTypes(
     if (
       !t.isTSPropertySignature(node) ||
       !t.isIdentifier(node.key) ||
-      node.typeAnnotation === null
+      node.typeAnnotation === null ||
+      node.typeAnnotation === undefined
     ) {
       return accum;
     }

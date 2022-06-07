@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.0
+
+- POTENTIALLY BREAKING: Fixes bugs in the eslint plugin introduced by a new minor version of `@babel/types`. This could potentially be a breaking change, but this has not been confirmed.
+
 ## 2.2.0
 
 - FEATURE: Adds `ext` option to CLI

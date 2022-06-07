@@ -40,6 +40,11 @@ export default function(AST: t.File) {
   }
 
   const [specifier] = namedExport.specifiers;
+
+  if (t.isStringLiteral(specifier.exported)) {
+    throw missingNameError;
+  }
+
   return specifier.exported.name;
 }
 

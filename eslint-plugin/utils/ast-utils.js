@@ -38,6 +38,15 @@ function isPropType(node, typeName) {
   return isMemberExpression(node, "PropTypes", typeName);
 }
 
+/** t.isLiteral or t.isStringLiteral can't safely be used to check for literals because they always return `false` for ESTree Literal nodes */
+function isStringLiteral(node) {
+  return (
+    t.isStringLiteral(node) ||
+    // NOTE: check for ESTree string literal nodes, which are different from Babel:
+    (node.type === "Literal" && typeof node.value === "string")
+  );
+}
+
 // Returns the PropTypes node without 'PropTypes.' and 'isRequired'
 function getCleanPropType(node) {
   if (t.isMemberExpression(node)) {
@@ -80,5 +89,6 @@ module.exports = {
   isClassProp,
   isMemberExpression,
   isObjectType,
-  isPropType
+  isPropType,
+  isStringLiteral
 };

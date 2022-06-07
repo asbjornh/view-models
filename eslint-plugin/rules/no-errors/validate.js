@@ -1,16 +1,16 @@
 const t = require("@babel/types");
 
 const { metaTypeNames } = require("../../../lib/node-types");
+const { isStringLiteral } = require("../../utils/ast-utils");
 const getInvalidPropTypes = require("./get-invalid-prop-types");
 const isEquivalent = require("../../../lib/utils/is-equivalent-string").default;
 const messages = require("./messages");
 
-const isAllowed = string => metaTypeNames[string];
+const isValidMetaString = string => metaTypeNames[string];
 
 const getMeta = node => {
   if (!node) return {};
-  // Manual type check for string because ESTree has no concept of StringLiteral:
-  if (t.isLiteral(node) && typeof node.value === "string") return node;
+  if (isStringLiteral(node)) return node;
   if (!node.properties) return {};
 
   return node.properties.reduce(
@@ -33,9 +33,9 @@ module.exports = ({
 
   const report = (node, message) => context.report({ node, message });
 
-  if (t.isLiteral(meta, { value: "ignore" })) return;
+  if (isStringLiteral(meta) && meta.value === "ignore") return;
 
-  if (t.isLiteral(meta)) {
+  if (isStringLiteral(meta)) {
     report(meta, messages.badIgnore(meta.value));
   }
 
@@ -74,12 +74,12 @@ module.exports = ({
     recursiveValidatePropTypes(invalidPropTypes, meta);
   }
 
-  if (!t.isLiteral(meta)) {
+  if (!isStringLiteral(meta)) {
     function validateNode(node) {
       if (t.isObjectExpression(node)) {
         node.properties.forEach(node => validateNode(node.value));
-      } else if (t.isLiteral(node)) {
-        if (!isAllowed(node.value)) {
+      } else if (isStringLiteral(node)) {
+        if (!isValidMetaString(node.value)) {
           report(node, messages.badStringLiteral(node.value));
         }
       } else if (t.isArrayExpression(node)) {

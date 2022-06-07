@@ -5,7 +5,8 @@ const viewModelsVisitor = require("../../utils/view-models-visitor");
 const {
   getReferenceName,
   isObjectType,
-  getInnerPropTypes
+  getInnerPropTypes,
+  isStringLiteral
 } = require("../../utils/ast-utils");
 
 const compareNames = require("./compare-names");
@@ -32,7 +33,7 @@ module.exports = {
       CallExpression: node => {
         if (
           t.isIdentifier(node.callee, { name: "require" }) &&
-          t.isLiteral(node.arguments[0]) &&
+          isStringLiteral(node.arguments[0]) &&
           t.isVariableDeclarator(node.parent)
         ) {
           const [arg] = node.arguments;

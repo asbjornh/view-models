@@ -2,7 +2,7 @@ const t = require("@babel/types");
 
 const matchesFile = require("../../utils/matches-file");
 const viewModelsVisitor = require("../../utils/view-models-visitor");
-const { getPropTypeName } = require("../../utils/ast-utils");
+const { getPropTypeName, isStringLiteral } = require("../../utils/ast-utils");
 
 const message = (metaType, propType) =>
   `'${metaType}' does not match 'PropTypes.${propType}'`;
@@ -38,7 +38,7 @@ function validateMeta(propNode, metaNode, context) {
 
   if (!typeName) return;
 
-  if (t.isLiteral(metaValue)) {
+  if (isStringLiteral(metaValue)) {
     if (metaValue.value === "ignore" || metaValue.value === "") return;
     if (typeName !== "number") {
       // NOTE: If the meta value isn't "ignore" then all valid literal types describe numbers

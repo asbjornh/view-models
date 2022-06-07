@@ -77,7 +77,7 @@ export default function getPropTypes(ast: t.File, componentName: string) {
       if (!t.isTSTypeReference(funcType)) return;
 
       if (funcType.typeParameters !== null) {
-        const type = first(funcType.typeParameters.params);
+        const type = first(funcType.typeParameters?.params);
         if (t.isTSTypeReference(type)) {
           const name = getDefinitionName(type.typeName);
           types = typeDeclarations[name];
