@@ -14,6 +14,7 @@ import resolveReferences from "./resolve-references";
 import { throwError } from "../../utils/error-handling";
 import { metaTypeNames } from "../../node-types";
 import { ParseResult } from "../../compiler-types";
+import getSuperFromSpread from "./get-super-from-spread";
 
 export default function propTypes(code: string): ParseResult | undefined {
   const ast = parse(code, {
@@ -65,7 +66,7 @@ export default function propTypes(code: string): ParseResult | undefined {
   } else if (t.isCallExpression(typesNode)) {
     return parseResult(...getPropTypesFromFunction(typesNode));
   } else if (t.isObjectExpression(typesNode)) {
-    return parseResult(typesNode);
+    return parseResult(typesNode, getSuperFromSpread(typesNode));
   }
 
   throw new Error(

@@ -28,7 +28,9 @@ module.exports = ({
 }) => {
   const meta = getMeta(metaTypes);
   const propNames = t.isObjectExpression(propTypes)
-    ? propTypes.properties.map(p => p.key)
+    ? propTypes.properties
+        .filter(p => p.type !== "ExperimentalSpreadProperty")
+        .map(p => p.key)
     : [];
 
   const report = (node, message) => context.report({ node, message });

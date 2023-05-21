@@ -145,6 +145,20 @@ test(
 );
 
 test(
+  "Supports extending with spread syntax",
+  template,
+  `import PropTypes from 'prop-types';
+  const Component = () => <div />;
+  Component.propTypes = { ...AnotherComponent.propTypes, foo: PropTypes.string };
+  export default Component;`,
+  `${csharpImports}
+  public class Component : AnotherComponent
+  {
+    public string Foo { get; set; }
+  }`
+);
+
+test(
   "Extending overrides supertype",
   template,
   `const Component = () => <div />;

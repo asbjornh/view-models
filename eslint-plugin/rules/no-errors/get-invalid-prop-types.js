@@ -18,14 +18,16 @@ const getInvalidPropTypes = (objectExpression, scope) => {
     return {};
   }
 
-  return objectExpression.properties.reduce((accum, objectProperty) => {
-    const key = objectProperty.key.name;
-    const value = objectProperty.value;
+  return objectExpression.properties
+    .filter(p => p.type !== "ExperimentalSpreadProperty")
+    .reduce((accum, objectProperty) => {
+      const key = objectProperty.key.name;
+      const value = objectProperty.value;
 
-    const error = getInvalidPropType(value, scope);
+      const error = getInvalidPropType(value, scope);
 
-    return error ? Object.assign(accum, { [key]: error }) : accum;
-  }, {});
+      return error ? Object.assign(accum, { [key]: error }) : accum;
+    }, {});
 };
 
 function getInvalidPropType(value, scope) {

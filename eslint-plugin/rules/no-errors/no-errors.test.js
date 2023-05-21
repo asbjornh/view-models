@@ -30,6 +30,12 @@ const validCases = [
   // No object literal in propTypes
   "A.propTypes = B.propTypes;",
 
+  // Inheritance (Object.assign)
+  "A.propTypes = Object.assign({}, B.propTypes);",
+
+  // Inheritance (spread)
+  "A.propTypes = { ...B.propTypes };",
+
   // Weird value for propTypes
   "A.propTypes = false;",
 
